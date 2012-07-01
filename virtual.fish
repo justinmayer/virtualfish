@@ -5,7 +5,7 @@ if not set -q VIRTUALENV_HOME
 	set -g VIRTUALENV_HOME $HOME/.virtualenvs
 end
 
-function avirtualenv --description "Activate a virtualenv"
+function acvirtualenv --description "Activate a virtualenv"
 	# check arguments
 	if [ (count $argv) -lt 1 ]
 		echo "You need to specify a virtualenv."
@@ -27,7 +27,7 @@ function avirtualenv --description "Activate a virtualenv"
 	set -gx PATH $_VF_EXTRA_PATH $PATH
 end
 
-function dvirtualenv
+function devirtualenv
 	#find elements to remove from PATH
 	set to_remove
 	for i in (seq (count $PATH))

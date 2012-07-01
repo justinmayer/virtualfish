@@ -8,8 +8,8 @@ A virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrappe
 
 ## Usage
 
-* `avirtualenv <envname>` - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
-* `dvirtualenv` - Deactivate the current virtualenv.
+* `acvirtualenv <envname>` - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
+* `devirtualenv` - Deactivate the current virtualenv.
 
 ## Configuration Variables
 All of these must be set before `virtual.fish` is sourced.
