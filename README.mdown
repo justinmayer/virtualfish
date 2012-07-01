@@ -4,7 +4,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ## Installation
 1. Source `virtual.fish` somewhere in your `~/.config/fish/config.fish`, like this:
 		. path/to/virtual.fish
-2. virtualfish does not change your prompt automatically. You will need to edit your `fish_prompt` function (using `funced` or similar) to check if the variable `VIRTUAL_ENV` is set, and display `(basename $VIRTUAL_ENV)` somewhere.
+2. [Customize your `fish_prompt`](customizing-your-fish_prompt)
 
 ## Usage
 
@@ -23,6 +23,17 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 All of these must be set before `virtual.fish` is sourced.
 
 * `VIRTUALFISH_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
+
+### Customizing Your `fish_prompt`
+virtualfish doesn't attempt to mess with your prompt. Since Fish's prompt is a function, it is both much less straightforward to change it automatically, and much more convenient to simply customize it manually to your liking.
+
+The easiest way to add virtualenv to your prompt is to type `funced fish_prompt`, add the following line in somewhere:
+
+	if set -q VIRTUAL_ENV
+		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
+	end
+
+Then, type `funcsave fish_prompt` to save your new prompt to disk.
 
 ## License
 Copyright (C) 2012 Adam Brenecki
