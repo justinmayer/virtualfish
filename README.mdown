@@ -4,7 +4,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ## Installation
 1. Source `virtual.fish` somewhere in your `~/.config/fish/config.fish`, like this:
 		. path/to/virtual.fish
-2. [Customize your `fish_prompt`](customizing-your-fish_prompt)
+2. [Customize your `fish_prompt`](#customizing-your-fish_prompt)
 
 ## Usage
 
