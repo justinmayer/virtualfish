@@ -18,7 +18,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ### Configuration Variables
 All of these must be set before `virtual.fish` is sourced.
 
-* `VIRTUALENV_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
+* `VIRTUALFISH_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
 
 ## License
 Copyright (C) 2012 Adam Brenecki

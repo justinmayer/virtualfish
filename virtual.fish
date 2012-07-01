@@ -1,8 +1,8 @@
 # VirtualFish
 # A Virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrapper
 
-if not set -q VIRTUALENV_HOME
-	set -g VIRTUALENV_HOME $HOME/.virtualenvs
+if not set -q VIRTUALFISH_HOME
+	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
 function acvirtualenv --description "Activate a virtualenv"
@@ -11,7 +11,7 @@ function acvirtualenv --description "Activate a virtualenv"
 		echo "You need to specify a virtualenv."
 		return 1
 	end
-	if not [ -d $VIRTUALENV_HOME/$argv[1] ]
+	if not [ -d $VIRTUALFISH_HOME/$argv[1] ]
 		echo "The virtualenv $argv[1] does not exist."
 		echo "You can create it with mkvirtualenv."
 		return 2
@@ -22,7 +22,7 @@ function acvirtualenv --description "Activate a virtualenv"
 		dvirtualenv
 	end
 
-	set -gx VIRTUAL_ENV $VIRTUALENV_HOME/$argv[1]
+	set -gx VIRTUAL_ENV $VIRTUALFISH_HOME/$argv[1]
 	set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
 	set -gx PATH $_VF_EXTRA_PATH $PATH
 
@@ -54,4 +54,9 @@ function devirtualenv
 	end
 
 	set -e VIRTUAL_ENV
+end
+
+function mkvirtualenv
+
+	virtualenv --no-site-packages
 end
