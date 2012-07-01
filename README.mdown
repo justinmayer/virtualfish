@@ -11,6 +11,9 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ### Commands
 * `acvirtualenv <envname>` - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
 * `devirtualenv` - Deactivate the current virtualenv.
+* `mkvirtualenv [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
+* `rmvirtualenv <envname>` - Delete a virtualenv.
+* `lsvirtualenv` - List the available virtualenvs.
 
 ### Variables
 * `VIRTUAL_ENV` - Path to the currently active virtualenv.

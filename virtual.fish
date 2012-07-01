@@ -57,6 +57,36 @@ function devirtualenv
 end
 
 function mkvirtualenv
+	set envname $argv[-1]
+	set -e argv[-1]
+	virtualenv $argv $VIRTUALFISH_HOME/$envname
+	set vestatus $status
+	if [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]
+		acvirtualenv $envname
+	else
+		echo "Error: The virtualenv wasn't created properly."
+		echo "virtualenv returned status $vestatus."
+		return 1
+	end
+end
 
-	virtualenv --no-site-packages
+function rmvirtualenv
+	if not [ (count $argv) -eq 1 ]
+		echo "You need to specify exactly one virtualenv."
+		return 1
+	end
+	if set -q VIRTUAL_ENV; and [ $argv[1] = $VIRTUAL_ENV ]
+		echo "You can't delete a virtualenv you're currently using."
+		return 1
+	end
+	echo "Removing $VIRTUALFISH_HOME/$argv[1]"
+	rm -rf $VIRTUALFISH_HOME/$argv[1]
+end
+
+function lsvirtualenv
+	pushd $VIRTUALFISH_HOME
+	for i in */bin/python
+		echo $i
+	end | sed "s|/bin/python||"
+	popd
 end
