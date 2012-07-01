@@ -13,7 +13,8 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `devirtualenv` - Deactivate the current virtualenv.
 
 ### Variables
-* `VIRTUAL_ENV` - Path to the currently active virtualenv. Use `basename` to get the virtualenv's name.
+* `VIRTUAL_ENV` - Path to the currently active virtualenv.
+	* Tips: use `basename` to get the virtualenv's name, or `set -q` to see whether a virtualenv is active at all.
 
 ### Configuration Variables
 All of these must be set before `virtual.fish` is sourced.
