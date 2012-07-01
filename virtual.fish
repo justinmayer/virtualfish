@@ -25,10 +25,16 @@ function acvirtualenv --description "Activate a virtualenv"
 	set -gx VIRTUAL_ENV $VIRTUALENV_HOME/$argv[1]
 	set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
 	set -gx PATH $_VF_EXTRA_PATH $PATH
+
+	# hide PYTHONHOME
+	if set -q PYTHONHOME
+		set -g _VF_OLD_PYTHONHOME $PYTHONHOME
+		set -e PYTHONHOME
+	end
 end
 
 function devirtualenv
-	#find elements to remove from PATH
+	# find elements to remove from PATH
 	set to_remove
 	for i in (seq (count $PATH))
 		if contains $PATH[$i] $_VF_EXTRA_PATH
@@ -36,9 +42,15 @@ function devirtualenv
 		end
 	end
 
-	#remove them
+	# remove them
 	for i in $to_remove
 		set -e PATH[$i]
+	end
+
+	# restore PYTHONHOME
+	if set -q _VF_OLD_PYTHONHOME
+		set -gx PYTHONHOME $_VF_OLD_PYTHONHOME
+		set -e _VF_OLD_PYTHONHOME
 	end
 
 	set -e VIRTUAL_ENV
