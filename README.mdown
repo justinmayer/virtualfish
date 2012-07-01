@@ -1,0 +1,26 @@
+# virtualfish
+A virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrapper.
+
+## Installation
+1. Source `virtual.fish` somewhere in your `~/.config/fish/config.fish`, like this:
+		. path/to/virtual.fish
+2. virtualfish does not change your prompt automatically. You will need to edit your `fish_prompt` function (using `funced` or similar) to check if the variable `VIRTUAL_ENV` is set, and display `(basename $VIRTUAL_ENV)` somewhere.
+
+## Usage
+
+* `avirtualenv <envname>` - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
+* `dvirtualenv` - Deactivate the current virtualenv.
+
+## Configuration Variables
+All of these must be set before `virtual.fish` is sourced.
+
+* `VIRTUALENV_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
+
+## License
+Copyright (C) 2012 Adam Brenecki
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
