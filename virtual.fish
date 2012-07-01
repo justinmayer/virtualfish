@@ -33,7 +33,7 @@ function acvirtualenv --description "Activate a virtualenv"
 	end
 end
 
-function devirtualenv
+function devirtualenv --description "Deactivate the currently-activated virtualenv"
 	# find elements to remove from PATH
 	set to_remove
 	for i in (seq (count $PATH))
@@ -56,7 +56,7 @@ function devirtualenv
 	set -e VIRTUAL_ENV
 end
 
-function mkvirtualenv
+function mkvirtualenv --description "Create a new virtualenv"
 	set envname $argv[-1]
 	set -e argv[-1]
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
@@ -70,7 +70,7 @@ function mkvirtualenv
 	end
 end
 
-function rmvirtualenv
+function rmvirtualenv --description "Delete a virtualenv"
 	if not [ (count $argv) -eq 1 ]
 		echo "You need to specify exactly one virtualenv."
 		return 1
@@ -83,10 +83,14 @@ function rmvirtualenv
 	rm -rf $VIRTUALFISH_HOME/$argv[1]
 end
 
-function lsvirtualenv
+function lsvirtualenv --description "List all of the available virtualenvs"
 	pushd $VIRTUALFISH_HOME
 	for i in */bin/python
 		echo $i
 	end | sed "s|/bin/python||"
 	popd
 end
+
+# Autocomplete
+complete -x -c acvirtualenv -a "(lsvirtualenv)"
+complete -x -c rmvirtualenv -a "(lsvirtualenv)"
