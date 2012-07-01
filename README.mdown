@@ -35,6 +35,14 @@ The easiest way to add virtualenv to your prompt is to type `funced fish_prompt`
 
 Then, type `funcsave fish_prompt` to save your new prompt to disk.
 
+## To Do
+
+* Emit Fish events where virtualenvwrapper would use hook scripts
+* Provide a VEW compatibility mode that uses VEW names for things
+* mktempenv, showvirtualenv, cpvirtualenv
+* long form of lsvirtualenv
+* Project management
+
 ## License
 Copyright (C) 2012 Adam Brenecki
 
