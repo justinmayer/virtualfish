@@ -31,6 +31,11 @@ function acvirtualenv --description "Activate a virtualenv"
 		set -g _VF_OLD_PYTHONHOME $PYTHONHOME
 		set -e PYTHONHOME
 	end
+
+	# run postactivate script
+    if test -f "$VIRTUAL_ENV/bin/postactivate.fish"
+        . "$VIRTUAL_ENV/bin/postactivate.fish"
+    end
 end
 
 function devirtualenv --description "Deactivate the currently-activated virtualenv"
