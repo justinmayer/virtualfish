@@ -19,7 +19,7 @@ function acvirtualenv --description "Activate a virtualenv"
 
 	#Check if a different env is being used
 	if set -q VIRTUAL_ENV
-		dvirtualenv
+		devirtualenv
 	end
 
 	set -gx VIRTUAL_ENV $VIRTUALFISH_HOME/$argv[1]
