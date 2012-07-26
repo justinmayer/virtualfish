@@ -19,6 +19,15 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `VIRTUAL_ENV` - Path to the currently active virtualenv.
 	* Tips: use `basename` to get the virtualenv's name, or `set -q` to see whether a virtualenv is active at all.
 
+### Events
+
+Virtualfish emits the following events.
+
+* `virtualenv_did_activate`
+* `virtualenv_did_activate:<env name>`
+
+For events with `<env name>` in their name, substitute the name of the currently active virtualenv to listen only for events concerning a specific virtualenv.
+
 ### Configuration Variables
 All of these must be set before `virtual.fish` is sourced.
 

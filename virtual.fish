@@ -36,6 +36,9 @@ function acvirtualenv --description "Activate a virtualenv"
 		set -g _VF_OLD_PYTHONHOME $PYTHONHOME
 		set -e PYTHONHOME
 	end
+
+	emit virtualenv_did_activate
+	emit virtualenv_did_activate:(basename $VIRTUAL_ENV)
 end
 
 function devirtualenv --description "Deactivate the currently-activated virtualenv"
