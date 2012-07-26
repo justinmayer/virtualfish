@@ -5,6 +5,11 @@ if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+if set -q VIRTUALFISH_COMPAT_ALIASES
+	alias workon acvirtualenv
+	alias deactivate devirtualenv
+end
+
 function acvirtualenv --description "Activate a virtualenv"
 	# check arguments
 	if [ (count $argv) -lt 1 ]

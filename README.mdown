@@ -23,6 +23,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 All of these must be set before `virtual.fish` is sourced.
 
 * `VIRTUALFISH_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
+* `VIRTUALFISH_COMPAT_ALIASES` - set this to create aliases for `workon` and `deactivate` a la virtualenvwrapper. *Caveat: `deactivate` exists (and can be overwritten) even when a virtualenv is not active.*
 
 ### Customizing Your `fish_prompt`
 virtualfish doesn't attempt to mess with your prompt. Since Fish's prompt is a function, it is both much less straightforward to change it automatically, and much more convenient to simply customize it manually to your liking.
@@ -38,7 +39,6 @@ Then, type `funcsave fish_prompt` to save your new prompt to disk.
 ## To Do
 
 * Emit Fish events where virtualenvwrapper would use hook scripts
-* Provide a VEW compatibility mode that uses VEW names for things
 * mktempenv, showvirtualenv, cpvirtualenv
 * long form of lsvirtualenv
 * Project management
