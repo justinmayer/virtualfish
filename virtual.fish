@@ -24,7 +24,7 @@ function acvirtualenv --description "Activate a virtualenv"
 
 	#Check if a different env is being used
 	if set -q VIRTUAL_ENV
-		dvirtualenv
+		devirtualenv
 	end
 
 	emit virtualenv_will_activate
