@@ -16,6 +16,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `mkvirtualenv [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
 * `rmvirtualenv <envname>` - Delete a virtualenv.
 * `lsvirtualenv` - List the available virtualenvs.
+* `cdvirtualenv` - Change directory to currently-activated virtualenv.
 
 \*with `VIRTUALFISH_COMPAT_ALIASES` switched on - see Configuration Variables below.
 

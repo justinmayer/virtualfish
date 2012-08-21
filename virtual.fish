@@ -109,6 +109,14 @@ function lsvirtualenv --description "List all of the available virtualenvs"
 	popd
 end
 
+function cdvirtualenv --description "Change directory to currently-activated virtualenv"
+    if set -q VIRTUAL_ENV
+        cd $VIRTUAL_ENV
+    else
+        echo "Cannot locate an active virtualenv."
+    end 
+end
+
 # Autocomplete
 complete -x -c acvirtualenv -a "(lsvirtualenv)"
 complete -x -c rmvirtualenv -a "(lsvirtualenv)"
