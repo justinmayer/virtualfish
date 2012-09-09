@@ -67,6 +67,11 @@ function devirtualenv --description "Deactivate the currently-activated virtuale
 		set -gx PYTHONHOME $_VF_OLD_PYTHONHOME
 		set -e _VF_OLD_PYTHONHOME
 	end
+	
+	# remove autoactivated flag
+	if set -q VF_AUTO_ACTIVATED
+		set -e VF_AUTO_ACTIVATED
+	end
 
 	emit virtualenv_did_deactivate
 	emit virtualenv_did_deactivate:(basename $VIRTUAL_ENV)
@@ -120,3 +125,46 @@ end
 # Autocomplete
 complete -x -c acvirtualenv -a "(lsvirtualenv)"
 complete -x -c rmvirtualenv -a "(lsvirtualenv)"
+
+# Automatic activation
+function __vf_auto_activate --on-variable PWD
+	if [ "$_VF_AUTOACTIVATE_RECURSION_GUARD" = "on" ]
+		return
+	end
+	if status --is-command-substitution # doesn't work with 'or', inexplicably
+		return
+	end
+		
+	set -g _VF_AUTOACTIVATE_RECURSION_GUARD on #avoid infinite recursion
+	
+	set -l newwd $PWD
+						
+	# find a .vfenv file
+	while [ ! \("$PWD" = "$HOME"\) -a ! "$PWD" = "/" -a ! -f .vfenv ]
+		cd ..
+	end	
+	set -l newve			
+	if [ -f .vfenv ]
+		set newve (cat .vfenv)
+	end				
+	cd $newwd
+	set -e newwd
+	
+	# apply new venv if changed
+	set currentve (basename "$VIRTUAL_ENV")
+	if [ "$newve" != "" -a "$newve" != "$currentve" ]
+		acvirtualenv $newve
+		set -g VF_AUTO_ACTIVATED yes
+	end
+	
+	# deactivate venv if it was autoactivated before and we've moved out of it
+	if [ "$newve" = "" -a "$VF_AUTO_ACTIVATED" = "yes" ]
+		devirtualenv
+	end
+	
+	set -g _VF_AUTOACTIVATE_RECURSION_GUARD off					
+	set -e __VF_AUTOACTIVATE_RECURSION_GUARD # doesn't work, not sure why
+end
+
+#automatically activate if started in a directory with a virtualenv in it
+__vf_auto_activate

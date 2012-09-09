@@ -20,9 +20,17 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 
 \*with `VIRTUALFISH_COMPAT_ALIASES` switched on - see Configuration Variables below.
 
+### Automatic Activation
+
+virtualfish can automatically activate a virtualenv when you are in a certain directory. To configure it to do so, place a file inside the directory called `.vfenv`, containing the name of the virtualenv.
+
+    $ echo myvirtualenvname > .vfenv
+
 ### Variables
+
 * `VIRTUAL_ENV` - Path to the currently active virtualenv.
 	* Tips: use `basename` to get the virtualenv's name, or `set -q` to see whether a virtualenv is active at all.
+* `VF_AUTO_ACTIVATED` - Set if the currently activated virtualenv was automatically activated.
 
 ### Events
 
