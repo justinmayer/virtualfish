@@ -128,15 +128,10 @@ complete -x -c rmvirtualenv -a "(lsvirtualenv)"
 
 # Automatic activation
 function __vf_auto_activate --on-variable PWD
-	if [ "$_VF_AUTOACTIVATE_RECURSION_GUARD" = "on" ]
-		return
-	end
 	if status --is-command-substitution # doesn't work with 'or', inexplicably
 		return
 	end
-		
-	set -g _VF_AUTOACTIVATE_RECURSION_GUARD # avoid infinite recursion
-	
+			
 	# find a .vfenv file
 	set -l vfeloc $PWD
 	while test ! "$vfeloc" = "" -a ! -f "$vfeloc/.vfenv"
@@ -160,8 +155,6 @@ function __vf_auto_activate --on-variable PWD
 	if [ "$newve" = "" -a "$VF_AUTO_ACTIVATED" = "yes" ]
 		devirtualenv
 	end
-	
-	set -e _VF_AUTOACTIVATE_RECURSION_GUARD
 end
 
 #automatically activate if started in a directory with a virtualenv in it
