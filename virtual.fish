@@ -135,7 +135,7 @@ function __vf_auto_activate --on-variable PWD
 		return
 	end
 		
-	set -g _VF_AUTOACTIVATE_RECURSION_GUARD on #avoid infinite recursion
+	set -g _VF_AUTOACTIVATE_RECURSION_GUARD # avoid infinite recursion
 	
 	# find a .vfenv file
 	set -l vfeloc $PWD
@@ -161,8 +161,7 @@ function __vf_auto_activate --on-variable PWD
 		devirtualenv
 	end
 	
-	set -g _VF_AUTOACTIVATE_RECURSION_GUARD off					
-	set -e __VF_AUTOACTIVATE_RECURSION_GUARD # doesn't work, not sure why
+	set -e _VF_AUTOACTIVATE_RECURSION_GUARD
 end
 
 #automatically activate if started in a directory with a virtualenv in it
