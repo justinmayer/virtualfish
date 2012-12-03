@@ -137,18 +137,17 @@ function __vf_auto_activate --on-variable PWD
 		
 	set -g _VF_AUTOACTIVATE_RECURSION_GUARD on #avoid infinite recursion
 	
-	set -l newwd $PWD
-						
 	# find a .vfenv file
-	while [ ! \("$PWD" = "$HOME"\) -a ! "$PWD" = "/" -a ! -f .vfenv ]
-		cd ..
+	set -l vfeloc $PWD
+	while test ! "$vfeloc" = "" -a ! -f "$vfeloc/.vfenv"
+		# this strips the last path component from the path.
+		set vfeloc (echo "$vfeloc" | sed 's|/[^/]*$||')
 	end	
+		
 	set -l newve			
-	if [ -f .vfenv ]
-		set newve (cat .vfenv)
+	if [ -f "$vfeloc/.vfenv" ]
+		set newve (cat "$vfeloc/.vfenv")
 	end				
-	cd $newwd
-	set -e newwd
 	
 	# apply new venv if changed
 	set currentve (basename "$VIRTUAL_ENV")
