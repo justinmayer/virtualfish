@@ -6,18 +6,18 @@ if not set -q VIRTUALFISH_HOME
 end
 
 if set -q VIRTUALFISH_COMPAT_ALIASES
-	alias workon acvirtualenv
-	alias deactivate devirtualenv
+	alias workon "vf activate"
+	alias deactivate "vf deactivate"
 end
 
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	# copy all but the first argument to $scargs
 	set -l sc $argv[1]
 	set -l funcname "__vf_$sc"
+	set -l scargs
+	
 	if test (count $argv) -gt 1
-		set -l scargs $argv[2..-1]
-	else
-		set -l scargs
+		set scargs $argv[2..-1]
 	end
 	
 	if functions -q $funcname
@@ -197,7 +197,11 @@ function __vf_auto_activate --on-variable PWD
 	end				
 	
 	# apply new venv if changed
-	set currentve (basename "$VIRTUAL_ENV")
+	set -l currentve
+	if set -q VIRTUAL_ENV
+		set currentve (basename "$VIRTUAL_ENV")
+	end
+
 	if [ "$newve" != "" -a "$newve" != "$currentve" ]
 		vf activate $newve
 		set -g VF_AUTO_ACTIVATED yes
