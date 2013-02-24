@@ -13,24 +13,17 @@ end
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	# copy all but the first argument to $scargs
 	set -l sc $argv[1]
-	set -l scargs $argv[2..-1]
-			
-	if test $sc = "activate"
-		__vf_activate $scargs
-	else if test $sc = "deactivate"
-		__vf_deactivate $scargs
-	else if test $sc = "new"
-		__vf_new $scargs
-	else if test $sc = "rm"
-		__vf_rm $scargs
-	else if test $sc = "ls"
-		__vf_ls $scargs
-	else if test $sc = "cd"
-		__vf_cd $scargs
-	else if test $sc = "connect"
-		__vf_connect $scargs
+	set -l funcname "__vf_$sc"
+	if test (count $argv) -gt 1
+		set -l scargs $argv[2..-1]
 	else
-		echo "Sorry, I don't know how to $sc"
+		set -l scargs
+	end
+	
+	if functions -q $funcname
+		eval $funcname $scargs
+	else
+		echo "The subcommand $sc is not defined"
 	end
 end
 
@@ -48,7 +41,7 @@ function __vf_activate --description "Activate a virtualenv"
 
 	#Check if a different env is being used
 	if set -q VIRTUAL_ENV
-		devirtualenv
+		vf deactivate
 	end
 
 	emit virtualenv_will_activate
@@ -109,7 +102,7 @@ function __vf_new --description "Create a new virtualenv"
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
 	if [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]
-		acvirtualenv $envname
+		vf activate $envname
 	else
 		echo "Error: The virtualenv wasn't created properly."
 		echo "virtualenv returned status $vestatus."
@@ -154,10 +147,37 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 	end
 end
 
+################
 # Autocomplete
-complete -x -c acvirtualenv -a "(lsvirtualenv)"
-complete -x -c rmvirtualenv -a "(lsvirtualenv)"
-
+# Based on https://github.com/zmalltalker/fish-nuggets/blob/master/completions/git.fish
+begin
+	function __vfcompletion_needs_command
+		set cmd (commandline -opc)
+			if test (count $cmd) -eq 1 -a $cmd[1] = 'vf'
+			return 0
+		end
+		return 1
+	end
+	
+	function __vfcompletion_using_command
+		set cmd (commandline -opc)
+		if test (count $cmd) -gt 1
+			if test $argv[1] = $cmd[2]
+				return 0
+			end
+		end
+		return 1
+	end
+	
+	# add completion for subcommands
+	for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
+		complete -x -c vf -n '__vfcompletion_needs_command' -a $sc #-d "Delete a virtualenv"
+	end
+	
+	complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
+	complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
+end
+################
 # Automatic activation
 function __vf_auto_activate --on-variable PWD
 	if status --is-command-substitution # doesn't work with 'or', inexplicably
@@ -179,13 +199,13 @@ function __vf_auto_activate --on-variable PWD
 	# apply new venv if changed
 	set currentve (basename "$VIRTUAL_ENV")
 	if [ "$newve" != "" -a "$newve" != "$currentve" ]
-		acvirtualenv $newve
+		vf activate $newve
 		set -g VF_AUTO_ACTIVATED yes
 	end
 	
 	# deactivate venv if it was autoactivated before and we've moved out of it
 	if [ "$newve" = "" -a "$VF_AUTO_ACTIVATED" = "yes" ]
-		devirtualenv
+		vf deactivate
 	end
 end
 
