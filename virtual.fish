@@ -122,6 +122,14 @@ function cdvirtualenv --description "Change directory to currently-activated vir
     end 
 end
 
+function connvirtualenv --description "Connect this virtualenv to the current directory"
+	if set -q VIRTUAL_ENV
+		basename $VIRTUAL_ENV > .vfenv
+	else
+		echo "No virtualenv is active."
+	end
+end
+
 # Autocomplete
 complete -x -c acvirtualenv -a "(lsvirtualenv)"
 complete -x -c rmvirtualenv -a "(lsvirtualenv)"
