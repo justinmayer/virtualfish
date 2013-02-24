@@ -171,7 +171,8 @@ begin
 	
 	# add completion for subcommands
 	for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
-		complete -x -c vf -n '__vfcompletion_needs_command' -a $sc #-d "Delete a virtualenv"
+		set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
+		complete -x -c vf -n '__vfcompletion_needs_command' -a $sc -d $helptext
 	end
 	
 	complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
