@@ -10,7 +10,31 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
 	alias deactivate devirtualenv
 end
 
-function acvirtualenv --description "Activate a virtualenv"
+function vf --description "VirtualFish: fish plugin to manage virtualenvs"
+	# copy all but the first argument to $scargs
+	set -l sc $argv[1]
+	set -l scargs $argv[2..-1]
+			
+	if test $sc = "activate"
+		__vf_activate $scargs
+	else if test $sc = "deactivate"
+		__vf_deactivate $scargs
+	else if test $sc = "new"
+		__vf_new $scargs
+	else if test $sc = "rm"
+		__vf_rm $scargs
+	else if test $sc = "ls"
+		__vf_ls $scargs
+	else if test $sc = "cd"
+		__vf_cd $scargs
+	else if test $sc = "connect"
+		__vf_connect $scargs
+	else
+		echo "Sorry, I don't know how to $sc"
+	end
+end
+
+function __vf_activate --description "Activate a virtualenv"
 	# check arguments
 	if [ (count $argv) -lt 1 ]
 		echo "You need to specify a virtualenv."
@@ -44,7 +68,7 @@ function acvirtualenv --description "Activate a virtualenv"
 	emit virtualenv_did_activate:(basename $VIRTUAL_ENV)
 end
 
-function devirtualenv --description "Deactivate the currently-activated virtualenv"
+function __vf_deactivate --description "Deactivate the currently-activated virtualenv"
 
 	emit virtualenv_will_deactivate
 	emit virtualenv_will_deactivate:(basename $VIRTUAL_ENV)
@@ -79,7 +103,7 @@ function devirtualenv --description "Deactivate the currently-activated virtuale
 	set -e VIRTUAL_ENV
 end
 
-function mkvirtualenv --description "Create a new virtualenv"
+function __vf_new --description "Create a new virtualenv"
 	set envname $argv[-1]
 	set -e argv[-1]
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
@@ -93,7 +117,7 @@ function mkvirtualenv --description "Create a new virtualenv"
 	end
 end
 
-function rmvirtualenv --description "Delete a virtualenv"
+function __vf_rm --description "Delete a virtualenv"
 	if not [ (count $argv) -eq 1 ]
 		echo "You need to specify exactly one virtualenv."
 		return 1
@@ -106,7 +130,7 @@ function rmvirtualenv --description "Delete a virtualenv"
 	rm -rf $VIRTUALFISH_HOME/$argv[1]
 end
 
-function lsvirtualenv --description "List all of the available virtualenvs"
+function __vf_ls --description "List all of the available virtualenvs"
 	pushd $VIRTUALFISH_HOME
 	for i in */bin/python
 		echo $i
@@ -114,7 +138,7 @@ function lsvirtualenv --description "List all of the available virtualenvs"
 	popd
 end
 
-function cdvirtualenv --description "Change directory to currently-activated virtualenv"
+function __vf_cd --description "Change directory to currently-activated virtualenv"
     if set -q VIRTUAL_ENV
         cd $VIRTUAL_ENV
     else
@@ -122,7 +146,7 @@ function cdvirtualenv --description "Change directory to currently-activated vir
     end 
 end
 
-function connvirtualenv --description "Connect this virtualenv to the current directory"
+function __vf_connect --description "Connect this virtualenv to the current directory"
 	if set -q VIRTUAL_ENV
 		basename $VIRTUAL_ENV > .vfenv
 	else
