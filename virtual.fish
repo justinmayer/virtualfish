@@ -179,7 +179,7 @@ begin
 end
 ################
 # Automatic activation
-function __vf_auto_activate --on-variable PWD
+function __vfsupport_auto_activate --on-variable PWD
 	if status --is-command-substitution # doesn't work with 'or', inexplicably
 		return
 	end
@@ -214,4 +214,4 @@ function __vf_auto_activate --on-variable PWD
 end
 
 #automatically activate if started in a directory with a virtualenv in it
-__vf_auto_activate
+__vfsupport_auto_activate
