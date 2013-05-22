@@ -23,9 +23,13 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 
 ### Automatic Activation
 
-virtualfish can automatically activate a virtualenv when you are in a certain directory. To configure it to do so, place a file inside the directory called `.vfenv`, containing the name of the virtualenv.
+virtualfish can automatically activate a virtualenv when you are in a certain directory. To configure it to do so, place a file inside the directory called `.venv`, containing the name of the virtualenv.
 
-    $ echo myvirtualenvname > .vfenv
+    $ echo myvirtualenvname > .venv
+
+If you would prefer to use a different name for this file, you can do so provided you also set `VIRTUALFISH_ACTIVATION_FILE` in `~/.config/fish/config.fish` to the same value. For example:
+
+	set -gx VIRTUALFISH_ACTIVATION_FILE .vfenv
 
 ### Variables
 
@@ -64,6 +68,7 @@ The full list of events is:
 All of these must be set before `virtual.fish` is sourced in your `~/.config/fish/config.fish`.
 
 * `VIRTUALFISH_HOME` (default: `~/.virtualenvs`) - where all your virtualenvs are kept.
+* `VIRTUALFISH_ACTIVATION_FILE` (default: `.venv`) - the name of the file virtualfish will use for the auto-activation feature.
 * `VIRTUALFISH_COMPAT_ALIASES` - set this to create aliases for `workon` and `deactivate` a la virtualenvwrapper. *Caveat: `deactivate` exists (and can be overwritten) even when a virtualenv is not active.*
 
 ### Customizing Your `fish_prompt`
