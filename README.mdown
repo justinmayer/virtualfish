@@ -23,11 +23,9 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 
 ### Automatic Activation
 
-virtualfish can automatically activate a virtualenv when you are in a certain directory. To configure it to do so, place a file inside the directory called `.venv`, containing the name of the virtualenv.
+virtualfish can automatically activate a virtualenv when you are in a certain directory. To configure it to do so, change to the directory, activate the desired virtualenv, and run `vf connect`.
 
-    $ echo myvirtualenvname > .venv
-
-If you would prefer to use a different name for this file, you can do so provided you also set `VIRTUALFISH_ACTIVATION_FILE` in `~/.config/fish/config.fish` to the same value. For example:
+This will save the name of the virtualenv to the file `.venv`. If you would prefer to use a different name for this file, you can do so provided you also set `VIRTUALFISH_ACTIVATION_FILE` in `~/.config/fish/config.fish` to the same value. For example, for compatibility with older versions of this script:
 
 	set -gx VIRTUALFISH_ACTIVATION_FILE .vfenv
 
