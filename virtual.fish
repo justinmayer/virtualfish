@@ -5,6 +5,10 @@ if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+if not set -q VIRTUALFISH_ACTIVATION_FILE
+	set -g VIRTUALFISH_ACTIVATION_FILE .venv
+end
+
 if set -q VIRTUALFISH_COMPAT_ALIASES
         function workon
                 acvirtualenv $argv[1]
@@ -128,7 +132,7 @@ end
 
 function connvirtualenv --description "Connect this virtualenv to the current directory"
 	if set -q VIRTUAL_ENV
-		basename $VIRTUAL_ENV > .vfenv
+		basename $VIRTUAL_ENV > $VIRTUALFISH_ACTIVATION_FILE
 	else
 		echo "No virtualenv is active."
 	end
@@ -144,16 +148,16 @@ function __vf_auto_activate --on-variable PWD
 		return
 	end
 			
-	# find a .vfenv file
+	# find an auto-activation file
 	set -l vfeloc $PWD
-	while test ! "$vfeloc" = "" -a ! -f "$vfeloc/.vfenv"
+	while test ! "$vfeloc" = "" -a ! -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE"
 		# this strips the last path component from the path.
 		set vfeloc (echo "$vfeloc" | sed 's|/[^/]*$||')
 	end	
 		
 	set -l newve			
-	if [ -f "$vfeloc/.vfenv" ]
-		set newve (cat "$vfeloc/.vfenv")
+	if [ -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE" ]
+		set newve (cat "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE")
 	end				
 	
 	# apply new venv if changed
