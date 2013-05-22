@@ -11,13 +11,13 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ## Usage
 
 ### Commands
-* `acvirtualenv <envname>` (or `workon <envname>`*) - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
-* `devirtualenv` (or `deactivate`*) - Deactivate the current virtualenv.
-* `mkvirtualenv [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
-* `rmvirtualenv <envname>` - Delete a virtualenv.
-* `lsvirtualenv` - List the available virtualenvs.
-* `cdvirtualenv` - Change directory to currently-activated virtualenv.
-* `connvirtualenv` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
+* `vf activate <envname>` (or `workon <envname>`*) - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
+* `vf deactivate` (or `deactivate`*) - Deactivate the current virtualenv.
+* `vf new [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
+* `vf rm <envname>` - Delete a virtualenv.
+* `vf ls` - List the available virtualenvs.
+* `vf cd` - Change directory to currently-activated virtualenv.
+* `vf connect` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
 
 \*with `VIRTUALFISH_COMPAT_ALIASES` switched on - see Configuration Variables below.
 
