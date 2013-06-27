@@ -6,13 +6,16 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 
 		. path/to/virtual.fish
 
+    *Note:* If your `config.fish` modifies your `$PATH`, you should ensure
+    that you source virtualfish *after* those modifications.
+
 2. [Customize your `fish_prompt`](#customizing-your-fish_prompt)
 
 ## Usage
 
 ### Commands
-* `vf activate <envname>` (or `workon <envname>`*) - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
-* `vf deactivate` (or `deactivate`*) - Deactivate the current virtualenv.
+* `vf activate <envname>` (or `workon <envname>`\*) - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
+* `vf deactivate` (or `deactivate`\*) - Deactivate the current virtualenv.
 * `vf new [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
 * `vf rm <envname>` - Delete a virtualenv.
 * `vf ls` - List the available virtualenvs.
