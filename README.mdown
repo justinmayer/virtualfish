@@ -21,6 +21,8 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `vf ls` - List the available virtualenvs.
 * `vf cd` - Change directory to currently-activated virtualenv.
 * `vf connect` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
+* `vf requirements` - Edit the global requirements file in your `$EDITOR`.
+  Applies the requirements to all virtualenvs on exit.
 
 \*with `VIRTUALFISH_COMPAT_ALIASES` switched on - see Configuration Variables below.
 

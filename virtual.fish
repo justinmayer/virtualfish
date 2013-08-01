@@ -111,6 +111,9 @@ function __vf_new --description "Create a new virtualenv"
 	set vestatus $status
 	if [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]
 		vf activate $envname
+        if test -f $VIRTUALFISH_HOME/global_requirements.txt
+            pip install --download-cache $VIRTUALFISH_HOME/_pip_cache -r $VIRTUALFISH_HOME/global_requirements.txt
+        end
 	else
 		echo "Error: The virtualenv wasn't created properly."
 		echo "virtualenv returned status $vestatus."
@@ -153,6 +156,14 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 	else
 		echo "No virtualenv is active."
 	end
+end
+
+function __vf_requirements --description "Edit the global requirements file for all virtualenvs"
+    eval $EDITOR $VIRTUALFISH_HOME/global_requirements.txt
+    pushd $VIRTUALFISH_HOME
+    for i in */bin/pip
+        eval $i install --download-cache $VIRTUALFISH_HOME/_pip_cache -r $VIRTUALFISH_HOME/global_requirements.txt
+    end
 end
 
 ################
