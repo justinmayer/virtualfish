@@ -105,6 +105,7 @@ function __vf_deactivate --description "Deactivate the currently-activated virtu
 end
 
 function __vf_new --description "Create a new virtualenv"
+    emit virtualenv_will_create
 	set envname $argv[-1]
 	set -e argv[-1]
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
@@ -114,6 +115,8 @@ function __vf_new --description "Create a new virtualenv"
         if test -f $VIRTUALFISH_HOME/global_requirements.txt
             pip install --download-cache $VIRTUALFISH_HOME/_pip_cache -r $VIRTUALFISH_HOME/global_requirements.txt
         end
+        emit virtualenv_did_create
+        emit virtualenv_did_create:(basename $VIRTUAL_ENV)
 	else
 		echo "Error: The virtualenv wasn't created properly."
 		echo "virtualenv returned status $vestatus."

@@ -66,6 +66,9 @@ The full list of events is:
 * `virtualenv_will_deactivate:<env name>`
 * `virtualenv_did_deactivate`
 * `virtualenv_did_deactivate:<env name>`
+* `virtualenv_will_create`
+* `virtualenv_did_create`
+* `virtualenv_did_create:<env name>`
 
 ### Configuration Variables
 All of these must be set before `virtual.fish` is sourced in your `~/.config/fish/config.fish`.
