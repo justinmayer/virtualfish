@@ -31,6 +31,9 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
 
                 vf new $argv $env_name
         end
+        function rmvirtualenv
+                vf rm $argv
+        end
 end
 
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
