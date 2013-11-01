@@ -16,6 +16,21 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         function deactivate
                 vf deactivate
         end
+        function mkvirtualenv
+                # Check if the first argument is an option to virtualenv
+                # if it is then the the last argument must be the DEST_DIR.
+                set -l idx 1
+                switch $argv[1]
+                        case '-*'
+                                set idx -1
+                end
+
+                # Extract the DEST_DIR and remove it from $argv
+                set -l env_name $argv[$idx]
+                set -e argv[$idx]
+
+                vf new $argv $env_name
+        end
 end
 
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
@@ -23,11 +38,11 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	set -l sc $argv[1]
 	set -l funcname "__vf_$sc"
 	set -l scargs
-	
+
 	if test (count $argv) -gt 1
 		set scargs $argv[2..-1]
 	end
-	
+
 	if functions -q $funcname
 		eval $funcname $scargs
 	else
@@ -92,7 +107,7 @@ function __vf_deactivate --description "Deactivate the currently-activated virtu
 		set -gx PYTHONHOME $_VF_OLD_PYTHONHOME
 		set -e _VF_OLD_PYTHONHOME
 	end
-	
+
 	# remove autoactivated flag
 	if set -q VF_AUTO_ACTIVATED
 		set -e VF_AUTO_ACTIVATED
@@ -147,7 +162,7 @@ function __vf_cd --description "Change directory to currently-activated virtuale
         cd $VIRTUAL_ENV
     else
         echo "Cannot locate an active virtualenv."
-    end 
+    end
 end
 
 function __vf_connect --description "Connect this virtualenv to the current directory"
@@ -169,7 +184,7 @@ begin
 		end
 		return 1
 	end
-	
+
 	function __vfcompletion_using_command
 		set cmd (commandline -opc)
 		if test (count $cmd) -gt 1
@@ -179,13 +194,13 @@ begin
 		end
 		return 1
 	end
-	
+
 	# add completion for subcommands
 	for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
 		set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
 		complete -x -c vf -n '__vfcompletion_needs_command' -a $sc -d $helptext
 	end
-	
+
 	complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
 	complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
 end
@@ -196,19 +211,19 @@ function __vfsupport_auto_activate --on-variable PWD
 	if status --is-command-substitution # doesn't work with 'or', inexplicably
 		return
 	end
-			
+
 	# find an auto-activation file
 	set -l vfeloc $PWD
 	while test ! "$vfeloc" = "" -a ! -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE"
 		# this strips the last path component from the path.
 		set vfeloc (echo "$vfeloc" | sed 's|/[^/]*$||')
-	end	
-		
-	set -l newve			
+	end
+
+	set -l newve
 	if [ -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE" ]
 		set newve (cat "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE")
-	end				
-	
+	end
+
 	# apply new venv if changed
 	set -l currentve
 	if set -q VIRTUAL_ENV
@@ -219,7 +234,7 @@ function __vfsupport_auto_activate --on-variable PWD
 		vf activate $newve
 		set -g VF_AUTO_ACTIVATED yes
 	end
-	
+
 	# deactivate venv if it was autoactivated before and we've moved out of it
 	if [ "$newve" = "" -a "$VF_AUTO_ACTIVATED" = "yes" ]
 		vf deactivate
