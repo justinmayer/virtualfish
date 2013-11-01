@@ -23,6 +23,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `vf ls` - List the available virtualenvs.
 * `vf cd` - Change directory to currently-activated virtualenv.
 * `vf connect` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
+* `vf tmp [<options>]` - Create a temprorary virtualenv with a randomly generated name that will be removed when it is deactivated.
 
 Additionally, plugins provide the following commands:
 
@@ -106,7 +107,7 @@ Then, type `funcsave fish_prompt` to save your new prompt to disk.
 ## To Do
 
 * Emit more Fish events where virtualenvwrapper would use hook scripts
-* mktempenv, showvirtualenv, cpvirtualenv
+* showvirtualenv, cpvirtualenv
 * long form of lsvirtualenv
 * Project management
 
