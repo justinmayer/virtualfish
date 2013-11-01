@@ -18,12 +18,12 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 ### Commands
 * `vf activate <envname>` (or `workon <envname>`\*) - Activate a virtualenv. (Note: Doesn't use the `activate.fish` script provided by virtualenv.)
 * `vf deactivate` (or `deactivate`\*) - Deactivate the current virtualenv.
-* `vf new [<options>] <envname>` - Create a virtualenv. Note that `<envname>` *must be last*.
-* `vf rm <envname>` - Delete a virtualenv.
+* `vf new [<options>] <envname>` (or `mkvirtualenv`\*) - Create a virtualenv. Note that `<envname>` *must be last*.
+* `vf rm <envname>` (or `rmvirtualenv`\*) - Delete a virtualenv.
 * `vf ls` - List the available virtualenvs.
 * `vf cd` - Change directory to currently-activated virtualenv.
 * `vf connect` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
-* `vf tmp [<options>]` - Create a temprorary virtualenv with a randomly generated name that will be removed when it is deactivated.
+* `vf tmp [<options>]` (or `mktmpenv`\*) - Create a temprorary virtualenv with a randomly generated name that will be removed when it is deactivated.
 
 Additionally, plugins provide the following commands:
 
