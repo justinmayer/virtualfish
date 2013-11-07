@@ -22,6 +22,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 * `vf rm <envname>` (or `rmvirtualenv`\*) - Delete a virtualenv.
 * `vf ls` - List the available virtualenvs.
 * `vf cd` - Change directory to currently-activated virtualenv.
+* `vf addpath` (or `add2virtualenv`\*) - Add a directory to this virtualenv's `sys.path`.
 * `vf connect` - Connect the current virtualenv to the current directory, so that it is always active when you are in it.
 * `vf tmp [<options>]` (or `mktmpenv`\*) - Create a temprorary virtualenv with a randomly generated name that will be removed when it is deactivated.
 

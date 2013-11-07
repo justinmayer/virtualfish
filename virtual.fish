@@ -38,7 +38,7 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
                 vf rm $argv
         end
         function add2virtualenv
-        	__vf_add2virtualenv $argv
+        	__vf_addpath $argv
         end
 end
 
@@ -194,7 +194,7 @@ function __vf_tmp --description "Create a temporary virtualenv that will be remo
 	vf new $argv $env_name
 end
 
-function __vf_add2virtualenv --description "Adds a path to sys.path in this virtualenv"
+function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
 	if set -q VIRTUAL_ENV
 		set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
 		set -l path_file $site_packages/_virtualenv_path_extensions.pth
