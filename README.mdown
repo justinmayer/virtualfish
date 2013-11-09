@@ -1,5 +1,5 @@
 # virtualfish
-A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Doug Hellman's virtualenvwrapper for Bash.
+A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Doug Hellman's virtualenvwrapper for Bourne-compatible shells.
 
 ## Installation
 1. Make sure you're running Fish 2.x. If you're running an Ubuntu LTS release that has an older Fish version, [install Fish 2.x via the `fish-shell/release-2` PPA](https://launchpad.net/~fish-shell/+archive/release-2).
@@ -115,8 +115,17 @@ Then, type `funcsave fish_prompt` to save your new prompt to disk.
 * long form of lsvirtualenv
 * Project management
 
+## Contributors
+
+Sorted by date of first commit:
+
+* Adam Brenecki
+* Justin Mayer
+* David Reid
+* Alex Gaynor
+
 ## License
-Copyright (C) 2012 Adam Brenecki
+Copyright (C) 2012 Adam Brenecki and contributors
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
