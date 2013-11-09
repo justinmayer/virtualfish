@@ -2,6 +2,7 @@
 A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Doug Hellman's virtualenvwrapper for Bash.
 
 ## Installation
+1. Make sure you're running Fish 2.x. If you're running an Ubuntu LTS release that has an older Fish version, [install Fish 2.x via the `fish-shell/release-2` PPA](https://launchpad.net/~fish-shell/+archive/release-2).
 1. Source `virtual.fish` somewhere in your `~/.config/fish/config.fish`, like this:
 
 		. path/to/virtual.fish
