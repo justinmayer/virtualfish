@@ -7,6 +7,7 @@ A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Dou
 
 		. path/to/virtual.fish
         # optional, but recommended, plugins
+        . path/to/auto_activation.fish
         . path/to/global_requirements.fish
 
     *Note:* If your `config.fish` modifies your `$PATH`, you should ensure
