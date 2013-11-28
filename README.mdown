@@ -49,7 +49,8 @@ This will save the name of the virtualenv to the file `.venv`. If you would pref
 
 * `VIRTUAL_ENV` - Path to the currently active virtualenv.
 	* Tips: use `basename` to get the virtualenv's name, or `set -q` to see whether a virtualenv is active at all.
-* `VF_AUTO_ACTIVATED` - Set if the currently activated virtualenv was automatically activated.
+* auto-activation plugin
+    * `VF_AUTO_ACTIVATED` - If the currently-activated virtualenv was activated automatically, set to the directory that triggered the activation. Otherwise unset.
 
 ### Events
 

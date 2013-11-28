@@ -113,11 +113,6 @@ function __vf_deactivate --description "Deactivate the currently-activated virtu
 		set -e _VF_OLD_PYTHONHOME
 	end
 
-	# remove autoactivated flag
-	if set -q VF_AUTO_ACTIVATED
-		set -e VF_AUTO_ACTIVATED
-	end
-
 	emit virtualenv_did_deactivate
 	emit virtualenv_did_deactivate:(basename $VIRTUAL_ENV)
 

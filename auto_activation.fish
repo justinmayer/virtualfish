@@ -6,36 +6,42 @@ if not set -q VIRTUALFISH_ACTIVATION_FILE
 end
 
 function __vfsupport_auto_activate --on-variable PWD
-    if status --is-command-substitution # doesn't work with 'or', inexplicably
+    if status --is-command-substitution
         return
     end
 
     # find an auto-activation file
-    set -l vfeloc $PWD
-    while test ! "$vfeloc" = "" -a ! -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE"
+    set -l activation_root $PWD
+    set -l new_virtualenv_name
+    while test $activation_root != ""
+        if test -f "$activation_root/$VIRTUALFISH_ACTIVATION_FILE"
+            set new_virtualenv_name (cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
+            break
+        end
         # this strips the last path component from the path.
-        set vfeloc (echo "$vfeloc" | sed 's|/[^/]*$||')
+        set activation_root (echo $activation_root | sed 's|/[^/]*$||')
     end
 
-    set -l newve
-    if [ -f "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE" ]
-        set newve (cat "$vfeloc/$VIRTUALFISH_ACTIVATION_FILE")
-    end
 
-    # apply new venv if changed
-    set -l currentve
-    if set -q VIRTUAL_ENV
-        set currentve (basename "$VIRTUAL_ENV")
+    if test $new_virtualenv_name != ""
+        # if the virtualenv in the file is different, switch to it
+        if not set -q VIRTUAL_ENV; or test $new_virtualenv_name != (basename $VIRTUAL_ENV)
+            vf activate $new_virtualenv_name
+            set -g VF_AUTO_ACTIVATED $activation_root
+        end
+    else
+        # if there's an auto-activated virtualenv, deactivate it
+        if set -q VIRTUAL_ENV; and set -q VF_AUTO_ACTIVATED
+            vf deactivate
+        end
     end
+end
 
-    if [ "$newve" != "" -a "$newve" != "$currentve" ]
-        vf activate $newve
-        set -g VF_AUTO_ACTIVATED yes
-    end
-
-    # deactivate venv if it was autoactivated before and we've moved out of it
-    if [ "$newve" = "" -a "$VF_AUTO_ACTIVATED" = "yes" ]
-        vf deactivate
+# remove the auto-activation flag on deactivation
+function __vfsupport_deactivate_remove_flag --on-event virtualenv_did_deactivate
+    # remove autoactivated flag
+    if set -q VF_AUTO_ACTIVATED
+        set -e VF_AUTO_ACTIVATED
     end
 end
 
