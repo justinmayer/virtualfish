@@ -7,7 +7,11 @@ end
 
 if set -q VIRTUALFISH_COMPAT_ALIASES
         function workon
-                vf activate $argv[1]
+                if not set -q argv[1]
+                    vf ls
+                else
+                    vf activate $argv[1]
+                end
         end
         function deactivate
                 vf deactivate
