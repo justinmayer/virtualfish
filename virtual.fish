@@ -36,6 +36,12 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         function add2virtualenv
         	__vf_addpath $argv
         end
+        function cdvirtualenv
+        	vf cd $argv
+        end
+        function cdsitepackages
+        	vf cdpackages $argv
+        end
 end
 
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
@@ -164,6 +170,12 @@ function __vf_cd --description "Change directory to currently-activated virtuale
         echo "Cannot locate an active virtualenv."
     end
 end
+
+function __vf_cdpackages --description "Change directory to the active virtualenv's site-packages"
+	vf cd
+	cd lib/python*/site-packages
+end
+
 
 function __vf_connect --description "Connect this virtualenv to the current directory"
 	if set -q VIRTUAL_ENV
