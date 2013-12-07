@@ -12,7 +12,7 @@ function __vfsupport_auto_activate --on-variable PWD
 
     # find an auto-activation file
     set -l activation_root $PWD
-    set -l new_virtualenv_name
+    set -l new_virtualenv_name ""
     while test $activation_root != ""
         if test -f "$activation_root/$VIRTUALFISH_ACTIVATION_FILE"
             set new_virtualenv_name (cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
