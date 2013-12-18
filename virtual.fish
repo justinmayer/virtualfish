@@ -175,7 +175,7 @@ function __vf_cd --description "Change directory to currently-activated virtuale
     end
 end
 
-function __vf_cdpackages --description "Change directory to the active virtualenv's site-packages"
+function __vf_cdpackages --description "Change to the site-packages directory of the active virtualenv"
 	vf cd
 	cd lib/python*/site-packages
 end
