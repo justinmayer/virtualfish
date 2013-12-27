@@ -31,7 +31,7 @@ function __vfsupport_auto_activate --on-variable PWD
         end
     else
         # if there's an auto-activated virtualenv, deactivate it
-        if set -q VIRTUAL_ENV; and set -q VF_AUTO_ACTIVATED
+        if set -q VIRTUAL_ENV VF_AUTO_ACTIVATED
             vf deactivate
         end
     end
