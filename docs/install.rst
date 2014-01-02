@@ -6,17 +6,22 @@ Installing
 
 1. Make sure you're running Fish 2.x. If you're running an Ubuntu LTS
    release that has an older Fish version, `install Fish 2.x via the
-   ``fish-shell/release-2``
+   fish-shell/release-2
    PPA <https://launchpad.net/~fish-shell/+archive/release-2>`__.
 2. Source ``virtual.fish`` somewhere in your
    ``~/.config/fish/config.fish``, like this:
 
    ::
 
+       # set -g VIRTUALENV_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
        . path/to/virtual.fish
-       # optional, but recommended, plugins
+       # optional plugins
        . path/to/auto_activation.fish
        . path/to/global_requirements.fish
+
+   The first line is only necessary if you're used to virtualenvwrapper's
+   commands (eg ``workon``, ``deactivate`` and so on), and you want virtualfish
+   to emulate them.
 
    *Note:* If your ``config.fish`` modifies your ``$PATH``, you should
    ensure that you source virtualfish *after* those modifications.
