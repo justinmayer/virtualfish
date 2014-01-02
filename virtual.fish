@@ -278,5 +278,9 @@ begin
 
 	complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
 	complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
+    if set -q VIRTUALFISH_COMPAT_ALIASES
+        complete -x -c workon -a "(vf ls)"
+        complete -x -c rmvirtualenv -a "(vf ls)"
+    end
 end
 
