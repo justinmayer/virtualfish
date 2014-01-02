@@ -11,3 +11,5 @@ If virtualfish is useful to you, feel free to [make a weekly gift on Gittip](htt
 1. Download `virtual.fish`, and source it in `.config/fish/config.fish`.
 2. [Add virtualfish to your prompt](http://virtualfish.readthedocs.org/en/latest/install.html#customizing-your-fish-prompt)
 2. `vf new myvirtualenv; which python`
+
+See the docs to find out more about virtualenvwrapper emulation, auto-activation and other plugins, extending virtualfish with events, and more.
