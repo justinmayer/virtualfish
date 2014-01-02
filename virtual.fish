@@ -190,13 +190,23 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 end
 
 function __vf_tmp --description "Create a temporary virtualenv that will be removed when deactivated"
-	set -l env_name (printf "%.4x" (random) (random) (random) (random))
+	set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
+    set -g VF_TEMPORARY_ENV
 
 	# Use will_deactivate here so that $VIRTUAL_ENV is available.
 	function __vf_tmp_remove --on-event virtualenv_will_deactivate:$env_name
 		echo "Removing $VIRTUAL_ENV"
 		rm -rf $VIRTUAL_ENV
+        set -e VF_TEMPORARY_ENV
 	end
+
+    # Ensure that the virtualenv gets deleted even if we close the shell w/o
+    # explicitly deactivating.
+    function __vfsupport_remove_temp_env_on_exit --on-process %self
+        if set -q VF_TEMPORARY_ENV
+            vf deactivate # the deactivate handler will take care of removing it
+        end
+    end
 
 	vf new $argv $env_name
 end
