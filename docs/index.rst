@@ -12,6 +12,8 @@ Contents
 
    install
    usage
+   plugins
+   extend
 
 Contributors
 ------------
