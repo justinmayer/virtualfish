@@ -4,7 +4,8 @@ virtualfish
 A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely
 based on Doug Hellman's virtualenvwrapper for Bourne-compatible shells.
 
-Contents:
+Contents
+--------
 
 .. toctree::
    :maxdepth: 2
@@ -21,11 +22,3 @@ Sorted by date of first commit:
 -  Justin Mayer
 -  David Reid
 -  Alex Gaynor
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
