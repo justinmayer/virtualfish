@@ -1,7 +1,10 @@
 # virtualfish
+
 A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely based on Doug Hellman's virtualenvwrapper for Bourne-compatible shells.
 
-[Read the documentation here.](http://virtualfish.readthedocs.org/en/latest/)
+You can get started by [reading the documentation on Read The Docs](http://virtualfish.readthedocs.org/en/latest/). (It's quite short, I promise.)
+
+If virtualfish is useful to you, feel free to [make a weekly gift on Gittip](https://www.gittip.com/adambrenecki/) or [a monthly one on Flattr](https://flattr.com/submit/auto?user_id=adambrenecki&url=https%3A%2F%2Fgithub.com%2Fadambrenecki%2Fvirtualfish%2F).
 
 ## A quickstart, for the impatient
 
