@@ -13,7 +13,7 @@ Installing
 
    ::
 
-       # set -g VIRTUALENV_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
+       # set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
        . path/to/virtual.fish
        # optional plugins
        . path/to/auto_activation.fish
