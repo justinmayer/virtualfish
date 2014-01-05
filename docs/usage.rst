@@ -11,9 +11,14 @@ Commands
    virtualenv.
 -  ``vf new [<options>] <envname>`` (or ``mkvirtualenv``\ \*) - Create a
    virtualenv. Note that ``<envname>`` *must be last*.
+-  ``vf newver [<options>] <envname> <version>`` (or ``mkvirtualenv``\ \*) -
+   Create a virtualenv. Note that ``<envname> <version>`` *must be last*.
 -  ``vf tmp [<options>]`` (or ``mktmpenv``\ \*) - Create a temprorary
    virtualenv with a randomly generated name that will be removed when
    it is deactivated.
+-  ``vf tmpver [<options>] <version>`` (or ``mktmpenv``\ \*) - Create a 
+   temprorary virtualenv with a randomly generated name that will be removed 
+   when it is deactivated. Note that ``<version>`` *must be last*
 -  ``vf rm <envname>`` (or ``rmvirtualenv``\ \*) - Delete a virtualenv.
 -  ``vf ls`` - List the available virtualenvs.
 -  ``vf cd`` (or ``cdvirtualenv``\ \*) - Change directory to
