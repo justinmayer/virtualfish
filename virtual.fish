@@ -17,22 +17,24 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
                 vf deactivate
         end
         function mktmpenv
-                vf tmp $argv
+                __wrap_vf_tmp 2
+        end
+        function mktmpenver
+                __wrap_vf_tmp $argv
         end
         function mkvirtualenv
-                # Check if the first argument is an option to virtualenv
-                # if it is then the the last argument must be the DEST_DIR.
-                set -l idx 1
-                switch $argv[1]
-                        case '-*'
-                                set idx -1
-                end
-
                 # Extract the DEST_DIR and remove it from $argv
-                set -l env_name $argv[$idx]
-                set -e argv[$idx]
-
-                vf new $argv $env_name
+                set -l env_name $argv[-1]
+                set -e argv[-1]
+                __wrap_vf_new $argv $env_name 2
+        end
+		function mkvirtualenvver
+                # Extract the DEST_DIR and remove it from $argv
+                set -l env_name $argv[-2]
+                set -l pytype $argv[-1]
+                set -e argv[-1]
+                set -e argv[-1]
+                __wrap_vf_new $argv $env_name $pytype
         end
         function rmvirtualenv
                 vf rm $argv
@@ -129,11 +131,17 @@ function __vf_deactivate --description "Deactivate the currently-activated virtu
 	set -e VIRTUAL_ENV
 end
 
-function __vf_new --description "Create a new virtualenv"
+function __wrap_vf_new
     emit virtualenv_will_create
-	set envname $argv[-1]
+	set pytype $argv[-1]
+	set envname $argv[-2]
+	set -e argv[-2]
 	set -e argv[-1]
-	virtualenv $argv $VIRTUALFISH_HOME/$envname
+	if [ $pytype -eq 2 ]
+		virtualenv $argv $VIRTUALFISH_HOME/$envname
+	else
+		eval virtualenv-$pytype $argv $VIRTUALFISH_HOME/$envname
+	end
 	set vestatus $status
 	if begin [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
 		vf activate $envname
@@ -144,6 +152,18 @@ function __vf_new --description "Create a new virtualenv"
 		echo "virtualenv returned status $vestatus."
 		return 1
 	end
+end
+
+function __vf_new --description "Create a new virtualenv"
+	__wrap_vf_new $argv 2
+end
+
+function __vf_newver --description "Create a new specific python version virtualenv"
+	if [ (count $argv) -lt 2 ]
+		echo "You need to specify a name and python version."
+		return 1
+	end
+	__wrap_vf_new $argv
 end
 
 function __vf_rm --description "Delete a virtualenv"
@@ -180,7 +200,6 @@ function __vf_cdpackages --description "Change to the site-packages directory of
 	cd lib/python*/site-packages
 end
 
-
 function __vf_connect --description "Connect this virtualenv to the current directory"
 	if set -q VIRTUAL_ENV
 		basename $VIRTUAL_ENV > $VIRTUALFISH_ACTIVATION_FILE
@@ -189,7 +208,7 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 	end
 end
 
-function __vf_tmp --description "Create a temporary virtualenv that will be removed when deactivated"
+function __wrap_vf_tmp
 	set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
     set -g VF_TEMPORARY_ENV
 
@@ -208,7 +227,17 @@ function __vf_tmp --description "Create a temporary virtualenv that will be remo
         end
     end
 
-	vf new $argv $env_name
+	set pytype $argv[-1]
+	set -e argv[-1]
+	__wrap_vf_new $argv $env_name $pytype
+end
+
+function __vf_tmp --description "Create a temporary virtualenv that will be removed when deactivated"
+	__wrap_vf_tmp $argv 2
+end
+
+function __vf_tmpver --description "Create a specific python version temporary virtualenv that will be removed when deactivated"
+	__wrap_vf_tmp $argv
 end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
