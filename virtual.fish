@@ -82,6 +82,10 @@ function __vf_activate --description "Activate a virtualenv"
 		vf deactivate
 	end
 
+    if test -f $VIRTUALFISH_HOME/$argv[1]/bin/vfhooks.fish
+        . $VIRTUALFISH_HOME/$argv[1]/bin/vfhooks.fish
+    end
+
 	emit virtualenv_will_activate
 	emit virtualenv_will_activate:$argv[1]
 
