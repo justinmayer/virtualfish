@@ -135,7 +135,7 @@ function __vf_new --description "Create a new virtualenv"
 	set -e argv[-1]
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
-	if begin [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
+	if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
 		vf activate $envname
         emit virtualenv_did_create
         emit virtualenv_did_create:(basename $VIRTUAL_ENV)
@@ -151,7 +151,7 @@ function __vf_rm --description "Delete a virtualenv"
 		echo "You need to specify exactly one virtualenv."
 		return 1
 	end
-	if begin set -q VIRTUAL_ENV; and [ $argv[1] = (basename $VIRTUAL_ENV) ]; end
+	if begin; set -q VIRTUAL_ENV; and [ $argv[1] = (basename $VIRTUAL_ENV) ]; end
 		echo "You can't delete a virtualenv you're currently using."
 		return 1
 	end

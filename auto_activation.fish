@@ -25,7 +25,7 @@ function __vfsupport_auto_activate --on-variable PWD
 
     if test $new_virtualenv_name != ""
         # if the virtualenv in the file is different, switch to it
-        if begin not set -q VIRTUAL_ENV; or test $new_virtualenv_name != (basename $VIRTUAL_ENV); end
+        if begin; not set -q VIRTUAL_ENV; or test $new_virtualenv_name != (basename $VIRTUAL_ENV); end
             vf activate $new_virtualenv_name
             set -g VF_AUTO_ACTIVATED $activation_root
         end
