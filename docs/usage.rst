@@ -69,3 +69,12 @@ installation process:
 These are standard pip settings and aren't directly related to
 virtualfish. The wheels and cache paths can be set to any arbitrary
 directories you prefer.
+
+Other Configuration Files
+-------------------------
+At virtualenv activation time, virtualfish will look in ``$VIRTUAL_ENV/bin`` for
+a file called ``vfhooks.fish``.  This file should contain fish functions to
+respond to activate and deactivate events.  You don't have to use this file, but
+it enables you to keep virtualenv setup routines with the venv itself instead of
+in a fish configuration file outside of the venv tree.  See :doc:`Extending
+Virtualfish </extend>` for a list of events emitted by Virtualfish.
