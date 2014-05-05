@@ -82,10 +82,13 @@ function __vf_activate --description "Activate a virtualenv"
 		vf deactivate
 	end
 
+    # Set VIRTUAL_ENV before the others so that the will_activate event knows
+    # which virtualenv is about to be activated
+	set -gx VIRTUAL_ENV $VIRTUALFISH_HOME/$argv[1]
+
 	emit virtualenv_will_activate
 	emit virtualenv_will_activate:$argv[1]
 
-	set -gx VIRTUAL_ENV $VIRTUALFISH_HOME/$argv[1]
 	set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
 	set -gx PATH $_VF_EXTRA_PATH $PATH
 
