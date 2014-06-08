@@ -183,15 +183,6 @@ function __vf_cdpackages --description "Change to the site-packages directory of
 	cd lib/python*/site-packages
 end
 
-
-function __vf_connect --description "Connect this virtualenv to the current directory"
-	if set -q VIRTUAL_ENV
-		basename $VIRTUAL_ENV > $VIRTUALFISH_ACTIVATION_FILE
-	else
-		echo "No virtualenv is active."
-	end
-end
-
 function __vf_tmp --description "Create a temporary virtualenv that will be removed when deactivated"
 	set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
     set -g VF_TEMPORARY_ENV

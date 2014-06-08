@@ -5,6 +5,15 @@ if not set -q VIRTUALFISH_ACTIVATION_FILE
     set -g VIRTUALFISH_ACTIVATION_FILE .venv
 end
 
+
+function __vf_connect --description "Connect this virtualenv to the current directory"
+    if set -q VIRTUAL_ENV
+        basename $VIRTUAL_ENV > $VIRTUALFISH_ACTIVATION_FILE
+    else
+        echo "No virtualenv is active."
+    end
+end
+
 function __vfsupport_auto_activate --on-variable PWD
     if status --is-command-substitution
         return
