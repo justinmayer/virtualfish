@@ -48,3 +48,50 @@ Commands
 
 -  ``vf requirements`` - Edit the global requirements file in your
    ``$EDITOR``. Applies the requirements to all virtualenvs on exit.
+
+Projects
+--------
+
+This plugin adds project management capabilities, including automatic directory
+switching upon virtual environment activation. Typically a project directory
+contains files — such as source code managed by a version control system — that
+are often stored separately from the virtual environment.
+
+The following example will create a new project, with a matching virtual
+environment, both named ``YourProject``::
+
+    vf project YourProject
+
+The above command performs the following tasks:
+
+1. creates new empty project directory in ``PROJECT_HOME`` (if there is no
+   existing ``YourProject`` directory within) and changes the current working
+   directory to it
+2. creates new virtual environment named ``YourProject`` and activates it
+
+To work on an existing project, use the ``vf workon <name>`` command to activate
+the specified virtual environment and change the current working directory to
+the project of the same name. For cases in which the project name differs from
+the target virtualenv name, you can manually specify which virtualenv should be
+activated for a given project by creating a ``.venv`` file inside the project
+root containing the name of the corresponding virtualenv.
+
+Commands
+........
+
+-  ``vf project <name>`` - Create a new project and matching virtual environment
+   with the specified name. This name **must** be the last parameter (i.e.,
+   after ``-p python3`` or any other arguments destined for the ``virtualenv``
+   command). If ``VIRTUALFISH_COMPAT_ALIASES`` is set, ``mkproject`` is aliased
+   to this command.
+
+-  ``vf workon <name>`` - Search for a project and/or virtualenv matching the
+   specified name. If found, this activates the appropriate virtualenv and
+   switches to the respective project directory. If ``VIRTUALFISH_COMPAT_ALIASES``
+   is set, ``workon`` is aliased to this command.
+
+Configuration Variables
+.......................
+
+-  ``PROJECT_HOME`` (default: ``~/projects/``) - Where to create new projects
+   and where to look for existing projects.
