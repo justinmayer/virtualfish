@@ -63,7 +63,7 @@ installation process:
 
     set -x PIP_USE_WHEEL "true"
     set -x PIP_WHEEL_DIR "$HOME/.pip/wheels"
-    set -x PIP_FIND_LINKS "$HOME/.pip/wheels"
+    set -x PIP_FIND_LINKS "file://$HOME/.pip/wheels"
     set -x PIP_DOWNLOAD_CACHE "$HOME/.pip/cache"
 
 These are standard pip settings and aren't directly related to
