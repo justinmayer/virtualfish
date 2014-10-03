@@ -25,9 +25,9 @@ to events that virtualfish emits, write a function like this:
         echo "The virtualenv" (basename $VIRTUAL_ENV) "was activated"
     end
 
-You can save your function using ``funcsave``, put it in
-``.config/fish/config.fish``, or put it anywhere Fish will see it before
-it needs to run.
+You can save your function by putting it in ``.config/fish/config.fish``, or
+put it anywhere Fish will see it before it needs to run. (Note: saving it with
+``funcsave`` won't work.)
 
 Some events are emitted twice, once normally and once with the name of
 the virtualenv as part of the event name. This is to make it easier to
