@@ -242,6 +242,22 @@ function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
 	end
 end
 
+# 'vf connect' command
+# Used by the project management and auto-activation plugins
+
+if not set -q VIRTUALFISH_ACTIVATION_FILE
+    set -g VIRTUALFISH_ACTIVATION_FILE .venv
+end
+
+
+function __vf_connect --description "Connect this virtualenv to the current directory"
+    if set -q VIRTUAL_ENV
+        basename $VIRTUAL_ENV > $VIRTUALFISH_ACTIVATION_FILE
+    else
+        echo "No virtualenv is active."
+    end
+end
+
 ################
 # Autocomplete
 # Based on https://github.com/zmalltalker/fish-nuggets/blob/master/completions/git.fish
