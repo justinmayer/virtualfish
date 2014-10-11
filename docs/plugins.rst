@@ -95,3 +95,35 @@ Configuration Variables
 
 -  ``PROJECT_HOME`` (default: ``~/projects/``) - Where to create new projects
    and where to look for existing projects.
+
+Environment variables
+---------------------
+
+This plugin adds the capability of automatically setting environment variables
+upon activating a virtualenv. Environment variables should be place in a
+``.venvvars`` file inside the virtualenv directory. It is also possible to
+place this file inside of the project root when the projects plugin is used.
+The ``.venvvars`` file in the project root takes precedence over the one in 
+the virtualenv directory.
+
+The format of the file is one key value pair per line, separated by a space:
+
+::
+
+    SECRET_KEY mysecretkey
+    DEPLOY_ENV development
+
+Environment variables that are currently set and would thus be overwritten
+are stored with the prefix: _VF_OLD_. If you have for example alread defined
+SECRET_KEY in your current environment then activating the virtualenv would
+store that value under _VF_OLD_SECRET_KEY. Upon deactivating the virtualenv
+the old values are restored and the _VF_OLD_* variables removed.
+
+Configuration Variables
+.......................
+
+-  ``VIRTUALFISH_ENVIRONMENT_VARIABLES_FILE`` (default: ``.venvvars``) - 
+  The name of the file containing the environment variables.
+
+-  ``VIRTUALFISH_ENVIRONMENT_VARIABLES_PREFIX`` (default: ``_VF_OLD_``) - 
+  Prefix for environment variables that are backed up.
