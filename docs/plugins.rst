@@ -122,8 +122,8 @@ the old values are restored and the _VF_OLD_* variables removed.
 Configuration Variables
 .......................
 
--  ``VIRTUALFISH_ENVIRONMENT_VARIABLES_FILE`` (default: ``.venvvars``) - 
-  The name of the file containing the environment variables.
+-  ``VIRTUALFISH_ENVIRONMENT_VARIABLES_FILE`` (default: ``.venvvars``) - The
+   name of the file containing the environment variables.
 
 -  ``VIRTUALFISH_ENVIRONMENT_VARIABLES_PREFIX`` (default: ``_VF_OLD_``) - 
-  Prefix for environment variables that are backed up.
+   Prefix for environment variables that are backed up.
