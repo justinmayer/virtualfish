@@ -19,6 +19,7 @@ Installing
        . path/to/auto_activation.fish
        . path/to/global_requirements.fish
        . path/to/projects.fish
+       . path/to/environment_variables.fish
 
    The first line is only necessary if you're used to virtualenvwrapper's
    commands (eg ``workon``, ``deactivate`` and so on), and you want virtualfish
