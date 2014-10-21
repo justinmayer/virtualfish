@@ -54,6 +54,19 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	set -l funcname "__vf_$sc"
 	set -l scargs
 
+	if test (count $argv) -eq 0
+		# If called without arguments, print usage
+		echo "Usage: vf <command> [<args>]"
+		echo
+		echo "Available commands:"
+		echo
+		for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
+			set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
+			printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
+		end
+		return
+	end
+
 	if test (count $argv) -gt 1
 		set scargs $argv[2..-1]
 	end
@@ -293,4 +306,3 @@ begin
         complete -x -c rmvirtualenv -a "(vf ls)"
     end
 end
-
