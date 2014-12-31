@@ -5,6 +5,10 @@ if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+if not set -q VIRTUALFISH_VIRTUALENV
+  set -g VIRTUALFISH_VIRTUALENV virtualenv
+end
+
 if set -q VIRTUALFISH_COMPAT_ALIASES
         function workon
                 if not set -q argv[1]
@@ -149,7 +153,7 @@ function __vf_new --description "Create a new virtualenv"
     emit virtualenv_will_create
 	set envname $argv[-1]
 	set -e argv[-1]
-	virtualenv $argv $VIRTUALFISH_HOME/$envname
+	eval $VIRTUALFISH_VIRTUALENV $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
 	if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
 		vf activate $envname
