@@ -7,21 +7,22 @@ Commands
 -  ``vf activate <envname>`` (or ``workon <envname>``\ \*) - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
--  ``vf deactivate`` (or ``deactivate``\ \*) - Deactivate the current
-   virtualenv.
--  ``vf new [<options>] <envname>`` (or ``mkvirtualenv``\ \*) - Create a
-   virtualenv. Note that ``<envname>`` *must be last*.
--  ``vf tmp [<options>]`` (or ``mktmpenv``\ \*) - Create a temprorary
-   virtualenv with a randomly generated name that will be removed when
-   it is deactivated.
--  ``vf rm <envname>`` (or ``rmvirtualenv``\ \*) - Delete a virtualenv.
--  ``vf ls`` - List the available virtualenvs.
--  ``vf cd`` (or ``cdvirtualenv``\ \*) - Change directory to
+-  ``vf addpath`` (or ``add2virtualenv``\ \*) - Add a directory to the currently-activated
+   virtualenv's ``sys.path``.
+-  ``vf cd`` (or ``cdvirtualenv``\ \*) - Change directory to the
    currently-activated virtualenv.
 -  ``vf cdpackages`` (or ``cdsitepackages``\ \*) - Change directory to
    the currently-activated virtualenv's site-packages.
--  ``vf addpath`` (or ``add2virtualenv``\ \*) - Add a directory to this
-   virtualenv's ``sys.path``.
+-  ``vf deactivate`` (or ``deactivate``\ \*) - Deactivate the currently-activated
+   virtualenv.
+-  ``vf help`` - Print usage information
+-  ``vf ls`` - List the available virtualenvs.
+-  ``vf new [<options>] <envname>`` (or ``mkvirtualenv``\ \*) - Create a
+   virtualenv. Note that ``<envname>`` *must be last*.
+-  ``vf rm <envname>`` (or ``rmvirtualenv``\ \*) - Delete a virtualenv.
+-  ``vf tmp [<options>]`` (or ``mktmpenv``\ \*) - Create a temporary
+   virtualenv with a randomly generated name that will be removed when
+   it is deactivated.
 
 \*with ``VIRTUALFISH_COMPAT_ALIASES`` switched on - see Configuration
 Variables below.

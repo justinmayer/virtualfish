@@ -1,8 +1,8 @@
 virtualfish
 ===========
 
-A Fish Shell wrapper for Ian Bicking's virtualenv, somewhat loosely
-based on Doug Hellman's virtualenvwrapper for Bourne-compatible shells.
+A Fish Shell wrapper for Ian Bicking's `virtualenv <https://virtualenv.pypa.io/en/latest/>`_, somewhat loosely
+based on Doug Hellman's `virtualenvwrapper <https://bitbucket.org/dhellmann/virtualenvwrapper>`_ for Bourne-compatible shells.
 
 Contents
 --------
