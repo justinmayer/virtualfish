@@ -264,7 +264,7 @@ function __vf_connect --description "Connect this virtualenv to the current dire
     end
 end
 
-function __vf_help --description "Print VirtualFish usage information (this information)"
+function __vf_help --description "Print VirtualFish usage information"
 	echo "Usage: vf <command> [<args>]"
 	echo
 	echo "Available commands:"
