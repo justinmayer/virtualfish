@@ -1,8 +1,12 @@
 Plugins
 =======
 
-Virtualfish comes with a number of plugins, which you can use by sourcing the
-relevant ``.fish`` files.
+Virtualfish comes in-built with a number of plugins.
+
+You can use them by passing their names in as arguments to the virtualfish
+loader in your ``config.fish``, e.g.::
+
+   exec (python -m virtualfish auto_activation global_requirements projects)
 
 Auto-activation
 ---------------

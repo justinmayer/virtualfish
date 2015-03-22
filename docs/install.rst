@@ -8,26 +8,23 @@ Installing
    release that has an older Fish version, `install Fish 2.x via the
    fish-shell/release-2
    PPA <https://launchpad.net/~fish-shell/+archive/release-2>`__.
-2. Source ``virtual.fish`` somewhere in your
-   ``~/.config/fish/config.fish``, like this:
+2. Install virtualfish by running ``pip install virtualfish``.
+3. Add the following to your
+   ``~/.config/fish/config.fish``:
 
    ::
 
        # set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
-       . path/to/virtual.fish
-       # optional plugins
-       . path/to/auto_activation.fish
-       . path/to/global_requirements.fish
-       . path/to/projects.fish
+       eval (python -m virtualfish)
 
    The first line is only necessary if you're used to virtualenvwrapper's
    commands (eg ``workon``, ``deactivate`` and so on), and you want virtualfish
    to emulate them.
 
    *Note:* If your ``config.fish`` modifies your ``$PATH``, you should
-   ensure that you source virtualfish *after* those modifications.
+   ensure that you load virtualfish *after* those modifications.
 
-3. Customize your ``fish_prompt``
+4. Customize your ``fish_prompt``
 
 Customizing Your ``fish_prompt``
 --------------------------------

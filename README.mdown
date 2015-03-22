@@ -8,7 +8,8 @@ If virtualfish is useful to you, feel free to [make a weekly gift on Gittip](htt
 
 ## A quickstart, for the impatient
 
-1. Download `virtual.fish`, and source it in `.config/fish/config.fish`.
+1. `pip install virtualfish`
+2. Edit `~/.config/fish/config.fish`, adding a line that reads `eval (python -m virtualfish)`
 2. [Add virtualfish to your prompt](http://virtualfish.readthedocs.org/en/latest/install.html#customizing-your-fish-prompt)
 2. `vf new myvirtualenv; which python`
 
