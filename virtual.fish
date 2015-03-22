@@ -54,7 +54,7 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	set -l funcname "__vf_$sc"
 	set -l scargs
 
-	if test (count $argv) -eq 0
+	if begin; [ (count $argv) -eq 0 ]; or [ $sc = "--help" ]; or [ $sc = "-h" ]; end
 		# If called without arguments, print usage
 		vf help
 		return

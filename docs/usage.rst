@@ -15,7 +15,7 @@ Commands
    the currently-activated virtualenv's site-packages.
 -  ``vf deactivate`` (or ``deactivate``\ \*) - Deactivate the currently-activated
    virtualenv.
--  ``vf help`` - Print usage information
+-  ``vf help (or `vf --help` or `vf -h`)`` - Print usage information
 -  ``vf ls`` - List the available virtualenvs.
 -  ``vf new [<options>] <envname>`` (or ``mkvirtualenv``\ \*) - Create a
    virtualenv. Note that ``<envname>`` *must be last*.
