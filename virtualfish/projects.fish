@@ -41,12 +41,16 @@ function __vf_project --description "Create a new project and virtualenv with th
         return 2
     else
         vf new $argv
-        mkdir $project_path
+        mkdir -p $project_path
         cd $project_path
     end
 end
 
 function __vf_lsprojects --description "List projects"
+    if [ ! -d $PROJECT_HOME ]
+        return 2
+    end
+
     pushd $PROJECT_HOME
     for i in *
         if [ -d $i ]
