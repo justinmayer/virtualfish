@@ -4,27 +4,27 @@ Usage
 Commands
 --------
 
--  ``vf activate <envname>`` (or ``workon <envname>``\ \*) - Activate a
+-  ``vf activate <envname>`` - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
--  ``vf deactivate`` (or ``deactivate``\ \*) - Deactivate the current
+-  ``vf deactivate`` - Deactivate the current
    virtualenv.
--  ``vf new [<options>] <envname>`` (or ``mkvirtualenv``\ \*) - Create a
+-  ``vf new [<options>] <envname>`` - Create a
    virtualenv. Note that ``<envname>`` *must be last*.
--  ``vf tmp [<options>]`` (or ``mktmpenv``\ \*) - Create a temprorary
+-  ``vf tmp [<options>]`` - Create a temprorary
    virtualenv with a randomly generated name that will be removed when
    it is deactivated.
--  ``vf rm <envname>`` (or ``rmvirtualenv``\ \*) - Delete a virtualenv.
+-  ``vf rm <envname>`` - Delete a virtualenv.
 -  ``vf ls`` - List the available virtualenvs.
--  ``vf cd`` (or ``cdvirtualenv``\ \*) - Change directory to
+-  ``vf cd`` - Change directory to
    currently-activated virtualenv.
--  ``vf cdpackages`` (or ``cdsitepackages``\ \*) - Change directory to
+-  ``vf cdpackages`` - Change directory to
    the currently-activated virtualenv's site-packages.
--  ``vf addpath`` (or ``add2virtualenv``\ \*) - Add a directory to this
+-  ``vf addpath`` - Add a directory to this
    virtualenv's ``sys.path``.
 
-\*with ``VIRTUALFISH_COMPAT_ALIASES`` switched on - see Configuration
-Variables below.
+If you're used to virtualenvwrapper's commands (``workon``, etc), you may wish
+to enable the :ref:`compat_aliases` plugin.
 
 Using Different Pythons
 -----------------------

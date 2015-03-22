@@ -14,12 +14,14 @@ Installing
 
    ::
 
-       # set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
        eval (python -m virtualfish)
 
-   The first line is only necessary if you're used to virtualenvwrapper's
-   commands (eg ``workon``, ``deactivate`` and so on), and you want virtualfish
-   to emulate them.
+   If you want to use virtualfish with :doc:`plugins <plugins>`, list
+   the names of the plugins as arguments to the virtualfish loader:
+
+   ::
+
+       eval (python -m virtualfish compat_aliases)
 
    *Note:* If your ``config.fish`` modifies your ``$PATH``, you should
    ensure that you load virtualfish *after* those modifications.

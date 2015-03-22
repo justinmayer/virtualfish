@@ -5,49 +5,6 @@ if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
-if set -q VIRTUALFISH_COMPAT_ALIASES
-        function workon
-                if not set -q argv[1]
-                    vf ls
-                else
-                    vf activate $argv[1]
-                end
-        end
-        function deactivate
-                vf deactivate
-        end
-        function mktmpenv
-                vf tmp $argv
-        end
-        function mkvirtualenv
-                # Check if the first argument is an option to virtualenv
-                # if it is then the the last argument must be the DEST_DIR.
-                set -l idx 1
-                switch $argv[1]
-                        case '-*'
-                                set idx -1
-                end
-
-                # Extract the DEST_DIR and remove it from $argv
-                set -l env_name $argv[$idx]
-                set -e argv[$idx]
-
-                vf new $argv $env_name
-        end
-        function rmvirtualenv
-                vf rm $argv
-        end
-        function add2virtualenv
-        	__vf_addpath $argv
-        end
-        function cdvirtualenv
-        	vf cd $argv
-        end
-        function cdsitepackages
-        	vf cdpackages $argv
-        end
-end
-
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	# copy all but the first argument to $scargs
 	set -l sc $argv[1]
@@ -301,8 +258,4 @@ begin
 
 	complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
 	complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
-    if set -q VIRTUALFISH_COMPAT_ALIASES
-        complete -x -c workon -a "(vf ls)"
-        complete -x -c rmvirtualenv -a "(vf ls)"
-    end
 end

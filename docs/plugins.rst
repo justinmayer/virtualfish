@@ -6,7 +6,28 @@ Virtualfish comes in-built with a number of plugins.
 You can use them by passing their names in as arguments to the virtualfish
 loader in your ``config.fish``, e.g.::
 
-   exec (python -m virtualfish auto_activation global_requirements projects)
+   exec (python -m virtualfish auto_activation global_requirements)
+
+.. _compat_aliases:
+
+Virtualenvwrapper Compatibility Aliases (``compat_aliases``)
+------------------------------------------------------------
+
+This plugin provides some global commands to make virtualfish behave more like
+Doug Hellman's virtualenvwrapper.
+
+Commands
+........
+
+
+-  ``workon <envname>`` = ``vf activate <envname>``
+-  ``deactivate`` = ``vf deactivate``
+-  ``mkvirtualenv [<options>] <envname`` = ``vf new [<options>] <envname>``
+-  ``mktmpenv [<options>]`` = ``vf tmp [<options>]``
+-  ``rmvirtualenv`` = ``vf rm <envname>``
+-  ``cdvirtualenv`` = ``vf cd``
+-  ``cdsitepackages`` = ``vf cdpackages``
+-  ``add2virtualenv`` = ``vf addpath``
 
 Auto-activation
 ---------------
