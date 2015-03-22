@@ -41,6 +41,7 @@ listen for events relevant to one specific virtualenv, for example:
 
 The full list of events is:
 
+-  ``virtualenv_did_setup_plugins``
 -  ``virtualenv_will_activate``
 -  ``virtualenv_will_activate:<env name>``
 -  ``virtualenv_did_activate``
