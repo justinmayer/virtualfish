@@ -11,16 +11,9 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
 	set -l funcname "__vf_$sc"
 	set -l scargs
 
-	if test (count $argv) -eq 0
+	if begin; [ (count $argv) -eq 0 ]; or [ $sc = "--help" ]; or [ $sc = "-h" ]; end
 		# If called without arguments, print usage
-		echo "Usage: vf <command> [<args>]"
-		echo
-		echo "Available commands:"
-		echo
-		for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
-			set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
-			printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
-		end
+		vf help
 		return
 	end
 
@@ -72,7 +65,7 @@ function __vf_activate --description "Activate a virtualenv"
 	emit virtualenv_did_activate:(basename $VIRTUAL_ENV)
 end
 
-function __vf_deactivate --description "Deactivate the currently-activated virtualenv"
+function __vf_deactivate --description "Deactivate this virtualenv"
 
 	emit virtualenv_will_deactivate
 	emit virtualenv_will_deactivate:(basename $VIRTUAL_ENV)
@@ -140,7 +133,7 @@ function __vf_ls --description "List all of the available virtualenvs"
 	popd
 end
 
-function __vf_cd --description "Change directory to currently-activated virtualenv"
+function __vf_cd --description "Change directory to this virtualenv"
     if set -q VIRTUAL_ENV
         cd $VIRTUAL_ENV
     else
@@ -148,12 +141,12 @@ function __vf_cd --description "Change directory to currently-activated virtuale
     end
 end
 
-function __vf_cdpackages --description "Change to the site-packages directory of the active virtualenv"
+function __vf_cdpackages --description "Change to the site-packages directory of this virtualenv"
 	vf cd
 	cd lib/python*/site-packages
 end
 
-function __vf_tmp --description "Create a temporary virtualenv that will be removed when deactivated"
+function __vf_tmp --description "Create a virtualenv that will be removed when deactivated"
 	set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
     set -g VF_TEMPORARY_ENV
 
@@ -226,6 +219,19 @@ function __vf_connect --description "Connect this virtualenv to the current dire
     else
         echo "No virtualenv is active."
     end
+end
+
+function __vf_help --description "Print VirtualFish usage information"
+	echo "Usage: vf <command> [<args>]"
+	echo
+	echo "Available commands:"
+	echo
+	for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
+		set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
+		printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
+	end
+	echo
+	echo "For full documentation, see: http://virtualfish.readthedocs.org/en/latest/"
 end
 
 ################

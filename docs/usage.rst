@@ -7,7 +7,7 @@ Commands
 -  ``vf activate <envname>`` - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
--  ``vf deactivate`` - Deactivate the current
+=-  ``vf deactivate`` - Deactivate the current
    virtualenv.
 -  ``vf new [<options>] <envname>`` - Create a
    virtualenv. Note that ``<envname>`` *must be last*.
