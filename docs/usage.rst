@@ -48,24 +48,3 @@ All of these must be set before ``virtual.fish`` is sourced in your
 
 -  ``VIRTUALFISH_HOME`` (default: ``~/.virtualenvs``) - where all your
    virtualenvs are kept.
--  ``VIRTUALFISH_COMPAT_ALIASES`` - set this to create aliases for
-   ``workon`` and ``deactivate`` a la virtualenvwrapper. *Caveat:
-   ``deactivate`` exists (and can be overwritten) even when a virtualenv
-   is not active.*
-
-If you have pip 1.4+ and have used ``vf requirements`` to add global
-requirements that should be installed in all your virtual environments,
-adding the following configuration variables to
-``~/.config/fish/config.fish`` will significantly speed up the
-installation process:
-
-::
-
-    set -x PIP_USE_WHEEL "true"
-    set -x PIP_WHEEL_DIR "$HOME/.pip/wheels"
-    set -x PIP_FIND_LINKS "$HOME/.pip/wheels"
-    set -x PIP_DOWNLOAD_CACHE "$HOME/.pip/cache"
-
-These are standard pip settings and aren't directly related to
-virtualfish. The wheels and cache paths can be set to any arbitrary
-directories you prefer.
