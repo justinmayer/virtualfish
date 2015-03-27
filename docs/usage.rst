@@ -7,21 +7,17 @@ Commands
 -  ``vf activate <envname>`` - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
-=-  ``vf deactivate`` - Deactivate the current
-   virtualenv.
--  ``vf new [<options>] <envname>`` - Create a
-   virtualenv. Note that ``<envname>`` *must be last*.
--  ``vf tmp [<options>]`` - Create a temprorary
+-  ``vf addpath`` - Add a directory to the currently-activated virtualenv's ``sys.path``.
+-  ``vf cd`` - Change directory to the currently-activated virtualenv.
+-  ``vf cdpackages`` - Change directory to the currently-activated virtualenv's site-packages.
+-  ``vf deactivate`` - Deactivate the currently-activated virtualenv.
+-  ``vf ls`` - List the available virtualenvs.
+-  ``vf new [<options>] <envname>`` - Create a virtualenv. Note that
+   ``<envname>`` *must be last*.
+-  ``vf rm <envname>`` - Delete a virtualenv.
+-  ``vf tmp [<options>]`` - Create a temporary
    virtualenv with a randomly generated name that will be removed when
    it is deactivated.
--  ``vf rm <envname>`` - Delete a virtualenv.
--  ``vf ls`` - List the available virtualenvs.
--  ``vf cd`` - Change directory to
-   currently-activated virtualenv.
--  ``vf cdpackages`` - Change directory to
-   the currently-activated virtualenv's site-packages.
--  ``vf addpath`` - Add a directory to this
-   virtualenv's ``sys.path``.
 
 If you're used to virtualenvwrapper's commands (``workon``, etc), you may wish
 to enable the :ref:`compat_aliases` plugin.
