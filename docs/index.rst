@@ -14,6 +14,7 @@ Contents
    usage
    plugins
    extend
+   faq
    seealso
 
 Contributors
