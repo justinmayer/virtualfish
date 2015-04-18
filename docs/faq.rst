@@ -24,3 +24,19 @@ It's been suggested that we could use both, but that would add complexity for no
 real benefit. If pyvenv added new, broadly useful features not in virtualenv, or
 if virtualenv stopped working on Python 3, or if Python 2 went out of widespread
 use, this might change, but for now virtualenv is the best choice.
+
+Why doesn't Virtualfish use activate.fish?
+------------------------------------------
+
+Virtualfish uses its own internal virtualenv activation code instead of the
+``activate.fish`` file that comes with every virtualenv for two main reasons.
+One is that when Virtualfish was originally written, ``activate.fish`` didn't
+actually work. The second reason, which is still valid today, is that
+``activate.fish`` tries to modify your ``fish_prompt`` function.
+
+Because ``fish_prompt`` is a function and not a variable like in most other
+shells, modifying it programatically is not trivial, and the way that
+virtualenv accomplishes it is more than a little hacky. The benefit of it being
+a function is that the syntax for customising it is much less terse and cryptic
+than, say, ``PS1`` on Bash. This is why Virtualfish doesn't attempt to modify
+your prompt, and instead tells you how to do it yourself.
