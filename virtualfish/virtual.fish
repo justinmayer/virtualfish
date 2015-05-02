@@ -67,6 +67,11 @@ end
 
 function __vf_deactivate --description "Deactivate this virtualenv"
 
+    if not set -q VIRTUAL_ENV
+        echo "No virtualenv is activated."
+        return
+    end
+
 	emit virtualenv_will_deactivate
 	emit virtualenv_will_deactivate:(basename $VIRTUAL_ENV)
 
