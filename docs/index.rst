@@ -26,3 +26,10 @@ Sorted by date of first commit:
 -  Justin Mayer
 -  David Reid
 -  Alex Gaynor
+-  Álvaro Lázaro Gallego
+-  Jan Kasiak
+-  David Adam
+-  Robson Roberto Souza Peixoto
+-  Casey Chance
+-  fenekku
+-  Trung Ly
