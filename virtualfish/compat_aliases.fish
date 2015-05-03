@@ -2,7 +2,7 @@ function workon
     if not set -q argv[1]
         vf ls
     else
-        vf activate $argv[1]
+        vf workon $argv[1]
     end
 end
 function deactivate
