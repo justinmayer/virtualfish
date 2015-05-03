@@ -38,6 +38,9 @@ end
 function cdsitepackages
 	vf cdpackages $argv
 end
+function allvirtualenv
+    vf all $argv
+end
 
 complete -x -c workon -a "(vf ls)"
 complete -x -c rmvirtualenv -a "(vf ls)"

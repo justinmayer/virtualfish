@@ -28,6 +28,7 @@ Commands
 -  ``cdvirtualenv`` = ``vf cd``
 -  ``cdsitepackages`` = ``vf cdpackages``
 -  ``add2virtualenv`` = ``vf addpath``
+-  ``allvirtualenv`` = ``vf all``
 
 Auto-activation
 ---------------

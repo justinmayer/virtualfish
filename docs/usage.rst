@@ -22,8 +22,9 @@ Commands
    the currently-activated virtualenv's site-packages.
 -  ``vf addpath`` - Add a directory to this
    virtualenv's ``sys.path``.
+- ``vf all <command>`` - Run a command in all virtualenvs sequentially.
 
-If you're used to virtualenvwrapper's commands (``workon``, etc), you may wish
+If you're used to virtualenvwrapper's commands (``workon``, etc.), you may wish
 to enable the :ref:`compat_aliases` plugin.
 
 Using Different Pythons
