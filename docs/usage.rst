@@ -7,7 +7,7 @@ Commands
 -  ``vf activate <envname>`` - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
-=-  ``vf deactivate`` - Deactivate the current
+-  ``vf deactivate`` - Deactivate the current
    virtualenv.
 -  ``vf new [<options>] <envname>`` - Create a
    virtualenv. Note that ``<envname>`` *must be last*.
@@ -22,7 +22,7 @@ Commands
    the currently-activated virtualenv's site-packages.
 -  ``vf addpath`` - Add a directory to this
    virtualenv's ``sys.path``.
-- ``vf all <command>`` - Run a command in all virtualenvs sequentially.
+-  ``vf all <command>`` - Run a command in all virtualenvs sequentially.
 
 If you're used to virtualenvwrapper's commands (``workon``, etc.), you may wish
 to enable the :ref:`compat_aliases` plugin.
@@ -35,8 +35,8 @@ virtualfish) use the same Python version that ``virtualenv`` was installed
 under, which will usually be whatever your default system Python is.
 
 If you want to use something different in a particular virtualenv, just pass in
-the ``-p PYTHON_EXE`` argument to ``vf new``, where ``PYTHON_EXE`` is any Python
-executable, for example::
+the ``--python PYTHON_EXE`` (``-p`` for brevity) argument to ``vf new``, where
+``PYTHON_EXE`` is any Python executable, for example::
 
     vf new -p python3 my_python3_env
     vf new -p /usr/bin/pypy my_pypy_env

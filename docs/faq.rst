@@ -10,8 +10,8 @@ Does Virtualfish work with Python 3? What about PyPy?
 -----------------------------------------------------
 
 **Yes!** In fact, you can create Python 3 virtualenvs even if your system Python
-is Python 2, or vice versa, using the `--python` argument (see the 'Usage'
-section for full details).
+is Python 2, or vice versa, using the ``--python`` argument (see the :doc:`Usage
+<usage>` section for full details).
 
 Why does Virtualfish use Virtualenv and not pyvenv?
 ---------------------------------------------------
@@ -35,7 +35,7 @@ actually work. The second reason, which is still valid today, is that
 ``activate.fish`` tries to modify your ``fish_prompt`` function.
 
 Because ``fish_prompt`` is a function and not a variable like in most other
-shells, modifying it programatically is not trivial, and the way that
+shells, modifying it programmatically is not trivial, and the way that
 virtualenv accomplishes it is more than a little hacky. The benefit of it being
 a function is that the syntax for customising it is much less terse and cryptic
 than, say, ``PS1`` on Bash. This is why Virtualfish doesn't attempt to modify

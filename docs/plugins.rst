@@ -22,7 +22,7 @@ Commands
 
 -  ``workon <envname>`` = ``vf activate <envname>``
 -  ``deactivate`` = ``vf deactivate``
--  ``mkvirtualenv [<options>] <envname`` = ``vf new [<options>] <envname>``
+-  ``mkvirtualenv [<options>] <envname>`` = ``vf new [<options>] <envname>``
 -  ``mktmpenv [<options>]`` = ``vf tmp [<options>]``
 -  ``rmvirtualenv`` = ``vf rm <envname>``
 -  ``cdvirtualenv`` = ``vf cd``
