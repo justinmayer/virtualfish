@@ -116,6 +116,8 @@ Commands
    switches to the respective project directory. If ``VIRTUALFISH_COMPAT_ALIASES``
    is set, ``workon`` is aliased to this command.
 
+-  ``vf lsprojects`` - List projects available in ``$PROJECT_HOME`` (see below)
+
 Configuration Variables
 .......................
 
