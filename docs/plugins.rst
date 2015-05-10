@@ -118,6 +118,11 @@ Commands
 
 -  ``vf lsprojects`` - List projects available in ``$PROJECT_HOME`` (see below)
 
+-  ``vf cdproject`` - Search for a project matching the name of the currently
+   activated virtualenv. If found, this switches to the respective project
+   directory. If ``VIRTUALFISH_COMPAT_ALIASES`` is set, ``cdproject`` is aliased
+   to this command.
+
 Configuration Variables
 .......................
 
