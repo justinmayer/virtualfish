@@ -227,6 +227,8 @@ function __vf_all --description "Run a command in all virtualenvs sequentially"
 
     if set -q old_env
         vf activate $old_env
+	else
+		vf deactivate
     end
 end
 
