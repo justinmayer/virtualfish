@@ -4,23 +4,24 @@ Usage
 Commands
 --------
 
+In order of typical need and functionality:
+
 -  ``vf activate <envname>`` - Activate a
    virtualenv. (Note: Doesn't use the ``activate.fish`` script provided
    by virtualenv.)
-=-  ``vf deactivate`` - Deactivate the current
-   virtualenv.
--  ``vf new [<options>] <envname>`` - Create a
-   virtualenv. Note that ``<envname>`` *must be last*.
--  ``vf tmp [<options>]`` - Create a temprorary
+-  ``vf deactivate`` - Deactivate the currently-activated virtualenv.
+-  ``vf new [<options>] <envname>`` - Create a virtualenv. Note that
+   ``<envname>`` *must be last*.
+-  ``vf help`` or ``vf --help`` - Print usage information
+-  ``vf tmp [<options>]`` - Create a temporary
    virtualenv with a randomly generated name that will be removed when
    it is deactivated.
 -  ``vf rm <envname>`` - Delete a virtualenv.
 -  ``vf ls`` - List the available virtualenvs.
--  ``vf cd`` - Change directory to
-   currently-activated virtualenv.
--  ``vf cdpackages`` - Change directory to
-   the currently-activated virtualenv's site-packages.
--  ``vf addpath`` - Add a directory to this
+-  ``vf cd`` - Change directory to the currently-activated virtualenv.
+-  ``vf cdpackages`` - Change directory to the currently-activated
+   virtualenv's site-packages.
+-  ``vf addpath`` - Add a directory to the currently-activated
    virtualenv's ``sys.path``.
 - ``vf all <command>`` - Run a command in all virtualenvs sequentially.
 
