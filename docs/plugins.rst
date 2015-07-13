@@ -30,8 +30,8 @@ Commands
 -  ``add2virtualenv`` = ``vf addpath``
 -  ``allvirtualenv`` = ``vf all``
 
-Auto-activation
----------------
+Auto-activation (``auto_activation``)
+--------------------------------------
 
 With this plugin enabled,
 virtualfish can automatically activate a virtualenv when you are in a
@@ -63,8 +63,8 @@ State Variables
    activated automatically, set to the directory that triggered the
    activation. Otherwise unset.
 
-Global Requirements
--------------------
+Global Requirements (``global_requirements``)
+---------------------------------------------
 
 Keeps a global ``requirements.txt`` file that is applied to every existing and
 new virtualenv.
@@ -75,8 +75,8 @@ Commands
 -  ``vf requirements`` - Edit the global requirements file in your
    ``$EDITOR``. Applies the requirements to all virtualenvs on exit.
 
-Projects
---------
+Projects (``projects``)
+-----------------------
 
 This plugin adds project management capabilities, including automatic directory
 switching upon virtual environment activation. Typically a project directory
