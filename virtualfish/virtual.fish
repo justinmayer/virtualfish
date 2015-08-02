@@ -239,6 +239,10 @@ if not set -q VIRTUALFISH_ACTIVATION_FILE
     set -g VIRTUALFISH_ACTIVATION_FILE .venv
 end
 
+if not set -q VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+    set -g VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE "no-global-site-packages.txt"
+end
+
 
 function __vf_connect --description "Connect this virtualenv to the current directory"
     if set -q VIRTUAL_ENV
@@ -259,6 +263,23 @@ function __vf_help --description "Print VirtualFish usage information"
 	end
 	echo
 	echo "For full documentation, see: http://virtualfish.readthedocs.org/en/latest/"
+end
+
+function __vf_globalpackages --description "Toggle global site packages"
+  if set -q VIRTUAL_ENV
+      vf cd
+      # use site-packages/.. to avoid ending up in python-wheels
+      cd lib/python*/site-packages/..
+      if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+        echo "Enabling global site packages"
+        rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+      else
+        echo "Disabling global site packages"
+        touch $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+      end
+    else
+        echo "No virtualenv is active."
+    end
 end
 
 ################
