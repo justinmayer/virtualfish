@@ -49,3 +49,4 @@ All of these must be set before ``virtual.fish`` is sourced in your
 
 -  ``VIRTUALFISH_HOME`` (default: ``~/.virtualenvs``) - where all your
    virtualenvs are kept.
+-  ``VIRTUALFISH_DEFAULT_PYTHON`` - The default Python interpreter to use when creating a new virtualenv; the value should be a valid argument to ``virtualenv``'s ``--python`` flag.

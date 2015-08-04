@@ -106,6 +106,9 @@ function __vf_new --description "Create a new virtualenv"
     emit virtualenv_will_create
 	set envname $argv[-1]
 	set -e argv[-1]
+    if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set argv "--python" $VIRTUALFISH_DEFAULT_PYTHON $argv
+    end
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
 	if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
