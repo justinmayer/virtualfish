@@ -1,6 +1,8 @@
 # VirtualFish
 # A Virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrapper
 
+set -g VIRTUALFISH_VERSION master
+
 if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
@@ -258,7 +260,7 @@ function __vf_help --description "Print VirtualFish usage information"
 		printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
 	end
 	echo
-	echo "For full documentation, see: http://virtualfish.readthedocs.org/en/latest/"
+	echo "For full documentation, see: http://virtualfish.readthedocs.org/en/$VIRTUALFISH_VERSION/"
 end
 
 ################
