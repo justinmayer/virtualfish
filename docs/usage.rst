@@ -30,8 +30,8 @@ virtualfish) use the same Python version that ``virtualenv`` was installed
 under, which will usually be whatever your default system Python is.
 
 If you want to use something different in a particular virtualenv, just pass in
-the ``-p PYTHON_EXE`` argument to ``vf new``, where ``PYTHON_EXE`` is any Python
-executable, for example::
+the ``--python PYTHON_EXE`` (``-p`` for brevity) argument to ``vf new``, where
+``PYTHON_EXE`` is any Python executable, for example::
 
     vf new -p python3 my_python3_env
     vf new -p /usr/bin/pypy my_pypy_env
