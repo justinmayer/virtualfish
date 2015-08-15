@@ -2,6 +2,10 @@
 
 Whether you're reporting a bug or contributing code, you're helping to make virtualfish better, and for that, thank you!
 
+## Code of Conduct
+
+The [Contributor Covenant 1.2](http://contributor-covenant.org/version/1/2/0/) applies to all spaces associated with this project (e.g. GitHub, the IRC channel). If you need to make a report, email [adam@brenecki.id.au](mailto:adam@brenecki.id.au).
+
 ## Filing Helpful Issues
 
 Here's a few tips on how to file a useful issue.
