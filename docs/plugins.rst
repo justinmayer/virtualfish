@@ -42,6 +42,12 @@ This will save the name of the virtualenv to the file ``.venv``. Virtualfish
 will then look for this file every time you ``cd`` into the directory (or
 ``pushd``, or anything else that modifies ``$PWD``).
 
+
+.. note::
+
+    When this plugin is enabled, ensure any modifications to your ``$PATH`` in
+    your ``config.fish`` happen before virtualfish is loaded.
+
 Commands
 ........
 
