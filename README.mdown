@@ -6,7 +6,7 @@ A Fish Shell wrapper for Ian Bicking's [virtualenv](https://virtualenv.pypa.io/e
 
 You can get started by [reading the documentation on Read The Docs](http://virtualfish.readthedocs.org/en/latest/). (It's quite short, I promise.)
 
-You can also get help on [#virtualfish on OFTC](ircs://irc.oftc.net:6697/#virtualfish), the same network as the [Fish IRC channel](ircs://irc.oftc.net:6697/#fish).
+You can also get help on [#virtualfish on OFTC](https://www.irccloud.com/#!/ircs://irc.oftc.net:6697/%23virtualfish) (`ircs://irc.oftc.net:6697/#virtualfish`), the same network as the [Fish IRC channel](https://www.irccloud.com/#!/ircs://irc.oftc.net:6697/%23fish).
 
 If virtualfish is useful to you, feel free to [make a weekly gift on Gittip](https://www.gittip.com/adambrenecki/) or [a monthly one on Flattr](https://flattr.com/submit/auto?user_id=adambrenecki&url=https%3A%2F%2Fgithub.com%2Fadambrenecki%2Fvirtualfish%2F).
 
