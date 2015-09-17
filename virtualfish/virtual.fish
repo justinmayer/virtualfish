@@ -109,7 +109,7 @@ function __vf_new --description "Create a new virtualenv"
     if set -q VIRTUALFISH_DEFAULT_PYTHON
         set argv "--python" $VIRTUALFISH_DEFAULT_PYTHON $argv
     end
-	virtualenv $argv $VIRTUALFISH_HOME/$envname
+	env PIP_USER=0 virtualenv $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
 	if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
 		vf activate $envname
