@@ -60,9 +60,25 @@ function __vf_lsprojects --description "List projects"
     popd
 end
 
+function __vf_cdproject --description "Change working directory to project directory"
+    if [ ! -d $PROJECT_HOME ]
+        return 2
+    end
+
+    if set -q VIRTUAL_ENV
+        set -l project_name (basename $VIRTUAL_ENV)
+        if [ -d $PROJECT_HOME/$project_name ]
+            cd $PROJECT_HOME/$project_name
+        end
+    end
+end
+
 if set -q VIRTUALFISH_COMPAT_ALIASES
     function mkproject
         vf project $argv
+    end
+    function cdproject
+        vf cdproject
     end
     function workon
         if not set -q argv[1]
