@@ -57,10 +57,14 @@ function __vf_activate --description "Activate a virtualenv"
 	set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
 	set -gx PATH $_VF_EXTRA_PATH $PATH
 
-	# hide PYTHONHOME
+	# hide PYTHONHOME, PIP_USER
 	if set -q PYTHONHOME
 		set -g _VF_OLD_PYTHONHOME $PYTHONHOME
 		set -e PYTHONHOME
+	end
+	if set -q PIP_USER
+		set -g _VF_OLD_PIP_USER $PIP_USER
+		set -e PIP_USER
 	end
 
 	emit virtualenv_did_activate
@@ -90,10 +94,14 @@ function __vf_deactivate --description "Deactivate this virtualenv"
 		set -e PATH[$i]
 	end
 
-	# restore PYTHONHOME
+	# restore PYTHONHOME, PIP_USER
 	if set -q _VF_OLD_PYTHONHOME
 		set -gx PYTHONHOME $_VF_OLD_PYTHONHOME
 		set -e _VF_OLD_PYTHONHOME
+	end
+	if set -q _VF_OLD_PIP_USER
+		set -gx PIP_USER $_VF_OLD_PIP_USER
+		set -e _VF_OLD_PIP_USER
 	end
 
 	emit virtualenv_did_deactivate
@@ -109,6 +117,7 @@ function __vf_new --description "Create a new virtualenv"
     if set -q VIRTUALFISH_DEFAULT_PYTHON
         set argv "--python" $VIRTUALFISH_DEFAULT_PYTHON $argv
     end
+	set -lx PIP_USER 0
 	virtualenv $argv $VIRTUALFISH_HOME/$envname
 	set vestatus $status
 	if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
