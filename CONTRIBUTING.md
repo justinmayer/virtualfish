@@ -21,7 +21,7 @@ Here's a few tips on how to file a useful issue.
 Thanks for giving your time to work on Virtualfish's code! To have your patch merged as quickly as possible, please make sure you follow these rules.
 
 - If features **are going to be used by the majority of users**, add them to `virtual.fish`. Otherwise, create a plugin if you can.
-- If you're adding a feature, think about whether it belongs in `virtual.fish` or as a plugin (seperate `.fish` file in this repository). If in doubt, make it a plugin.
+- If you're adding a feature, think about whether it belongs in `virtual.fish` or as a plugin (separate `.fish` file in this repository). If in doubt, make it a plugin.
 - Make sure you **update the documentation** if you make user-facing changes, e.g. adding/changing/removing commands or config variables.
 - All text content (variable/function names, code comments, documentation, Git commit messages) **must be in English**. (The preference is for Australian English, but any English will do.)
 - Git commits in this repository must follow the **[AngularJS Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit)**, with the exception that the body and footer are optional.
