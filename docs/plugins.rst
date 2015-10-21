@@ -25,6 +25,7 @@ Commands
 -  ``mkvirtualenv [<options>] <envname>`` = ``vf new [<options>] <envname>``
 -  ``mktmpenv [<options>]`` = ``vf tmp [<options>]``
 -  ``rmvirtualenv`` = ``vf rm <envname>``
+-  ``lsvirtualenv`` = ``vf ls``
 -  ``cdvirtualenv`` = ``vf cd``
 -  ``cdsitepackages`` = ``vf cdpackages``
 -  ``add2virtualenv`` = ``vf addpath``

@@ -26,6 +26,9 @@ function mkvirtualenv
 
     vf new $argv $env_name
 end
+function lsvirtualenv
+    vf ls
+end
 function rmvirtualenv
     vf rm $argv
 end
