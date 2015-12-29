@@ -18,6 +18,10 @@ Commands
    site-packages.
 -  ``vf addpath`` - Add a directory to this virtualenv's ``sys.path``.
 -  ``vf all <command>`` - Run a command in all virtualenvs sequentially.
+-  ``vf connect`` - Connect the current working directory with the currently
+   active virtualenv. This requires the :ref:`auto-activation plugin
+   <auto_activation>` to be enabled in order to have any effect besides creating
+   a :file:`.venv` file in the current directory.
 
 If you're used to virtualenvwrapper's commands (``workon``, etc.), you may wish
 to enable the :ref:`compat_aliases` plugin.

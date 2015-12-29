@@ -31,6 +31,9 @@ Commands
 -  ``add2virtualenv`` = ``vf addpath``
 -  ``allvirtualenv`` = ``vf all``
 
+
+.. _auto_activation:
+
 Auto-activation (``auto_activation``)
 --------------------------------------
 
