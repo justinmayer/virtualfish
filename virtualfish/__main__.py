@@ -5,7 +5,7 @@ import inspect
 
 
 if __name__ == "__main__":
-    base_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    base_path = os.path.dirname(os.path.abspath(__file__))
     commands = ['. {}'.format(os.path.join(base_path, 'virtual.fish'))]
 
     for plugin in sys.argv[1:]:
