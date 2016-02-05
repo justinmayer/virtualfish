@@ -1,7 +1,6 @@
 from __future__ import print_function
 import os
 import sys
-import inspect
 
 
 if __name__ == "__main__":
