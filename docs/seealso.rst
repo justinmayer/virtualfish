@@ -8,5 +8,5 @@ project and it's not on this list, please file a pull request.
 Prompts
 -------
 
-- The ``bobthefish`` plugin for `oh-my-fish<https://github.com/bpinto/oh-my-fish>`__
+- The ``bobthefish`` plugin for `oh-my-fish <https://github.com/bpinto/oh-my-fish>`_
   supports virtualfish.
