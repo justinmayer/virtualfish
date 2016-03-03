@@ -1,7 +1,7 @@
 # VirtualFish
 # A Virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrapper
 
-set -g VIRTUALFISH_VERSION master
+set -g VIRTUALFISH_VERSION 1.0.1
 
 if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
@@ -272,6 +272,8 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 end
 
 function __vf_help --description "Print VirtualFish usage information"
+    echo "virtualfish $VIRTUALFISH_VERSION"
+    echo
 	echo "Usage: vf <command> [<args>]"
 	echo
 	echo "Available commands:"

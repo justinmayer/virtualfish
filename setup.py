@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(name='virtualfish',
-    version='1.0.0', # Don't forget to change this in docs/conf.py and virtual.fish too!
+    version='1.0.1', # Don't forget to change this in docs/conf.py and virtual.fish too!
     description='A virtualenv wrapper for the Fish shell',
     author='Adam Brenecki',
     author_email='adam@brenecki.id.au',
