@@ -167,7 +167,7 @@ end
 
 function __vf_cdpackages --description "Change to the site-packages directory of this virtualenv"
 	vf cd
-	cd lib/python*/site-packages
+    cd (find . -name site-packages -type d | head -n1)
 end
 
 function __vf_tmp --description "Create a virtualenv that will be removed when deactivated"
