@@ -127,6 +127,11 @@ function __vf_new --description "Create a new virtualenv"
 	else
 		echo "Error: The virtualenv wasn't created properly."
 		echo "virtualenv returned status $vestatus."
+        if test (count $argv) -ge 1
+            echo "Make sure you put any option flags before the virtualenv name."
+            echo "Good example: "(set_color green)"vf new -p python3.5 myproject" (set_color normal)
+            echo "Bad example:  "(set_color red)"vf new myproject -p python3.5" (set_color normal)
+        end
 		return 1
 	end
 end
