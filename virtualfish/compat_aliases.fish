@@ -44,6 +44,9 @@ end
 function allvirtualenv
     vf all $argv
 end
+function setvirtualenvproject
+    vf connect
+end
 function toggleglobalsitepackages
     vf globalpackages
 end
