@@ -111,6 +111,12 @@ function __vf_deactivate --description "Deactivate this virtualenv"
 end
 
 function __vf_new --description "Create a new virtualenv"
+
+    # Deactivate the current virtualenv, if one is active
+	if set -q VIRTUAL_ENV
+		vf deactivate
+	end
+
     emit virtualenv_will_create
 	set envname $argv[-1]
 	set -e argv[-1]
@@ -172,24 +178,16 @@ end
 
 function __vf_tmp --description "Create a virtualenv that will be removed when deactivated"
 	set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
+	vf new $argv $env_name
     set -g VF_TEMPORARY_ENV
+end
 
-	# Use will_deactivate here so that $VIRTUAL_ENV is available.
-	function __vf_tmp_remove --on-event virtualenv_will_deactivate:$env_name
-		echo "Removing $VIRTUAL_ENV"
+function __vfsupport_remove_env_on_deactivate_or_exit --on-event virtualenv_did_deactivate --on-process %self
+    if set -q VF_TEMPORARY_ENV
+        echo "Removing temporary virtualenv" (basename $VIRTUAL_ENV)
 		rm -rf $VIRTUAL_ENV
         set -e VF_TEMPORARY_ENV
-	end
-
-    # Ensure that the virtualenv gets deleted even if we close the shell w/o
-    # explicitly deactivating.
-    function __vfsupport_remove_temp_env_on_exit --on-process %self
-        if set -q VF_TEMPORARY_ENV
-            vf deactivate # the deactivate handler will take care of removing it
-        end
     end
-
-	vf new $argv $env_name
 end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
