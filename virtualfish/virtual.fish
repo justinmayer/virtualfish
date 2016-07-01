@@ -1,8 +1,6 @@
 # VirtualFish
 # A Virtualenv wrapper for the Fish Shell based on Doug Hellman's virtualenvwrapper
 
-set -g VIRTUALFISH_VERSION 1.0.1
-
 if not set -q VIRTUALFISH_HOME
 	set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end

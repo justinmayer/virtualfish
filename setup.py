@@ -1,17 +1,16 @@
 from setuptools import setup, find_packages
 
 setup(name='virtualfish',
-    version='1.0.1', # Don't forget to change this in docs/conf.py and virtual.fish too!
     description='A virtualenv wrapper for the Fish shell',
     author='Adam Brenecki',
     author_email='adam@brenecki.id.au',
     url='https://github.com/adambrenecki/virtualfish',
     packages=find_packages(),
-    package_data={'': ['*.fish']},
     include_package_data=True,
     setup_requires=[
-        'setuptools_git>=0.3',
+        'setuptools_scm>=1.11.1',
     ],
+    use_scm_version=True,
     install_requires=[
         'virtualenv',
     ],
