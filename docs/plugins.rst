@@ -30,6 +30,7 @@ Commands
 -  ``cdsitepackages`` = ``vf cdpackages``
 -  ``add2virtualenv`` = ``vf addpath``
 -  ``allvirtualenv`` = ``vf all``
+-  ``setvirtualenvproject`` = ``vf connect``
 
 
 .. _auto_activation:

@@ -33,16 +33,19 @@ function rmvirtualenv
     vf rm $argv
 end
 function add2virtualenv
-	vf addpath $argv
+    vf addpath $argv
 end
 function cdvirtualenv
-	vf cd $argv
+    vf cd $argv
 end
 function cdsitepackages
-	vf cdpackages $argv
+    vf cdpackages $argv
 end
 function allvirtualenv
     vf all $argv
+end
+function setvirtualenvproject
+    vf connect
 end
 function toggleglobalsitepackages
     vf globalpackages

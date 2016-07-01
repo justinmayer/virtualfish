@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 
-setup(name='virtualfish',
+setup(
+    name='virtualfish',
     description='A virtualenv wrapper for the Fish shell',
     author='Adam Brenecki',
     author_email='adam@brenecki.id.au',
@@ -14,7 +15,7 @@ setup(name='virtualfish',
     install_requires=[
         'virtualenv',
     ],
-    classifiers = [
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
