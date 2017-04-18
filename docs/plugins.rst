@@ -139,3 +139,20 @@ Configuration Variables
 
 -  ``PROJECT_HOME`` (default: ``~/projects/``) - Where to create new projects
    and where to look for existing projects.
+
+Environment Variables (``environment``)
+---------------------------------------
+
+This plugin provides the ability to automatically set environment variables
+when a virtual environment is activated. The environment variables are stored
+in ``$VIRTUAL_ENV/virtualfish-environment``. If a variable with that name
+already exists, that value is stored in ``__VF_ENVIRONMENT_OLD_VALUE_$key``.
+
+When the virtual environment is deactivated, if there was an existing value it
+is returned to the key. Otherwise, the key is deleted.
+
+Commands
+........
+
+- ``vf environment`` - Open the ``virtualfish-environment`` file in ``$EDITOR``
+  for the active virtual environment.
