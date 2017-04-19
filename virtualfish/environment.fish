@@ -35,6 +35,9 @@ end
 function __vf_environment --description "Edit the environment variables for the active virtual environment"
     if set -q 'VIRTUAL_ENV'
         eval $EDITOR $VIRTUAL_ENV/virtualfish-environment
+        # Deactivate before applying new env vars to avoid stomping stashed values
+        __vfext_environment_deactivate
+        __vfext_environment_activate
     else
         echo "Must have a virtual env active to run command"
     end
