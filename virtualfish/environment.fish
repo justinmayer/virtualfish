@@ -1,6 +1,12 @@
 function __vfext_environment_activate --on-event virtualenv_did_activate
     if test -f $VIRTUAL_ENV/virtualfish-environment
         for line in (cat $VIRTUAL_ENV/virtualfish-environment)
+            # Skip empty lines and comments
+            if not string length -q $line
+                or test (string sub -s 1 -l 1 $line) = "#"
+                continue
+            end
+
             set key (echo $line | cut -d = -f 1)
             set value (echo $line | cut -d = -f 2-)
 
@@ -18,6 +24,12 @@ end
 function __vfext_environment_deactivate --on-event virtualenv_will_deactivate
     if test -f $VIRTUAL_ENV/virtualfish-environment
         for line in (cat $VIRTUAL_ENV/virtualfish-environment)
+            # Skip empty lines and comments
+            if not string length -q $line
+                or test (string sub -s 1 -l 1 $line) = "#"
+                continue
+            end
+
             set key (echo $line | cut -d = -f 1)
             set old_key __VF_ENVIRONMENT_OLD_VALUE_$key
 

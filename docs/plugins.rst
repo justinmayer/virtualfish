@@ -151,6 +151,16 @@ already exists, that value is stored in ``__VF_ENVIRONMENT_OLD_VALUE_$key``.
 When the virtual environment is deactivated, if there was an existing value it
 is returned to the key. Otherwise, the key is deleted.
 
+The format of ``$VIRTUAL_ENV/virtualfish-environment`` is one key-value set per
+line separated by an ``=``. Empty lines are ignored, as are any lines that
+start with ``#``. See the following::
+
+    # This is a valid comment and declaration
+    FOO=bar
+
+    # The empty line above is valid
+    BAR=baz  # A following comment like this is NOT okay
+
 Commands
 ........
 
