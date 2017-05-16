@@ -147,7 +147,7 @@ This plugin provides the ability to automatically set environment variables
 when a virtual environment is activated. The environment variables are stored
 in a ``.env`` file by default. This can be configured by setting
 ``VIRTUALFISH_ENVIRONMENT_FILE`` to the desired file name. When using the
-`Projects (``projects``)`_ plugin, the env file is stored in the project
+`Projects (projects)`_ plugin, the env file is stored in the project
 directory unless it is manually created in the ``$VIRTUAL_ENV`` directory. If
 the projects plugin isn't being used, the file is stored in the ``$VIRTUAL_ENV``
 directory.
