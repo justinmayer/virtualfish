@@ -145,15 +145,23 @@ Environment Variables (``environment``)
 
 This plugin provides the ability to automatically set environment variables
 when a virtual environment is activated. The environment variables are stored
-in ``$VIRTUAL_ENV/virtualfish-environment``. If a variable with that name
-already exists, that value is stored in ``__VF_ENVIRONMENT_OLD_VALUE_$key``.
+in a ``.env`` file by default. This can be configured by setting
+``VIRTUALFISH_ENVIRONMENT_FILE`` to the desired file name. When using the
+`Projects (``projects``)`_ plugin, the env file is stored in the project
+directory unless it is manually created in the ``$VIRTUAL_ENV`` directory. If
+the projects plugin isn't being used, the file is stored in the ``$VIRTUAL_ENV``
+directory.
 
-When the virtual environment is deactivated, if there was an existing value it
-is returned to the key. Otherwise, the key is deleted.
+When the virtualenv is activated, the values in the env file will be added to
+the environment. If a variable with that name already exists, that value is
+stored in ``__VF_ENVIRONMENT_OLD_VALUE_$key``.
 
-The format of ``$VIRTUAL_ENV/virtualfish-environment`` is one key-value set per
-line separated by an ``=``. Empty lines are ignored, as are any lines that
-start with ``#``. See the following::
+When the virtual environment is deactivated, if there was a pre-existing value
+it is returned to the environment. Otherwise, the variable is erased.
+
+The format of the env file is one key-value set per line separated by an ``=``.
+Empty lines are ignored, as are any lines that start with ``#``. See the
+following::
 
     # This is a valid comment and declaration
     FOO=bar
@@ -164,5 +172,5 @@ start with ``#``. See the following::
 Commands
 ........
 
-- ``vf environment`` - Open the ``virtualfish-environment`` file in ``$EDITOR``
-  for the active virtual environment.
+- ``vf environment`` - Open the env file for the active virtual environment in
+  ``$VISUAL``/``$EDITOR`` or ``vi`` if neither variable is set.
