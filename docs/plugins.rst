@@ -139,3 +139,38 @@ Configuration Variables
 
 -  ``PROJECT_HOME`` (default: ``~/projects/``) - Where to create new projects
    and where to look for existing projects.
+
+Environment Variables (``environment``)
+---------------------------------------
+
+This plugin provides the ability to automatically set environment variables
+when a virtual environment is activated. The environment variables are stored
+in a ``.env`` file by default. This can be configured by setting
+``VIRTUALFISH_ENVIRONMENT_FILE`` to the desired file name. When using the
+`Projects (projects)`_ plugin, the env file is stored in the project
+directory unless it is manually created in the ``$VIRTUAL_ENV`` directory. If
+the projects plugin isn't being used, the file is stored in the ``$VIRTUAL_ENV``
+directory.
+
+When the virtualenv is activated, the values in the env file will be added to
+the environment. If a variable with that name already exists, that value is
+stored in ``__VF_ENVIRONMENT_OLD_VALUE_$key``.
+
+When the virtual environment is deactivated, if there was a pre-existing value
+it is returned to the environment. Otherwise, the variable is erased.
+
+The format of the env file is one key-value set per line separated by an ``=``.
+Empty lines are ignored, as are any lines that start with ``#``. See the
+following::
+
+    # This is a valid comment and declaration
+    FOO=bar
+
+    # The empty line above is valid
+    BAR=baz  # A following comment like this is NOT okay
+
+Commands
+........
+
+- ``vf environment`` - Open the env file for the active virtual environment in
+  ``$VISUAL``/``$EDITOR`` or ``vi`` if neither variable is set.
