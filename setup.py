@@ -18,6 +18,11 @@ setup(
         'virtualenv',
         'xdg>=1.0.5,<2',
     ],
+    extras_require={
+        'dev': [
+            'pytest>=3.1.3,<3.2',
+        ],
+    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
