@@ -13,7 +13,10 @@ setup(
     ],
     use_scm_version=True,
     install_requires=[
+        'pkgconfig>=1.2.2,<2',
+        'psutil>=5.2.2,<6',
         'virtualenv',
+        'xdg>=1.0.5,<2',
     ],
     classifiers=[
         'Development Status :: 5 - Production/Stable',
