@@ -5,8 +5,11 @@ import os
 import subprocess
 from subprocess import PIPE
 import time
-from queue import Queue
 from threading import Thread
+try:
+    from queue import Queue
+except ImportError:
+    from Queue import Queue
 
 def write_thread(q, f):
     while True:
