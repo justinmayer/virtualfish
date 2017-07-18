@@ -58,7 +58,7 @@ class Fish:
         # it), and so on.
         self.subp = subprocess.Popen(
             (
-                "/usr/local/Cellar/fish/2.4.0/bin/fish", 
+                "fish", 
                 os.path.join(os.path.dirname(__file__), 'repl.fish'),
             ),
             stdin=PIPE, stdout=PIPE, stderr=PIPE,

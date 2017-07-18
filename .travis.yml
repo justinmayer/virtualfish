@@ -1,7 +1,11 @@
 language: python
+dist: trusty
+sudo: required
 python:
   - "2.7"
   - "3.5"
   - "3.6"
-install: "pip install -e .[dev]"
+install: 
+  - "sudo apt-get install fish"
+  - "pip install -e .[dev]"
 script: pytest
