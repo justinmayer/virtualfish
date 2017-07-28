@@ -175,9 +175,17 @@ end
 
 function __vf_ls --description "List all of the available virtualenvs"
     pushd $VIRTUALFISH_HOME
-    for i in */$VIRTUALFISH_BIN_SUBDIR/python
+
+    # in MSYS the python binary will be a .exe
+    if set -q MSYSTEM
+        set suffix .exe
+    else
+        set suffix ""
+    end
+
+    for i in */$VIRTUALFISH_BIN_SUBDIR/python$suffix
         echo $i
-    end | sed "s|/$VIRTUALFISH_BIN_SUBDIR/python||"
+    end | sed "s|/$VIRTUALFISH_BIN_SUBDIR/python$suffix||"
     popd
 end
 
