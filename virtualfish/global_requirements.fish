@@ -12,7 +12,7 @@ function __vf_requirements --description "Edit the global requirements file for 
     if set -q PIP_USE_WHEEL
         pip wheel -r $VIRTUALFISH_HOME/global_requirements.txt
     end
-    for i in */bin/pip
+    for i in */$VIRTUALFISH_BIN_SUBDIR/pip
         eval $i install -U -r $VIRTUALFISH_HOME/global_requirements.txt
     end
     popd

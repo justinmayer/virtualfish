@@ -5,6 +5,13 @@ if not set -q VIRTUALFISH_HOME
     set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+# location of python binaries in an environment
+if set -q MSYSTEM
+    set -g VIRTUALFISH_BIN_SUBDIR Scripts
+else
+    set -g VIRTUALFISH_BIN_SUBDIR bin
+end
+
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     # Check for existence of $VIRTUALFISH_HOME
     if not test -d $VIRTUALFISH_HOME
@@ -65,7 +72,7 @@ function __vf_activate --description "Activate a virtualenv"
     emit virtualenv_will_activate
     emit virtualenv_will_activate:$argv[1]
 
-    set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
+    set -g _VF_EXTRA_PATH $VIRTUAL_ENV/$VIRTUALFISH_BIN_SUBDIR
     set -gx PATH $_VF_EXTRA_PATH $PATH
 
     # hide PYTHONHOME, PIP_USER
@@ -168,9 +175,9 @@ end
 
 function __vf_ls --description "List all of the available virtualenvs"
     pushd $VIRTUALFISH_HOME
-    for i in */bin/python
+    for i in */$VIRTUALFISH_BIN_SUBDIR/python
         echo $i
-    end | sed "s|/bin/python||"
+    end | sed "s|/$VIRTUALFISH_BIN_SUBDIR/python||"
     popd
 end
 
@@ -203,7 +210,7 @@ end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
     if set -q VIRTUAL_ENV
-        set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
+        set -l site_packages (eval "$VIRTUAL_ENV/$VIRTUALFISH_BIN_SUBDIR/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
         set -l path_file $site_packages/_virtualenv_path_extensions.pth
 
         set -l remove 0
@@ -218,7 +225,7 @@ function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
         end
 
         for pydir in $argv
-            set -l absolute_path (eval "$VIRTUAL_ENV/bin/python -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
+            set -l absolute_path (eval "$VIRTUAL_ENV/$VIRTUALFISH_BIN_SUBDIR/python -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
             if not test $pydir = $absolute_path
                 echo "Warning: Converting \"$pydir\" to \"$absolute_path\"" 1>&2
             end
