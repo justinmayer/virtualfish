@@ -10,13 +10,13 @@ if __name__ == "__main__":
     commands = [
         'set -g VIRTUALFISH_VERSION {}'.format(version),
         'set -g VIRTUALFISH_PYTHON_EXEC {}'.format(sys.executable),
-        '. {}'.format(os.path.join(base_path, 'virtual.fish')),
+        'source {}'.format(os.path.join(base_path, 'virtual.fish')),
     ]
 
     for plugin in sys.argv[1:]:
         path = os.path.join(base_path, plugin + '.fish')
         if os.path.exists(path):
-            commands.append('. {}'.format(path))
+            commands.append('source {}'.format(path))
         else:
             print('virtualfish loader error: plugin {} does not exist!'.format(plugin), file=sys.stderr)
 
