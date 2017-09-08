@@ -6,6 +6,7 @@ import subprocess
 from subprocess import PIPE
 import time
 from threading import Thread
+import tempfile
 try:
     from queue import Queue
 except ImportError:
@@ -52,6 +53,7 @@ class Fish:
     state (variables, loaded functions, etc).
     """
     def __init__(self):
+        homedir = tempfile.mkdtemp(prefix="vf-fish-home")
         # Start Fish up with our custom REPL. We don't use the built-in
         # REPL because if we run Fish non-interactively we can't tell
         # the difference between Fish waiting for input and whatever
@@ -61,10 +63,11 @@ class Fish:
         # it), and so on.
         self.subp = subprocess.Popen(
             (
-                "fish", 
+                subprocess.check_output(('which', 'fish')).strip(), 
                 os.path.join(os.path.dirname(__file__), 'repl.fish'),
             ),
             stdin=PIPE, stdout=PIPE, stderr=PIPE,
+            env={'HOME': homedir},
         )
         # We read and write to/from stdin/out/err in threads, to prevent
         # deadlocks (see the warning in the subprocess docs).
