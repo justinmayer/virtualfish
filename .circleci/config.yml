@@ -14,25 +14,25 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        keys:
-        - v1-dependencies-{{ checksum "setup.py" }}
-        - v1-dependencies-
+          keys:
+          - v1-dependencies-{{ checksum "setup.py" }}
+          - v1-dependencies-
       - run:
-        name: Install dependencies
-        command: |
-          pip install virtualenv
-          virtualenv venv
-          . venv/bin/activate
-          pip install -e .[dev]
+          name: Install dependencies
+          command: |
+            pip install virtualenv
+            virtualenv venv
+            . venv/bin/activate
+            pip install -e .[dev]
       - save_cache:
-        paths:
-          - ./venv
-        key: v1-dependencies-{{ checksum "setup.py" }}
+          paths:
+            - ./venv
+          key: v1-dependencies-{{ checksum "setup.py" }}
       - run:
-        name: Run tests
-        command: |
-          . venv/bin/activate
-          pytest
+          name: Run tests
+          command: |
+            . venv/bin/activate
+            pytest
   test-3.5:
     <<: *test-template
     docker:
