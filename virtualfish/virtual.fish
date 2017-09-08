@@ -288,7 +288,7 @@ function __vf_help --description "Print VirtualFish usage information"
     echo "Available commands:"
     echo
     for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
-        set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
+        set -l helptext (functions "__vf_$sc" | grep '^function ' | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
         printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
     end
     echo
