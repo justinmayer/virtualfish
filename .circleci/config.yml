@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build-3.6: &build-template
+    docker:
+      image: circleci/python:3.6
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+        keys:
+        - v1-dependencies-{{ checksum "setup.py" }}
+        - v1-dependencies-
+      - run:
+        name: Install dependencies
+        command: |
+          pip install virtualenv
+          virtualenv venv
+          . venv/bin/activate
+          pip install -e .[dev]
+      - save_cache:
+        paths:
+          - ./venv
+        key: v1-dependencies-{{ checksum "setup.py" }}
+      - run:
+        name: Run tests
+        command: |
+          . venv/bin/activate
+          pytest
+  build-3.5:
+    <<: *build-template
+    docker:
+      image: circleci/python:3.5
+  build-2.7:
+    <<: *build-template
+    docker:
+      image: circleci/python:2.7
