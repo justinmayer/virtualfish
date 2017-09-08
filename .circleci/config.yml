@@ -20,8 +20,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            pip install --user virtualenv
-            $HOME/.local/bin/virtualenv venv
+            python -m venv venv || virtualenv venv
             . venv/bin/activate
             pip install -e .[dev]
       - save_cache:
