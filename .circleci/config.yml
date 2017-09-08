@@ -1,6 +1,13 @@
 version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test-3.6
+      - test-3.5
+      - test-2.7
 jobs:
-  build-3.6: &build-template
+  test-3.6: &test-template
     docker:
       image: circleci/python:3.6
     working_directory: ~/repo
@@ -26,11 +33,11 @@ jobs:
         command: |
           . venv/bin/activate
           pytest
-  build-3.5:
-    <<: *build-template
+  test-3.5:
+    <<: *test-template
     docker:
       image: circleci/python:3.5
-  build-2.7:
-    <<: *build-template
+  test-2.7:
+    <<: *test-template
     docker:
       image: circleci/python:2.7
