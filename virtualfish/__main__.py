@@ -9,7 +9,7 @@ if __name__ == "__main__":
     base_path = os.path.dirname(os.path.abspath(__file__))
     commands = [
         'set -g VIRTUALFISH_VERSION {}'.format(version),
-        'set -g VIRTUALFISH_PYTHON_EXEC {}'.format(sys.executable),
+        'set -g VIRTUALFISH_PYTHON_EXEC "{}"'.format(sys.executable),
         'source "{}"'.format(os.path.join(base_path, 'virtual.fish')),
     ]
 
