@@ -10,7 +10,7 @@ if __name__ == "__main__":
     commands = [
         'set -g VIRTUALFISH_VERSION {}'.format(version),
         'set -g VIRTUALFISH_PYTHON_EXEC {}'.format(sys.executable),
-        'source {}'.format(os.path.join(base_path, 'virtual.fish')),
+        'source "{}"'.format(os.path.join(base_path, 'virtual.fish')),
     ]
 
     for plugin in sys.argv[1:]:
