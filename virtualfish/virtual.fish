@@ -65,7 +65,11 @@ function __vf_activate --description "Activate a virtualenv"
     emit virtualenv_will_activate
     emit virtualenv_will_activate:$argv[1]
 
-    set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
+    if test -e $VIRTUAL_ENV/bin
+        set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
+    else if test -e $VIRTUAL_ENV/Scripts
+        set -g _VF_EXTRA_PATH $VIRTUAL_ENV/Scripts
+    end
     set -gx PATH $_VF_EXTRA_PATH $PATH
 
     # hide PYTHONHOME, PIP_USER
@@ -168,9 +172,15 @@ end
 
 function __vf_ls --description "List all of the available virtualenvs"
     pushd $VIRTUALFISH_HOME
-    for i in */bin/python
-        echo $i
-    end | sed "s|/bin/python||"
+    if set -q OS; and [ $OS = 'Windows_NT' ]
+        for i in */Scripts/python.exe
+            echo $i
+        end | string replace -a '/Scripts/python.exe' ''
+    else
+        for i in */bin/python
+            echo $i
+        end | sed "s|/bin/python||"
+    end
     popd
 end
 
@@ -203,7 +213,11 @@ end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
     if set -q VIRTUAL_ENV
-        set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
+        if set -q OS; and [ $OS = 'Windows_NT'
+            set -l site_packages = (eval "$VIRTUAL_ENV/Scripts/python.exe -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
+        else
+            set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
+        end
         set -l path_file $site_packages/_virtualenv_path_extensions.pth
 
         set -l remove 0
@@ -218,7 +232,11 @@ function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
         end
 
         for pydir in $argv
-            set -l absolute_path (eval "$VIRTUAL_ENV/bin/python -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
+            if set -q OS; and [ $OS = 'Windows_NT' ]
+                set -l absolute_path (eval "$VIRTUAL_ENV/Scripts/python.exe -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
+            else
+                set -l absolute_path (eval "$VIRTUAL_ENV/bin/python -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
+            end
             if not test $pydir = $absolute_path
                 echo "Warning: Converting \"$pydir\" to \"$absolute_path\"" 1>&2
             end
