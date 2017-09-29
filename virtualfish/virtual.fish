@@ -5,6 +5,14 @@ if not set -q VIRTUALFISH_HOME
     set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+if set -q OS; and [ $OS = 'Windows_NT' ]
+    set -g VIRTUALFISH_BIN_DIR Scripts
+    set -g VIRTUALFISH_PYTHON_BINARY python.exe
+else
+    set -g VIRTUALFISH_BIN_DIR bin
+    set -g VIRTUALFISH_PYTHON_BINARY python
+end
+
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     # Check for existence of $VIRTUALFISH_HOME
     if not test -d $VIRTUALFISH_HOME
@@ -65,11 +73,7 @@ function __vf_activate --description "Activate a virtualenv"
     emit virtualenv_will_activate
     emit virtualenv_will_activate:$argv[1]
 
-    if test -e $VIRTUAL_ENV/bin
-        set -g _VF_EXTRA_PATH $VIRTUAL_ENV/bin
-    else if test -e $VIRTUAL_ENV/Scripts
-        set -g _VF_EXTRA_PATH $VIRTUAL_ENV/Scripts
-    end
+    set -g _VF_EXTRA_PATH $VIRTUAL_ENV/$VIRTUALFISH_BIN_DIR
     set -gx PATH $_VF_EXTRA_PATH $PATH
 
     # hide PYTHONHOME, PIP_USER
@@ -172,15 +176,9 @@ end
 
 function __vf_ls --description "List all of the available virtualenvs"
     pushd $VIRTUALFISH_HOME
-    if set -q OS; and [ $OS = 'Windows_NT' ]
-        for i in */Scripts/python.exe
-            echo $i
-        end | string replace -a '/Scripts/python.exe' ''
-    else
-        for i in */bin/python
-            echo $i
-        end | sed "s|/bin/python||"
-    end
+    for i in */$VIRTUALFISH_BIN_DIR/$VIRTUALFISH_PYTHON_BINARY
+        echo $i
+    end | string replace -a /$VIRTUALFISH_BIN_DIR/$VIRTUALFISH_PYTHON_BINARY ''
     popd
 end
 
@@ -213,11 +211,7 @@ end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
     if set -q VIRTUAL_ENV
-        if set -q OS; and [ $OS = 'Windows_NT'
-            set -l site_packages = (eval "$VIRTUAL_ENV/Scripts/python.exe -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
-        else
-            set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
-        end
+        set -l site_packages (eval "$VIRTUAL_ENV/$VIRTUALFISH_BIN_DIR/$VIRTUALFISH_PYTHON_BINARY -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
         set -l path_file $site_packages/_virtualenv_path_extensions.pth
 
         set -l remove 0
@@ -232,11 +226,7 @@ function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
         end
 
         for pydir in $argv
-            if set -q OS; and [ $OS = 'Windows_NT' ]
-                set -l absolute_path (eval "$VIRTUAL_ENV/Scripts/python.exe -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
-            else
-                set -l absolute_path (eval "$VIRTUAL_ENV/bin/python -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
-            end
+            set -l absolute_path (eval "$VIRTUAL_ENV/$VIRTUALFISH_BIN_DIR/$VIRTUALFISH_PYTHON_BINARY -c 'import os,sys; sys.stdout.write(os.path.abspath(\"$pydir\")+\"\n\")'")
             if not test $pydir = $absolute_path
                 echo "Warning: Converting \"$pydir\" to \"$absolute_path\"" 1>&2
             end
