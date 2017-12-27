@@ -91,7 +91,7 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         end
     end
 
-    complete -x -c workon -a "(ls $PROJECT_HOME)"
+    complete -x -c workon -a "(vf lsprojects)"
 end
 
-complete -x -c vf -n '__vfcompletion_using_command workon' -a "(ls $PROJECT_HOME)"
+complete -x -c vf -n '__vfcompletion_using_command workon' -a "(vf lsprojects)"
