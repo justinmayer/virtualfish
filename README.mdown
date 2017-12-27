@@ -1,7 +1,5 @@
 # virtualfish
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/ZjCPzQcxZixByTGnxdnfPdoQ/adambrenecki/virtualfish'>  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/ZjCPzQcxZixByTGnxdnfPdoQ/adambrenecki/virtualfish.svg' /></a>
-
 [![PyPI](https://img.shields.io/pypi/v/virtualfish.svg)](https://pypi.python.org/pypi/virtualfish) [![GitHub issues](https://img.shields.io/github/issues/adambrenecki/virtualfish.svg)](https://github.com/adambrenecki/virtualfish/issues) [![GitHub forks](https://img.shields.io/github/forks/adambrenecki/virtualfish.svg)](https://github.com/adambrenecki/virtualfish/network) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/adambrenecki/virtualfish/master/LICENSE) [![irc.oftc.net/#virtualfish](https://img.shields.io/badge/irc.oftc.net-%23virtualfish-brightgreen.svg)](https://webchat.oftc.net/?randomnick=1&channels=virtualfish)
 
 A Fish Shell wrapper for Ian Bicking's [virtualenv](https://virtualenv.pypa.io/en/latest/), somewhat loosely based on Doug Hellman's [virtualenvwrapper](https://bitbucket.org/dhellmann/virtualenvwrapper) for Bourne-compatible shells.
