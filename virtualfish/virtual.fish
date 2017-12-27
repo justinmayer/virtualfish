@@ -81,10 +81,6 @@ function __vf_activate --description "Activate a virtualenv"
     emit virtualenv_did_activate
     emit virtualenv_did_activate:(basename $VIRTUAL_ENV)
 
-    if test -e $VIRTUAL_ENV/.project
-        set project_path (cat $VIRTUAL_ENV/.project)
-        cd $project_path
-    end
 end
 
 function __vf_deactivate --description "Deactivate this virtualenv"

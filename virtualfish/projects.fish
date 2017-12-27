@@ -17,6 +17,9 @@ function __vf_workon --description "Work on a project"
         if [ -d $PROJECT_HOME/$argv[1] ]
             cd $PROJECT_HOME/$argv[1]
         end
+        if test -e $VIRTUAL_ENV/.project
+            cd (cat $VIRTUAL_ENV/.project)
+        end
     # Matches a project name but not a virtualenv name
     else if [ -d $PROJECT_HOME/$argv[1] ]
         set -l project_name $argv[1]
