@@ -64,10 +64,15 @@ function __vf_lsprojects --description "List projects"
 end
 
 function __vf_cdproject --description "Change working directory to project directory"
+
+    if test -e $VIRTUAL_ENV/.project
+        cd (cat $VIRTUAL_ENV/.project)
+        return
+    end
+
     if [ ! -d $PROJECT_HOME ]
         return 2
     end
-
     if set -q VIRTUAL_ENV
         set -l project_name (basename $VIRTUAL_ENV)
         if [ -d $PROJECT_HOME/$project_name ]
