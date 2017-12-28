@@ -46,6 +46,15 @@ function __vf_project --description "Create a new project and virtualenv with th
         vf new $argv
         mkdir -p $project_path
         cd $project_path
+
+functions --copy __vf_new __vf__new_projects_original
+function __vf_new --wraps=__vf_new
+    set -l options (fish_opt --short a --required)
+    # kill stderr as argparse throws errors on unknonw parameters
+    argparse --name 'vf new' $options -- $argv ^/dev/null
+    if __vf__new_projects_original $argv; and test -n $_flag_a
+        cd $_flag_a
+        and pwd >?$VIRTUAL_ENV/.project
     end
 end
 
