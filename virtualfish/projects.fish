@@ -37,15 +37,26 @@ function __vf_workon --description "Work on a project"
 end
 
 function __vf_project --description "Create a new project and virtualenv with the name provided"
-    set -l project_name $argv[-1]
-    set -l project_path "$PROJECT_HOME/$project_name"
-    if [ -d $project_path ]
-        echo "A project with that name already exists at: $project_path"
-        return 2
-    else
-        vf new $argv
-        mkdir -p $project_path
-        cd $project_path
+    set -l options "(fish_opt --short a --required)"
+    # kill stderr as argparse throws errors on unknonw parameters
+    argparse --name 'vf project' $options -- $argv  ^/dev/null
+
+    if test -z $_flag_a # no porject path given, use plugin standard project path
+        set -l project_name $argv[-1]
+        set -l project_path "$PROJECT_HOME/$project_name"
+        if [ -d $project_path ]
+            echo "A project with that name already exists at: $project_path"
+            return 2
+        else
+            vf new $argv
+            mkdir -p $project_path
+            cd $project_path
+        end
+    else if vf new $argv # -a $project_path given
+        cd $_flag_a
+        and pwd >?$VIRTUAL_ENV/.project
+    end
+end
 
 functions --copy __vf_new __vf__new_projects_original
 function __vf_new --wraps=__vf_new
