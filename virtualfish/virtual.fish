@@ -292,7 +292,13 @@ function __vf_help --description "Print VirtualFish usage information"
         printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
     end
     echo
-    echo "For full documentation, see: http://virtualfish.readthedocs.org/en/$VIRTUALFISH_VERSION/"
+
+    if set -q VIRTUALFISH_VERSION
+        set help_url "http://virtualfish.readthedocs.org/en/$VIRTUALFISH_VERSION/"
+    else
+        set help_url "http://virtualfish.readthedocs.org/en/latest/"
+    end
+    echo "For full documentation, see: $help_url"
 end
 
 function __vf_globalpackages --description "Toggle global site packages"
