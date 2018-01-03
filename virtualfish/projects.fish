@@ -17,6 +17,9 @@ function __vf_workon --description "Work on a project"
         if [ -d $PROJECT_HOME/$argv[1] ]
             cd $PROJECT_HOME/$argv[1]
         end
+        if test -e $VIRTUAL_ENV/.project
+            cd (cat $VIRTUAL_ENV/.project)
+        end
     # Matches a project name but not a virtualenv name
     else if [ -d $PROJECT_HOME/$argv[1] ]
         set -l project_name $argv[1]
@@ -34,15 +37,35 @@ function __vf_workon --description "Work on a project"
 end
 
 function __vf_project --description "Create a new project and virtualenv with the name provided"
-    set -l project_name $argv[-1]
-    set -l project_path "$PROJECT_HOME/$project_name"
-    if [ -d $project_path ]
-        echo "A project with that name already exists at: $project_path"
-        return 2
-    else
-        vf new $argv
-        mkdir -p $project_path
-        cd $project_path
+    set -l options "(fish_opt --short a --required)"
+    # kill stderr as argparse throws errors on unknonw parameters
+    argparse --name 'vf project' $options -- $argv  ^/dev/null
+
+    if test -z $_flag_a # no porject path given, use plugin standard project path
+        set -l project_name $argv[-1]
+        set -l project_path "$PROJECT_HOME/$project_name"
+        if [ -d $project_path ]
+            echo "A project with that name already exists at: $project_path"
+            return 2
+        else
+            vf new $argv
+            mkdir -p $project_path
+            cd $project_path
+        end
+    else if vf new $argv # -a $project_path given
+        cd $_flag_a
+        and pwd >?$VIRTUAL_ENV/.project
+    end
+end
+
+functions --copy __vf_new __vf__new_projects_original
+function __vf_new --wraps=__vf_new
+    set -l options (fish_opt --short a --required)
+    # kill stderr as argparse throws errors on unknonw parameters
+    argparse --name 'vf new' $options -- $argv ^/dev/null
+    if __vf__new_projects_original $argv; and test -n $_flag_a
+        cd $_flag_a
+        and pwd >?$VIRTUAL_ENV/.project
     end
 end
 
@@ -61,10 +84,15 @@ function __vf_lsprojects --description "List projects"
 end
 
 function __vf_cdproject --description "Change working directory to project directory"
+
+    if test -e $VIRTUAL_ENV/.project
+        cd (cat $VIRTUAL_ENV/.project)
+        return
+    end
+
     if [ ! -d $PROJECT_HOME ]
         return 2
     end
-
     if set -q VIRTUAL_ENV
         set -l project_name (basename $VIRTUAL_ENV)
         if [ -d $PROJECT_HOME/$project_name ]
@@ -91,7 +119,7 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         end
     end
 
-    complete -x -c workon -a "(ls $PROJECT_HOME)"
+    complete -x -c workon -a "(vf lsprojects)"
 end
 
-complete -x -c vf -n '__vfcompletion_using_command workon' -a "(ls $PROJECT_HOME)"
+complete -x -c vf -n '__vfcompletion_using_command workon' -a "(vf lsprojects)"

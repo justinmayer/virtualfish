@@ -80,6 +80,7 @@ function __vf_activate --description "Activate a virtualenv"
 
     emit virtualenv_did_activate
     emit virtualenv_did_activate:(basename $VIRTUAL_ENV)
+
 end
 
 function __vf_deactivate --description "Deactivate this virtualenv"
