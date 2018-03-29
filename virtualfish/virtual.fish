@@ -342,7 +342,7 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
 
     # add completion for subcommands
     for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
-        set -l helptext (functions "__vf_$sc" | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
+        set -l helptext (functions "__vf_$sc" | grep -m1 "^function" | sed -E "s|.*'(.*)'.*|\1|")
         complete -x -c vf -n '__vfcompletion_needs_command' -a $sc -d $helptext
     end
 
