@@ -21,6 +21,7 @@ setup(
     extras_require={
         'dev': [
             'pytest>=3.1.3,<3.2',
+            'pytest-xdist>=1.22.2,<1.23',
         ],
     },
     classifiers=[
