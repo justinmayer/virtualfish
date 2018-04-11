@@ -2,10 +2,6 @@ from .repl import Fish
 import pytest
 from ..loader import load
 
-@pytest.fixture
-def f():
-    return Fish()
-
 def test_main_script(f):
     _, _, status = f.run('\n'.join(load()))
     assert status == 0

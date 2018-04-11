@@ -54,6 +54,7 @@ class Fish:
     """
     def __init__(self):
         homedir = tempfile.mkdtemp(prefix="vf-fish-home")
+        self.homedir = homedir
         # Start Fish up with our custom REPL. We don't use the built-in
         # REPL because if we run Fish non-interactively we can't tell
         # the difference between Fish waiting for input and whatever

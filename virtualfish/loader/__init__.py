@@ -5,7 +5,7 @@ import pkg_resources
 
 
 def load(plugins=()):
-        try:
+    try:
         version = pkg_resources.get_distribution('virtualfish').version
         commands = ['set -g VIRTUALFISH_VERSION {}'.format(version)]
     except pkg_resources.DistributionNotFound:
