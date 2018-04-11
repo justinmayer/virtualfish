@@ -174,3 +174,32 @@ Commands
 
 - ``vf environment`` - Open the env file for the active virtual environment in
   ``$VISUAL``/``$EDITOR`` or ``vi`` if neither variable is set.
+
+Update Python (``update_python``)
+-----------------------
+
+This plugin adds commands to change the python interpreter of the current
+virtual environment.
+
+Commands
+........
+
+-  ``vf update_python [<python_exe>]`` - Remove the current virtual environment
+   and create a new one with ``<python_exe>`` (defaults to
+   ``VIRTUALFISH_DEFAULT_PYTHON`` if it is set, or the first executable named
+   ``python`` in your ``PATH``), and then reinstall all packages in the same
+   versions with pip.
+
+-  ``vf fix_python [<python_exe>]`` - Test the current python executable on the
+   current virtual environment. If it doesn't work, update it with ``vf
+   update_python [<python_exe>]``. This may be usefull when one of your system's
+   python executable is updated, and some of your virtual environments are
+   broken: you probably just need to run ``vf all vf fix_python``.
+
+Configuration Variables
+.......................
+
+-  ``VIRTUALFISH_DEFAULT_PYTHON`` (default: ``python``) - The python interpreter
+   to use if not specified on the command line.
+
+
