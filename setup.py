@@ -24,6 +24,9 @@ setup(
             'pytest-xdist>=1.22.2,<1.23',
         ],
     },
+    entry_points={
+        'console_scripts': ['vf = virtualfish.loader.cli:main'],
+    },
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',

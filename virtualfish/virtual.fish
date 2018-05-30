@@ -349,3 +349,14 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
 end
+
+function __vf_install --description "Install virtualfish"
+    echo "virtualfish is already installed! Hooray!"
+end
+
+function __vf_uninstall --description "Uninstall virtualfish"
+    python -m virtualfish.loader.installer uninstall
+    echo "virtualfish has been uninstalled from this shell."
+    echo "Run 'exec fish' to reload fish."
+    echo "Note that the Python package will still be installed, and needs to be removed separately (e.g. using 'pip uninstall')."
+end
