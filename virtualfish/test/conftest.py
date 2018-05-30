@@ -17,9 +17,6 @@ def vf(f):
 
 @pytest.fixture
 def vf_active(vf):
-    out, _, status = vf.run("vf new myenv")
-    print(out)
-    assert status == 0
-    _, _, status = vf.run("vf activate myenv")
-    assert status == 0
+    vf.run("vf new myenv")
+    vf.run("vf activate myenv")
     return vf

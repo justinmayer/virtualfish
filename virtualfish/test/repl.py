@@ -2,6 +2,7 @@
 """
 
 import os
+import sys
 import subprocess
 from subprocess import PIPE
 import time
@@ -75,8 +76,8 @@ class Fish:
         self.stdin_q = write(self.subp.stdin)
         self.stdout_q = read(self.subp.stdout)
         self.stderr_q = read(self.subp.stderr)
-    
-    def run(self, cmd):
+
+    def run(self, cmd, expected_exit_codes=(0,)):
         """Run a command on the REPL.
 
         The command can do anything except read from standard input
@@ -86,17 +87,30 @@ class Fish:
 
         :param cmd: The command to run.
         :type cmd: str|bytes
-        :return: Standard output, standard error, return code.
-        :rtype: Tuple[bytes, bytes, int]
+        :param expected_exit_codes: The exit codes you expect the
+            to produce.
+        :type expected_exit_codes: Iterable[int]
+        :return: Standard output, standard error.
+        :rtype: Tuple[bytes, bytes]
         """
         if isinstance(cmd, str):
             cmd = cmd.encode('utf8')
+
         self.stdin_q.put(cmd)
         self.stdin_q.put(b'\0')
         output = q_until_null(self.stdout_q)
         error = q_until_null(self.stderr_q)
         status = int(q_until_null(self.stdout_q).decode('utf8'))
-        return output, error, status
+
+        if status not in expected_exit_codes:
+            sys.stdout.write(output)
+            sys.stderr.write(error)
+            raise ValueError("Expected command to exit with {}, got {}".format(
+                expected_exit_codes, status
+            ))
+    
+        return output, error
+
 
 if __name__ == "__main__":
     # If invoked directly, executes a bunch of simple test commands.

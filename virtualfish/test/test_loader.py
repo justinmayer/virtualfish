@@ -3,10 +3,8 @@ import pytest
 from ..loader import load
 
 def test_main_script(f):
-    _, _, status = f.run('\n'.join(load()))
-    assert status == 0
-    _, _, status = f.run("functions -q vf")
-    assert status == 0
+    f.run('\n'.join(load()))
+    f.run("functions -q vf")
 
 
 def test_plugin_setup_event(f):
@@ -15,7 +13,6 @@ def test_plugin_setup_event(f):
         set -g LOAD_EVENT_FIRED 1
     end
     """)
-    _, _, status = f.run('\n'.join(load()))
-    assert status == 0
-    out, _, _ = f.run("echo $LOAD_EVENT_FIRED")
+    f.run('\n'.join(load()))
+    out, _ = f.run("echo $LOAD_EVENT_FIRED")
     assert out == b'1\n'

@@ -6,14 +6,15 @@ def f():
     return Fish()
 
 def test_stdout(f):
-    assert f.run("echo 1") == (b'1\n', b'', 0)
+    assert f.run("echo 1") == (b'1\n', b'')
 
 def test_stderr(f):
-    assert f.run("echo 1 >&2") == (b'', b'1\n', 0)
+    assert f.run("echo 1 >&2") == (b'', b'1\n')
 
 def test_variables(f):
     f.run("set foo bar")
-    assert f.run("echo $foo") == (b'bar\n', b'', 0)
+    assert f.run("echo $foo") == (b'bar\n', b'')
 
 def test_return_value(f):
-    assert f.run("false") == (b'', b'', 1)
+    with pytest.raises(ValueError):
+        f.run("false")
