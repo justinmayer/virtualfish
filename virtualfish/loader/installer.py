@@ -1,4 +1,6 @@
-import os, sys, errno
+import os
+import sys
+import errno
 
 from xdg import XDG_CONFIG_HOME
 
@@ -15,15 +17,13 @@ def install(plugins):
 
     # Wrap os.makesdirs to catch error in case directy is already created
     try:
-        os.makedirs(INSTALL_DIR, exist_ok=True)
+        os.makedirs(INSTALL_DIR, 755)
     except OSError as e:
         if e.errno != errno.EEXIST:
             raise
 
-
     with open(INSTALL_FILE, 'w') as f:
         f.write('\n'.join(lines))
-
 
 
 def uninstall():
