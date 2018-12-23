@@ -303,9 +303,8 @@ end
 
 function __vf_globalpackages --description "Toggle global site packages"
   if set -q VIRTUAL_ENV
-      vf cd
       # use site-packages/.. to avoid ending up in python-wheels
-      cd lib/python*/site-packages/..
+      pushd $VIRTUAL_ENV/lib/python*/site-packages/..
       if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
         echo "Enabling global site packages"
         rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
@@ -313,6 +312,7 @@ function __vf_globalpackages --description "Toggle global site packages"
         echo "Disabling global site packages"
         touch $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
       end
+      popd
     else
         echo "No virtualenv is active."
     end
