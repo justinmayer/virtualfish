@@ -113,6 +113,20 @@ the target virtualenv name, you can manually specify which virtualenv should be
 activated for a given project by creating a ``.venv`` file inside the project
 root containing the name of the corresponding virtualenv.
 
+If you use sub-folders, have projects located outside of ``PROJECT_HOME``, or
+utilize a project organization strategy that does not lend itself to storing
+all your projects in the root of a single directory, you may navigate to your
+project and associate the current working directory with the currently-activated
+virtual environment via the following example steps::
+
+   vf activate YourVirtualenv
+   cd /path/to/your/project
+   echo $PWD > $VIRTUALENV/.project
+
+In the future, you may then run ``vf workon YourVirtualenv`` to simultaneously
+activate ``YourVirtualenv`` and switch to the ``/path/to/your/project``
+directory.
+
 Commands
 ........
 

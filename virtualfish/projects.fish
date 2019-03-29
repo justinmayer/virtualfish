@@ -14,7 +14,15 @@ function __vf_workon --description "Work on a project"
     # Matches a virtualenv name and possibly a project name
     if [ -d $VIRTUALFISH_HOME/$argv[1] ]
         vf activate $argv[1]
-        if [ -d $PROJECT_HOME/$argv[1] ]
+        if [ -e $VIRTUAL_ENV/.project ]
+            set -l project_file_path (cat $VIRTUAL_ENV/.project)
+            if [ -d $project_file_path ]
+                cd $project_file_path
+            else
+                echo ".project file path does not exist: $project_file_path"
+                return 2
+            end
+        else if [ -d $PROJECT_HOME/$argv[1] ]
             cd $PROJECT_HOME/$argv[1]
         end
     # Matches a project name but not a virtualenv name
@@ -61,14 +69,20 @@ function __vf_lsprojects --description "List projects"
 end
 
 function __vf_cdproject --description "Change working directory to project directory"
-    if [ ! -d $PROJECT_HOME ]
-        return 2
-    end
-
     if set -q VIRTUAL_ENV
-        set -l project_name (basename $VIRTUAL_ENV)
-        if [ -d $PROJECT_HOME/$project_name ]
-            cd $PROJECT_HOME/$project_name
+        if [ -e $VIRTUAL_ENV/.project ]
+            set -l project_file_path (cat $VIRTUAL_ENV/.project)
+            if [ -d $project_file_path ]
+                cd $project_file_path
+            else
+                echo ".project file path does not exist: $project_file_path"
+                return 2
+            end
+        else if [ -n "$PROJECT_HOME" ]
+            set -l project_name (basename $VIRTUAL_ENV)
+            if [ -d $PROJECT_HOME/$project_name ]
+                cd $PROJECT_HOME/$project_name
+            end
         end
     end
 end
@@ -91,7 +105,7 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         end
     end
 
-    complete -x -c workon -a "(ls $PROJECT_HOME)"
+    complete -x -c workon -a "(vf lsprojects)"
 end
 
-complete -x -c vf -n '__vfcompletion_using_command workon' -a "(ls $PROJECT_HOME)"
+complete -x -c vf -n '__vfcompletion_using_command workon' -a "(vf lsprojects)"
