@@ -127,6 +127,24 @@ In the future, you may then run ``vf workon YourVirtualenv`` to simultaneously
 activate ``YourVirtualenv`` and switch to the ``/path/to/your/project``
 directory.
 
+.. note::
+
+
+    If you're using *compat_aliases* with *projects*:
+
+    1. Set ``VIRTUALFISH_COMPAT_ALIASES``
+    2. Load the ``projects`` plug-in after ``compat_aliases``.
+
+    Example:
+
+    ::
+
+        set -g VIRTUALFISH_COMPAT_ALIASES yes
+        eval (python -m virtualfish compat_aliases projects)
+
+    ``workon`` then becomes alias for ``vf workon`` instead of ``vf activate``.
+
+
 Commands
 ........
 
@@ -153,6 +171,7 @@ Configuration Variables
 
 -  ``PROJECT_HOME`` (default: ``~/projects/``) - Where to create new projects
    and where to look for existing projects.
+
 
 Environment Variables (``environment``)
 ---------------------------------------
@@ -190,7 +209,7 @@ Commands
   ``$VISUAL``/``$EDITOR`` or ``vi`` if neither variable is set.
 
 Update Python (``update_python``)
------------------------
+---------------------------------
 
 This plugin adds commands to change the python interpreter of the current
 virtual environment.
