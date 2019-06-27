@@ -8,36 +8,30 @@ end
 
 function __vf_workon --description "Work on a project"
     if [ (count $argv) -lt 1 ]
-        echo "You must specify a project or virtual environment."
+        echo "You must specify a project"
         return 1
     end
-    # Matches a virtualenv name and possibly a project name
-    if [ -d $VIRTUALFISH_HOME/$argv[1] ]
-        vf activate $argv[1]
-        if [ -e $VIRTUAL_ENV/.project ]
-            set -l project_file_path (cat $VIRTUAL_ENV/.project)
-            if [ -d $project_file_path ]
-                cd $project_file_path
-            else
-                echo ".project file path does not exist: $project_file_path"
-                return 2
-            end
-        else if [ -d $PROJECT_HOME/$argv[1] ]
-            cd $PROJECT_HOME/$argv[1]
+    
+    # match a directory and determines if activation is needed or done by [auto_activation]
+    if [ -d $PROJECT_HOME/$argv[1] ]
+	cd $PROJECT_HOME/$argv[1]
+	if [ -d $VIRTUALFISH_HOME/$argv[1] ]
+	    if not set -q VIRTUAL_ENV
+		vf activate $argv[1]
+	    end
+	else
+	    echo "No virtual environment found"
         end
-    # Matches a project name but not a virtualenv name
-    else if [ -d $PROJECT_HOME/$argv[1] ]
-        set -l project_name $argv[1]
-        set -l venv_file "$PROJECT_HOME/$project_name/$VIRTUALFISH_ACTIVATION_FILE"
-        if [ -f $venv_file ]
-            vf activate (cat $venv_file)
-        else
-            echo "No virtual environment found."
+    else 
+	if [ -d $VIRTUALFISH_HOME/$argv[1] ]
+	    echo "$argv[1] virtual environment has no directory, creating it..."
+	    mkdir $PROJECT_HOME/$argv[1]
+	    echo $argv[1] >> "$PROJECT_HOME/$argv[1]/$VIRTUALFISH_ACTIVATION_FILE"
+	    vf workon $argv[1]
+	else
+            echo "No project or virtual environment named $argv[1] exists."
+	    return 2
         end
-        cd $PROJECT_HOME/$argv[1]
-    else
-        echo "No project or virtual environment named $argv[1] exists."
-        return 2
     end
 end
 
@@ -69,20 +63,14 @@ function __vf_lsprojects --description "List projects"
 end
 
 function __vf_cdproject --description "Change working directory to project directory"
+    if [ ! -d $PROJECT_HOME ]
+        return 2
+    end
+
     if set -q VIRTUAL_ENV
-        if [ -e $VIRTUAL_ENV/.project ]
-            set -l project_file_path (cat $VIRTUAL_ENV/.project)
-            if [ -d $project_file_path ]
-                cd $project_file_path
-            else
-                echo ".project file path does not exist: $project_file_path"
-                return 2
-            end
-        else if [ -n "$PROJECT_HOME" ]
-            set -l project_name (basename $VIRTUAL_ENV)
-            if [ -d $PROJECT_HOME/$project_name ]
-                cd $PROJECT_HOME/$project_name
-            end
+        set -l project_name (basename $VIRTUAL_ENV)
+        if [ -d $PROJECT_HOME/$project_name ]
+            cd $PROJECT_HOME/$project_name
         end
     end
 end
@@ -105,7 +93,7 @@ if set -q VIRTUALFISH_COMPAT_ALIASES
         end
     end
 
-    complete -x -c workon -a "(vf lsprojects)"
+    complete -x -c workon -a "(ls $PROJECT_HOME)"
 end
 
-complete -x -c vf -n '__vfcompletion_using_command workon' -a "(vf lsprojects)"
+complete -x -c vf -n '__vfcompletion_using_command workon' -a "(ls $PROJECT_HOME)"
