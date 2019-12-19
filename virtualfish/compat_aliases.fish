@@ -3,10 +3,11 @@ function workon
         vf ls
     else
         vf activate $argv[1]
+        function deactivate
+            vf deactivate
+            functions -e deactivate
+        end
     end
-end
-function deactivate
-    vf deactivate
 end
 function mktmpenv
     vf tmp $argv
