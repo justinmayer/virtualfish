@@ -103,8 +103,8 @@ class Fish:
         status = int(q_until_null(self.stdout_q).decode('utf8'))
 
         if status not in expected_exit_codes:
-            sys.stdout.write(output)
-            sys.stderr.write(error)
+            sys.stdout.write(str(output))
+            sys.stderr.write(str(error))
             raise ValueError("Expected command to exit with {}, got {}".format(
                 expected_exit_codes, status
             ))
