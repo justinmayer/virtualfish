@@ -1,5 +1,7 @@
 # virtualfish
 
+[![Build Status](https://img.shields.io/github/workflow/status/justinmayer/virtualfish/build)](https://github.com/justinmayer/virtualfish/actions)
+
 A Fish Shell wrapper for Ian Bicking's [virtualenv](https://virtualenv.pypa.io/en/latest/), somewhat loosely based on Doug Hellman's [virtualenvwrapper](https://bitbucket.org/dhellmann/virtualenvwrapper) for Bourne-compatible shells.
 
 You can get started by [reading the documentation on Read The Docs](http://virtualfish.readthedocs.org/en/latest/). (It's quite short, I promise.)
