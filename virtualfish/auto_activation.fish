@@ -11,7 +11,7 @@ function __vfsupport_auto_activate --on-variable PWD
     set -l new_virtualenv_name ""
     while test $activation_root != ""
         if test -f "$activation_root/$VIRTUALFISH_ACTIVATION_FILE"
-            set new_virtualenv_name (cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
+            set new_virtualenv_name (command cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
             break
         end
         # this strips the last path component from the path.

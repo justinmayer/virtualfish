@@ -15,7 +15,7 @@ function __vf_workon --description "Work on a project"
     if [ -d $VIRTUALFISH_HOME/$argv[1] ]
         vf activate $argv[1]
         if [ -e $VIRTUAL_ENV/.project ]
-            set -l project_file_path (cat $VIRTUAL_ENV/.project)
+            set -l project_file_path (command cat $VIRTUAL_ENV/.project)
             if [ -d $project_file_path ]
                 cd $project_file_path
             else
@@ -30,7 +30,7 @@ function __vf_workon --description "Work on a project"
         set -l project_name $argv[1]
         set -l venv_file "$PROJECT_HOME/$project_name/$VIRTUALFISH_ACTIVATION_FILE"
         if [ -f $venv_file ]
-            vf activate (cat $venv_file)
+            vf activate (command cat $venv_file)
         else
             echo "No virtual environment found."
         end
@@ -71,7 +71,7 @@ end
 function __vf_cdproject --description "Change working directory to project directory"
     if set -q VIRTUAL_ENV
         if [ -e $VIRTUAL_ENV/.project ]
-            set -l project_file_path (cat $VIRTUAL_ENV/.project)
+            set -l project_file_path (command cat $VIRTUAL_ENV/.project)
             if [ -d $project_file_path ]
                 cd $project_file_path
             else

@@ -163,7 +163,7 @@ function __vf_rm --description "Delete a virtualenv"
         return 1
     end
     echo "Removing $VIRTUALFISH_HOME/$argv[1]"
-    rm -rf $VIRTUALFISH_HOME/$argv[1]
+    command rm -rf $VIRTUALFISH_HOME/$argv[1]
 end
 
 function __vf_ls --description "List all of the available virtualenvs"
@@ -199,7 +199,7 @@ end
 function __vfsupport_remove_env_on_deactivate_or_exit --on-event virtualenv_did_deactivate --on-process %self
     if set -q VF_TEMPORARY_ENV
         echo "Removing temporary virtualenv" (basename $VIRTUAL_ENV)
-        rm -rf $VIRTUAL_ENV
+        command rm -rf $VIRTUAL_ENV
         set -e VF_TEMPORARY_ENV
     end
 end
@@ -233,7 +233,7 @@ function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
 '"$absolute_path"'
 ' "$path_file"
             end
-            rm -f "$path_file.tmp"
+            command rm -f "$path_file.tmp"
         end
         return 0
     else
@@ -310,7 +310,7 @@ function __vf_globalpackages --description "Toggle global site packages"
       pushd $VIRTUAL_ENV/lib/python*/site-packages/..
       if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
         echo "Enabling global site packages"
-        rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+        command rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
       else
         echo "Disabling global site packages"
         touch $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
