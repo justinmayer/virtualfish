@@ -297,9 +297,9 @@ function __vf_help --description "Print VirtualFish usage information"
     echo
 
     if set -q VIRTUALFISH_VERSION
-        set help_url "http://virtualfish.readthedocs.org/en/$VIRTUALFISH_VERSION/"
+        set help_url "https://virtualfish.readthedocs.org/en/$VIRTUALFISH_VERSION/"
     else
-        set help_url "http://virtualfish.readthedocs.org/en/latest/"
+        set help_url "https://virtualfish.readthedocs.org/en/latest/"
     end
     echo "For full documentation, see: $help_url"
 end

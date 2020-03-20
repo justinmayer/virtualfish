@@ -4,13 +4,13 @@ Whether you're reporting a bug or contributing code, you're helping to make virt
 
 ## Code of Conduct
 
-The [Contributor Covenant 1.2](http://contributor-covenant.org/version/1/2/0/) applies to all spaces associated with this project (e.g. GitHub, the IRC channel). If you need to make a report, email [adam@brenecki.id.au](mailto:adam@brenecki.id.au).
+The [Contributor Covenant 1.2](https://www.contributor-covenant.org/version/1/2/0/code-of-conduct/) applies to all spaces associated with this project (e.g. GitHub, the IRC channel). If you need to make a report, contact [Justin Mayer](https://justinmayer.com/ciao-justin/).
 
 ## Filing Helpful Issues
 
 Here's a few tips on how to file a useful issue.
 
-- **Try installing the virtualfish development version**, by running `pip install git+https://github.com/adambrenecki/virtualfish`, to see if your issue has already been fixed.
+- **Try installing the VirtualFish development version**, by running `pip install git+https://github.com/justinmayer/virtualfish`, to see if your issue has already been fixed.
 - **Check the documentation** and **search past issues** before you file your issue.
     - That said, if something is hard to find or understand, you can still file a bug suggesting an improvement to the docs or to virtualfish's usability.
 - **Be polite**, and remember that the people that work on virtualfish do so in our spare time for free.

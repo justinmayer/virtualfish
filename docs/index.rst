@@ -22,7 +22,7 @@ Contributors
 
 Sorted by date of first commit:
 
--  Adam Brenecki
+-  Leigh Brenecki
 -  Justin Mayer
 -  David Reid
 -  Alex Gaynor

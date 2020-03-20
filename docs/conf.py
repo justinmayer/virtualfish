@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'virtualfish'
-copyright = u'2014-2015, Adam Brenecki and contributors'
+copyright = u'2014-present, Leigh Brenecki, Justin Mayer, and contributors'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -196,8 +196,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'virtualfish.tex', u'virtualfish Documentation',
-   u'Adam Brenecki and contributors', 'manual'),
+  ('index', 'virtualfish.tex', u'VirtualFish Documentation',
+   u'Leigh Brenecki, Justin Mayer, and contributors', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -226,8 +226,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'virtualfish', u'virtualfish Documentation',
-     [u'Adam Brenecki and contributors'], 1)
+    ('index', 'virtualfish', u'VirtualFish Documentation',
+     [u'Leigh Brenecki, Justin Mayer, and contributors'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -240,8 +240,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'virtualfish', u'virtualfish Documentation',
-   u'Adam Brenecki and contributors', 'virtualfish', 'One line description of project.',
+  ('index', 'virtualfish', u'VirtualFish Documentation',
+   u'Leigh Brenecki, Justin Mayer, and contributors', 'virtualfish', 'One line description of project.',
    'Miscellaneous'),
 ]
 
