@@ -8,7 +8,7 @@ Installing
    release that has an older Fish version, `install Fish 2.x via the
    fish-shell/release-2
    PPA <https://launchpad.net/~fish-shell/+archive/release-2>`__.
-2. Install virtualfish by running ``pip install virtualfish``.
+2. Install VirtualFish by running ``pip install virtualfish``.
 3. Add the following to your
    ``~/.config/fish/config.fish``:
 
@@ -16,8 +16,8 @@ Installing
 
        eval (python -m virtualfish)
 
-   If you want to use virtualfish with :doc:`plugins <plugins>`, list
-   the names of the plugins as arguments to the virtualfish loader:
+   If you want to use VirtualFish with :doc:`plugins <plugins>`, list
+   the names of the plugins as arguments to the VirtualFish loader:
 
    ::
 
@@ -31,7 +31,7 @@ Installing
 Customizing Your ``fish_prompt``
 --------------------------------
 
-virtualfish doesn't attempt to mess with your prompt. Since Fish's
+VirtualFish doesn't attempt to mess with your prompt. Since Fish's
 prompt is a function, it is both much less straightforward to change it
 automatically, and much more convenient to simply customize it manually
 to your liking.

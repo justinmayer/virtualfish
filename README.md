@@ -1,4 +1,4 @@
-# virtualfish
+# VirtualFish
 
 [![Build Status](https://img.shields.io/github/workflow/status/justinmayer/virtualfish/build)](https://github.com/justinmayer/virtualfish/actions)
 
@@ -8,7 +8,7 @@ You can get started by [reading the documentation on Read The Docs](http://virtu
 
 You can also get help on [#virtualfish on OFTC](https://webchat.oftc.net/?randomnick=1&channels=virtualfish) (`ircs://irc.oftc.net:6697/#virtualfish`), the same network as the [Fish IRC channel](https://webchat.oftc.net/?randomnick=1&channels=fish).
 
-Virtualfish is currently maintained by [Justin Mayer](https://justinmayer.com/), and was originally created by [Leigh Brenecki](https://leigh.net.au/).
+VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/), and was originally created by [Leigh Brenecki](https://leigh.net.au/).
 
 ## A quickstart, for the impatient
 

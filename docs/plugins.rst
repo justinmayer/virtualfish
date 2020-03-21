@@ -1,9 +1,9 @@
 Plugins
 =======
 
-Virtualfish comes in-built with a number of plugins.
+VirtualFish comes in-built with a number of plugins.
 
-You can use them by passing their names in as arguments to the virtualfish
+You can use them by passing their names in as arguments to the VirtualFish
 loader in your ``config.fish``, e.g.::
 
    eval (python -m virtualfish auto_activation global_requirements)
@@ -13,7 +13,7 @@ loader in your ``config.fish``, e.g.::
 Virtualenvwrapper Compatibility Aliases (``compat_aliases``)
 ------------------------------------------------------------
 
-This plugin provides some global commands to make virtualfish behave more like
+This plugin provides some global commands to make VirtualFish behave more like
 Doug Hellman's virtualenvwrapper.
 
 Commands
@@ -39,11 +39,11 @@ Auto-activation (``auto_activation``)
 --------------------------------------
 
 With this plugin enabled,
-virtualfish can automatically activate a virtualenv when you are in a
+VirtualFish can automatically activate a virtualenv when you are in a
 certain directory. To configure it to do so, change to the directory,
 activate the desired virtualenv, and run ``vf connect``.
 
-This will save the name of the virtualenv to the file ``.venv``. Virtualfish
+This will save the name of the virtualenv to the file ``.venv``. VirtualFish
 will then look for this file every time you ``cd`` into the directory (or
 ``pushd``, or anything else that modifies ``$PWD``).
 
@@ -51,7 +51,7 @@ will then look for this file every time you ``cd`` into the directory (or
 .. note::
 
     When this plugin is enabled, ensure any modifications to your ``$PATH`` in
-    your ``config.fish`` happen before virtualfish is loaded.
+    your ``config.fish`` happen before VirtualFish is loaded.
 
 Commands
 ........
@@ -64,8 +64,8 @@ Configuration Variables
 .......................
 
 -  ``VIRTUALFISH_ACTIVATION_FILE`` (default: ``.venv``) - the name of
-   the file virtualfish will use for the auto-activation feature. Earlier
-   versions of virtualfish used ``.vfenv``.
+   the file VirtualFish will use for the auto-activation feature. Earlier
+   versions of VirtualFish used ``.vfenv``.
 
 State Variables
 ...............

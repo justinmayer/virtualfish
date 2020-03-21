@@ -284,7 +284,7 @@ function __vf_connect --description "Connect this virtualenv to the current dire
 end
 
 function __vf_help --description "Print VirtualFish usage information"
-    echo "virtualfish $VIRTUALFISH_VERSION"
+    echo "VirtualFish $VIRTUALFISH_VERSION"
     echo
     echo "Usage: vf <command> [<args>]"
     echo
@@ -353,13 +353,13 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
 end
 
-function __vf_install --description "Install virtualfish"
-    echo "virtualfish is already installed! Hooray!"
+function __vf_install --description "Install VirtualFish"
+    echo "VirtualFish is already installed! Hooray!"
 end
 
-function __vf_uninstall --description "Uninstall virtualfish"
+function __vf_uninstall --description "Uninstall VirtualFish"
     python -m virtualfish.loader.installer uninstall
-    echo "virtualfish has been uninstalled from this shell."
-    echo "Run 'exec fish' to reload fish."
-    echo "Note that the Python package will still be installed, and needs to be removed separately (e.g. using 'pip uninstall')."
+    echo "VirtualFish has been uninstalled from this shell."
+    echo "Run 'exec fish' to reload Fish."
+    echo "Note that the Python package will still be installed and needs to be removed separately (e.g. using 'pip uninstall virtualfish')."
 end

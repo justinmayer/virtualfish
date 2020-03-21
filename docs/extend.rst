@@ -1,4 +1,4 @@
-Extending Virtualfish
+Extending VirtualFish
 =====================
 
 Variables
@@ -16,8 +16,8 @@ state. (Keep in mind that more are provided by plugins.)
 Events
 ------
 
-virtualfish emits Fish events instead of using hook scripts. To hook in
-to events that virtualfish emits, write a function like this:
+VirtualFish emits Fish events instead of using hook scripts. To hook into
+events that VirtualFish emits, write a function like this:
 
 ::
 

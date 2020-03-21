@@ -1,4 +1,4 @@
-virtualfish
+VirtualFish
 ===========
 
 A Fish Shell wrapper for Ian Bicking's `virtualenv <https://virtualenv.pypa.io/en/latest/>`_, somewhat loosely
