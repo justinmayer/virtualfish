@@ -3,10 +3,11 @@ Plugins
 
 VirtualFish comes in-built with a number of plugins.
 
-You can use them by passing their names in as arguments to the VirtualFish
-loader in your ``config.fish``, e.g.::
+You can use them by passing their names as arguments to the ``vf install``
+command. For example, the following will activate the ``compat_aliases``,
+``projects``, and ``environment`` plugins::
 
-   eval (python -m virtualfish auto_activation global_requirements)
+    vf install compat_aliases projects environment
 
 .. _compat_aliases:
 
@@ -139,8 +140,7 @@ directory.
 
     ::
 
-        set -g VIRTUALFISH_COMPAT_ALIASES yes
-        eval (python -m virtualfish compat_aliases projects)
+        vf install compat_aliases projects
 
     ``workon`` then becomes alias for ``vf workon`` instead of ``vf activate``.
 

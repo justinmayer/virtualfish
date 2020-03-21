@@ -43,8 +43,13 @@ the ``--python PYTHON_EXE`` (``-p`` for brevity) argument to ``vf new``, where
 Configuration Variables
 -----------------------
 
-All of these must be set before ``virtual.fish`` is sourced in your
-``~/.config/fish/config.fish``.
+The ``vf install […]`` installation step writes the VirtualFish loader to a file
+at ``$XDG_CONFIG_HOME/fish/conf.d/virtualfish-loader.fish``, which on most
+systems defaults to: ``~/.config/fish/conf.d/virtualfish-loader.fish``
+
+You can edit this file to, for example, change the plugin loading order. You can
+also add the following optional variables at the top, so that they are set
+before ``virtual.fish`` is sourced.
 
 -  ``VIRTUALFISH_HOME`` (default: ``~/.virtualenvs``) - where all your
    virtualenvs are kept.

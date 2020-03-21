@@ -4,27 +4,26 @@ Installation and Setup
 Installing
 ----------
 
-1. Make sure you're running Fish 2.x. If you're running an Ubuntu LTS
-   release that has an older Fish version, `install Fish 2.x via the
-   fish-shell/release-2
-   PPA <https://launchpad.net/~fish-shell/+archive/release-2>`__.
-2. Install VirtualFish by running ``pip install virtualfish``.
-3. Add the following to your
-   ``~/.config/fish/config.fish``:
+1. Make sure you are running Fish 3.x. If you are running an Ubuntu LTS
+   release that has an older Fish version, install Fish 3.x via the
+   `Fish 3.x release series PPA`_.
+2. Install VirtualFish by running: ``pip install virtualfish``
+3. Install the VirtualFish loader by running:
 
    ::
 
-       eval (python -m virtualfish)
+       vf install
 
    If you want to use VirtualFish with :doc:`plugins <plugins>`, list
-   the names of the plugins as arguments to the VirtualFish loader:
+   the names of the plugins as arguments to the install command:
 
    ::
 
-       eval (python -m virtualfish compat_aliases)
+       vf install compat_aliases projects environment
 
-   *Note:* If your ``config.fish`` modifies your ``$PATH``, you should
-   ensure that you load virtualfish *after* those modifications.
+   *Note:* After performing the above step, you will be prompted to run
+   ``exec fish`` in order to make these changes active in your current
+   shell session.
 
 4. Customize your ``fish_prompt``
 
