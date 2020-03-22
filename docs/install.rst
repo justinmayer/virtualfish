@@ -45,3 +45,16 @@ The easiest way to add virtualenv to your prompt is to type
     end
 
 Then, type ``funcsave fish_prompt`` to save your new prompt to disk.
+
+Un-installing
+-------------
+
+To un-install VirtualFish, run:
+
+::
+
+    vf uninstall
+    pip uninstall virtualfish
+
+
+.. _Fish 3.x release series PPA: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
