@@ -2,9 +2,9 @@
 
 [![Build Status](https://img.shields.io/github/workflow/status/justinmayer/virtualfish/build)](https://github.com/justinmayer/virtualfish/actions)
 
-A Fish Shell wrapper for Ian Bicking's [virtualenv](https://virtualenv.pypa.io/en/latest/), somewhat loosely based on Doug Hellman's [virtualenvwrapper](https://bitbucket.org/dhellmann/virtualenvwrapper) for Bourne-compatible shells.
+VirtualFish is a Python [virtual environment][Virtualenv] manager for the [Fish shell][].
 
-You can get started by [reading the documentation on Read The Docs](http://virtualfish.readthedocs.org/en/latest/). (It's quite short, I promise.)
+You can get started by [reading the documentation][Read The Docs]. (It’s quite short… Promise!)
 
 You can also get help on [#virtualfish on OFTC](https://webchat.oftc.net/?randomnick=1&channels=virtualfish) (`ircs://irc.oftc.net:6697/#virtualfish`), the same network as the [Fish IRC channel](https://webchat.oftc.net/?randomnick=1&channels=fish).
 
@@ -17,4 +17,9 @@ VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/),
 3. [Add VirtualFish to your prompt](https://virtualfish.readthedocs.org/en/latest/install.html#customizing-your-fish-prompt)
 4. `vf new myvirtualenv; which python`
 
-See the docs to find out more about virtualenvwrapper emulation, auto-activation and other plugins, extending virtualfish with events, and more.
+See the docs to find out more about project management, environment variable automation, auto-activation, and other plugins, as well as extending VirtualFish with events, [virtualenvwrapper][] emulation, and more.
+
+[Virtualenv]: https://virtualenv.pypa.io/en/latest/
+[Fish shell]: https://fishshell.com/
+[Read The Docs]: https://virtualfish.readthedocs.org/en/latest/
+[virtualenvwrapper]: https://bitbucket.org/dhellmann/virtualenvwrapper

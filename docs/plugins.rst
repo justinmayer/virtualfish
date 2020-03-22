@@ -1,7 +1,7 @@
 Plugins
 =======
 
-VirtualFish comes in-built with a number of plugins.
+VirtualFish comes with a number of built-in plugins.
 
 You can use them by passing their names as arguments to the ``vf install``
 command. For example, the following will activate the ``compat_aliases``,
@@ -15,7 +15,7 @@ Virtualenvwrapper Compatibility Aliases (``compat_aliases``)
 ------------------------------------------------------------
 
 This plugin provides some global commands to make VirtualFish behave more like
-Doug Hellman's virtualenvwrapper.
+Doug Hellman’s virtualenvwrapper_.
 
 Commands
 ........
@@ -39,14 +39,13 @@ Commands
 Auto-activation (``auto_activation``)
 --------------------------------------
 
-With this plugin enabled,
-VirtualFish can automatically activate a virtualenv when you are in a
-certain directory. To configure it to do so, change to the directory,
-activate the desired virtualenv, and run ``vf connect``.
+With this plugin enabled, VirtualFish can automatically activate a virtualenv
+when you are in a certain directory. To configure it to do so, change to the
+directory, activate the desired virtualenv, and run ``vf connect``.
 
-This will save the name of the virtualenv to the file ``.venv``. VirtualFish
-will then look for this file every time you ``cd`` into the directory (or
-``pushd``, or anything else that modifies ``$PWD``).
+This will save the name of the virtualenv to a file named ``.venv``.
+VirtualFish will then look for this file every time you ``cd`` into the
+directory (or ``pushd``, or anything else that modifies ``$PWD``).
 
 
 .. note::
@@ -131,25 +130,22 @@ directory.
 .. note::
 
 
-    If you're using *compat_aliases* with *projects*:
-
-    1. Set ``VIRTUALFISH_COMPAT_ALIASES``
-    2. Load the ``projects`` plug-in after ``compat_aliases``.
-
-    Example:
+    If you are using both the Compatibility Aliases and Projects plugins,
+    install them such that the ``compat_aliases`` plug-in is loaded before
+    ``projects``:
 
     ::
 
         vf install compat_aliases projects
 
-    ``workon`` then becomes alias for ``vf workon`` instead of ``vf activate``.
+    ``workon`` will then alias ``vf workon`` instead of ``vf activate``.
 
 
 Commands
 ........
 
 -  ``vf project <name>`` - Create a new project and matching virtual environment
-   with the specified name. This name **must** be the last parameter (i.e.,
+   with the specified name. This name should be the **last** parameter (e.g.,
    after ``-p python3`` or any other arguments destined for the ``virtualenv``
    command). If ``VIRTUALFISH_COMPAT_ALIASES`` is set, ``mkproject`` is aliased
    to this command.
@@ -200,18 +196,18 @@ following::
     FOO=bar
 
     # The empty line above is valid
-    BAR=baz  # A following comment like this is NOT okay
+    BAR=baz  # Inline comments like this one are NOT okay
 
 Commands
 ........
 
-- ``vf environment`` - Open the env file for the active virtual environment in
-  ``$VISUAL``/``$EDITOR`` or ``vi`` if neither variable is set.
+- ``vf environment`` - Open the environment file for the active virtual
+  environment in ``$VISUAL``/``$EDITOR``, or ``vi`` if neither variable is set.
 
 Update Python (``update_python``)
 ---------------------------------
 
-This plugin adds commands to change the python interpreter of the current
+This plugin adds commands to change the Python interpreter of the current
 virtual environment.
 
 Commands
@@ -220,19 +216,20 @@ Commands
 -  ``vf update_python [<python_exe>]`` - Remove the current virtual environment
    and create a new one with ``<python_exe>`` (defaults to
    ``VIRTUALFISH_DEFAULT_PYTHON`` if it is set, or the first executable named
-   ``python`` in your ``PATH``), and then reinstall all packages in the same
-   versions with pip.
+   ``python`` in your ``PATH``), and then re-install the same versions of all
+   packages with Pip.
 
--  ``vf fix_python [<python_exe>]`` - Test the current python executable on the
-   current virtual environment. If it doesn't work, update it with ``vf
-   update_python [<python_exe>]``. This may be usefull when one of your system's
-   python executable is updated, and some of your virtual environments are
-   broken: you probably just need to run ``vf all vf fix_python``.
+-  ``vf fix_python [<python_exe>]`` - Test the current virtual environment’s
+   Python executable. If it doesn't work, update it with ``vf update_python
+   [<python_exe>]``. This may be useful when one of your system’s Python
+   executables is updated, which may break some of your virtual environments.
+   In that case, you probably just need to run: ``vf all vf fix_python``
 
 Configuration Variables
 .......................
 
--  ``VIRTUALFISH_DEFAULT_PYTHON`` (default: ``python``) - The python interpreter
-   to use if not specified on the command line.
+-  ``VIRTUALFISH_DEFAULT_PYTHON`` (default: ``python``) - The Python
+   interpreter to use if not specified as an argument to the above commands.
 
 
+.. _virtualenvwrapper: https://bitbucket.org/dhellmann/virtualenvwrapper

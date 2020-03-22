@@ -4,41 +4,46 @@ Usage
 Commands
 --------
 
--  ``vf new [<options>] <envname>`` - Create a virtualenv. Note that
-   ``<envname>`` *must be last*.
--  ``vf ls`` - List the available virtualenvs.
--  ``vf activate <envname>`` - Activate a virtualenv. (Note: Doesn't use the
-   ``activate.fish`` script provided by virtualenv.)
--  ``vf deactivate`` - Deactivate the current virtualenv.
--  ``vf rm <envname>`` - Delete a virtualenv.
--  ``vf tmp [<options>]`` - Create a temporary virtualenv with a randomly
-   generated name that will be removed when it is deactivated.
--  ``vf cd`` - Change directory to currently-activated virtualenv.
--  ``vf cdpackages`` - Change directory to the currently-activated virtualenv's
-   site-packages.
--  ``vf addpath`` - Add a directory to this virtualenv's ``sys.path``.
--  ``vf all <command>`` - Run a command in all virtualenvs sequentially.
+-  ``vf new [<options>] <envname>`` - Create a virtual environment. Note that
+   ``<envname>`` should be specified **last**.
+-  ``vf ls`` - List the available virtual environments.
+-  ``vf activate <envname>`` - Activate a virtual environment. (Note: Doesn’t
+   use the ``activate.fish`` script provided by Virtualenv_.)
+-  ``vf deactivate`` - Deactivate the current virtual environment.
+-  ``vf rm <envname>`` - Delete a virtual environment.
+-  ``vf tmp [<options>]`` - Create a temporary virtual environment with a
+   randomly generated name that will be removed when it is deactivated.
+-  ``vf cd`` - Change directory to currently-activated virtual environment.
+-  ``vf cdpackages`` - Change directory to currently-active virtual
+   environment’s site-packages.
+-  ``vf addpath`` - Add a directory to this virtual environment’s ``sys.path``.
+-  ``vf all <command>`` - Run a command in all virtual environments sequentially.
 -  ``vf connect`` - Connect the current working directory with the currently
-   active virtualenv. This requires the :ref:`auto-activation plugin
+   active virtual environment. This requires the :ref:`auto-activation plugin
    <auto_activation>` to be enabled in order to have any effect besides creating
    a :file:`.venv` file in the current directory.
 
-If you're used to virtualenvwrapper's commands (``workon``, etc.), you may wish
-to enable the :ref:`compat_aliases` plugin.
+If you are accustomed to virtualenvwrapper_ commands (``workon``, etc.), you may
+wish to enable the :ref:`compat_aliases` plugin.
 
 Using Different Pythons
 -----------------------
 
-By default, the environments you create with ``virtualenv`` (and, by extension,
-virtualfish) use the same Python version that ``virtualenv`` was installed
-under, which will usually be whatever your default system Python is.
+By default, the environments you create with VirtualFish will use the same
+Python version that was originally used to Pip-install VirtualFish, which will
+usually be your system’s default Python interpreter.
 
-If you want to use something different in a particular virtualenv, just pass in
-the ``--python PYTHON_EXE`` (``-p`` for brevity) argument to ``vf new``, where
-``PYTHON_EXE`` is any Python executable, for example::
+If you want to create a new virtual environment with a different Python
+interpreter, add the ``--python PYTHON_EXE`` (``-p`` for brevity) flag to
+``vf new``, where ``PYTHON_EXE`` is any Python executable. For example::
 
-    vf new -p python3 my_python3_env
-    vf new -p /usr/bin/pypy my_pypy_env
+    vf new -p /usr/bin/python3 my_python3_env
+
+Specifying the full path to the Python executable avoids ambiguity and is thus
+the most reliable option, but if the target Python executable is on your
+``PATH``, you can save a few keystrokes and pass the bare executable instead::
+
+    vf new -p pypy my_pypy_env
 
 Configuration Variables
 -----------------------
@@ -52,5 +57,14 @@ also add the following optional variables at the top, so that they are set
 before ``virtual.fish`` is sourced.
 
 -  ``VIRTUALFISH_HOME`` (default: ``~/.virtualenvs``) - where all your
-   virtualenvs are kept.
--  ``VIRTUALFISH_DEFAULT_PYTHON`` - The default Python interpreter to use when creating a new virtualenv; the value should be a valid argument to ``virtualenv``'s ``--python`` flag.
+   virtual environments are kept.
+-  ``VIRTUALFISH_DEFAULT_PYTHON`` - The default Python interpreter to use when
+   creating a new virtual environment; the value should be a valid argument to
+   the Virtualenv_ ``--python`` flag.
+
+Regardless of the changes that you make, you must run ``exec fish`` afterward if
+you want those changes to take effect for the current shell session.
+
+
+.. _virtualenvwrapper: https://bitbucket.org/dhellmann/virtualenvwrapper
+.. _Virtualenv: https://virtualenv.pypa.io/en/latest/

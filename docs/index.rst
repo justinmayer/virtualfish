@@ -1,8 +1,7 @@
 VirtualFish
 ===========
 
-A Fish Shell wrapper for Ian Bicking's `virtualenv <https://virtualenv.pypa.io/en/latest/>`_, somewhat loosely
-based on Doug Hellman's `virtualenvwrapper <https://bitbucket.org/dhellmann/virtualenvwrapper>`_ for Bourne-compatible shells.
+VirtualFish is a Python `virtual environment`_ manager for the `Fish shell`_.
 
 Contents
 --------
@@ -33,3 +32,6 @@ Sorted by date of first commit:
 -  Casey Chance
 -  fenekku
 -  Trung Ly
+
+.. _virtual environment: https://virtualenv.pypa.io/en/latest/
+.. _Fish shell: https://fishshell.com/

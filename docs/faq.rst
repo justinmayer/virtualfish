@@ -1,31 +1,31 @@
 Frequently Asked Questions
 ==========================
 
-Why isn't VirtualFish written in Python?
+Why isn’t VirtualFish written in Python?
 ----------------------------------------
 
-Mostly, for `the same reasons virtualenvwrapper is <http://virtualenvwrapper.readthedocs.org/en/latest/design.html>`__.
+Mostly, for `the same reasons virtualenvwrapper is`_.
 
 Does VirtualFish work with Python 3? What about PyPy?
 -----------------------------------------------------
 
-**Yes!** In fact, you can create Python 3 virtualenvs even if your system Python
-is Python 2, or vice versa, using the ``--python`` argument (see the :doc:`Usage
-<usage>` section for full details).
+**Yes!** In fact, you can create Python 3 virtual environments even if your
+system Python is Python 2, or vice versa, using the ``--python`` argument
+(see the :doc:`Usage <usage>` section for full details).
 
-Why does VirtualFish use Virtualenv and not pyvenv?
----------------------------------------------------
+Why does VirtualFish use Virtualenv and not Python’s built-in ``venv`` module?
+------------------------------------------------------------------------------
 
-pyvenv may be the new shiny, but it can only be run from Python 3 and can only
-create Python 3 environments. In contrast, virtualenv fully supports Python 2
-and 3, as discussed above. So, we can't use pyvenv on its own.
+Virtualenv_ can create both Python 2 and Python 3 virtual environments, whereas
+Python’s built-in ``venv`` module can only create Python 3 virtual environments.
+That said, since Python 2 is no longer officially supported by the Python
+Software Foundation, Python 2 support is a very minor consideration when
+deciding which tool to use. The main reason VirtualFish uses Virtualenv_ is due
+to its **much** faster speed. We have seen Virtualenv_ create environments in
+**one-fifth** the amount of time that the ``venv`` module takes to perform the
+same task.
 
-It's been suggested that we could use both, but that would add complexity for no
-real benefit. If pyvenv added new, broadly useful features not in virtualenv, or
-if virtualenv stopped working on Python 3, or if Python 2 went out of widespread
-use, this might change, but for now virtualenv is the best choice.
-
-Why doesn't VirtualFish use activate.fish?
+Why doesn’t VirtualFish use activate.fish?
 ------------------------------------------
 
 VirtualFish uses its own internal virtualenv activation code instead of the
@@ -36,7 +36,10 @@ actually work. The second reason, which is still valid today, is that
 
 Because ``fish_prompt`` is a function and not a variable like in most other
 shells, modifying it programmatically is not trivial, and the way that
-virtualenv accomplishes it is more than a little hacky. The benefit of it being
+Virtualenv_ accomplishes it is more than a little hacky. The benefit of it being
 a function is that the syntax for customising it is much less terse and cryptic
-than, say, ``PS1`` on Bash. This is why VirtualFish doesn't attempt to modify
+than, say, ``PS1`` on Bash. This is why VirtualFish doesn’t attempt to modify
 your prompt, and instead tells you how to do it yourself.
+
+.. _Virtualenv: https://virtualenv.pypa.io/
+.. _the same reasons virtualenvwrapper is: https://virtualenvwrapper.readthedocs.io/en/latest/design.html

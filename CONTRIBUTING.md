@@ -8,7 +8,7 @@ The [Contributor Covenant 1.2](https://www.contributor-covenant.org/version/1/2/
 
 ## Filing Helpful Issues
 
-Here's a few tips on how to file a useful issue.
+Here are a few tips on how to submit a useful issue.
 
 - **Try installing the VirtualFish development version**, by running `pip install git+https://github.com/justinmayer/virtualfish`, to see if your issue has already been fixed.
 - **Check the documentation** and **search past issues** before you file your issue.
@@ -21,7 +21,7 @@ Here's a few tips on how to file a useful issue.
 Thank you for giving your time to work on VirtualFish! To have your contribution merged as quickly as possible, please make sure you follow these guidelines.
 
 - If features **are going to be used by the majority of users**, add them to `virtual.fish`. Otherwise, create a plugin if you can.
-- If you're adding a feature, think about whether it belongs in `virtual.fish` or as a plugin (separate `.fish` file in this repository). If in doubt, make it a plugin.
-- Make sure you **update the documentation** if you make user-facing changes, e.g. adding/changing/removing commands or config variables.
-- All text content (variable/function names, code comments, documentation, Git commit messages) **must be in English**. (The preference is for Australian English, but any English will do.)
-- Git commits in this repository must follow the **[AngularJS Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#commit)**, with the exception that the body and footer are optional.
+- If you’re adding a feature, think about whether it belongs in `virtual.fish` or as a plugin (separate `.fish` file in this repository). If in doubt, make it a plugin.
+- Make sure you **update the documentation** if you make user-facing changes, e.g. adding/changing/removing commands or configuration variables.
+- All text content (variable/function names, code comments, documentation, Git commit messages) **must be in English**.
+- Git commits in this repository should ideally follow the **[AngularJS Git Commit Guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits)**, with the exception that the body and footer are optional.

@@ -30,13 +30,13 @@ Installing
 Customizing Your ``fish_prompt``
 --------------------------------
 
-VirtualFish doesn't attempt to mess with your prompt. Since Fish's
+VirtualFish doesn’t attempt to mess with your prompt. Since Fish’s
 prompt is a function, it is both much less straightforward to change it
 automatically, and much more convenient to simply customize it manually
 to your liking.
 
-The easiest way to add virtualenv to your prompt is to type
-``funced fish_prompt``, add the following line in somewhere:
+The easiest way to add the active virtual environment’s name to your prompt is
+to type ``funced fish_prompt`` and add the following line somewhere:
 
 ::
 
