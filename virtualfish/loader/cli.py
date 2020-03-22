@@ -20,8 +20,8 @@ def main():
         print("VirtualFish is now installed! Run 'exec fish' to reload "
               "Fish, and you'll be able to use it!")
     else:
-        # Display an error, prompting the user to either run vf install (if
-        # they're using Fish) or
+        # Display an error prompting the user to run `vf install`, if they are
+        # using Fish. If not, inform them that VirtualFish requires Fish shell.
         this_proc = psutil.Process()
         parent = psutil.Process(this_proc.ppid())
         the_shell = parent.cmdline()[0]

@@ -1,4 +1,4 @@
-function __vf_update_python --description "change the python interpreter of the current project"
+function __vf_update_python --description "Change the Python interpreter for the current environment"
     if [ (count $argv) -lt 1 ]
         if set -q VIRTUALFISH_DEFAULT_PYTHON
             set python $VIRTUALFISH_DEFAULT_PYTHON
@@ -9,18 +9,18 @@ function __vf_update_python --description "change the python interpreter of the 
         set python $argv[1]
     end
     if not which $python ^ /dev/null
-        echo "You must set a valid python interpreter"
+        echo "You must set a valid Python interpreter"
         return 1
     end
     if not set -q VIRTUAL_ENV
-        echo "You must run this command with a virtual_env activated"
+        echo "You must run this command with a virtual environment activated"
         return 1
     end
 
     set name (basename $VIRTUAL_ENV)
     set packages (pip freeze)
 
-    echo Changing the interpreter of the virtualenv $name to $python
+    echo "Changing the interpreter of the virtualenv $name to $python"
 
     vf deactivate
     and vf rm $name
@@ -28,7 +28,7 @@ function __vf_update_python --description "change the python interpreter of the 
     and pip install -U $packages
 end
 
-function __vf_fix_python --description "fix the python interpreter of the current project"
+function __vf_fix_python --description "Fix the Python interpreter for the current environment"
     python --version
     or vf update_python $argv[1]
 end
