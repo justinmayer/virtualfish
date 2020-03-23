@@ -147,20 +147,20 @@ Commands
 -  ``vf project <name>`` - Create a new project and matching virtual environment
    with the specified name. This name should be the **last** parameter (e.g.,
    after ``-p python3`` or any other arguments destined for the ``virtualenv``
-   command). If ``VIRTUALFISH_COMPAT_ALIASES`` is set, ``mkproject`` is aliased
-   to this command.
+   command). If the ``compat_aliases`` plugin is enabled, ``mkproject`` is
+   aliased to this command.
 
 -  ``vf workon <name>`` - Search for a project and/or virtualenv matching the
    specified name. If found, this activates the appropriate virtualenv and
-   switches to the respective project directory. If ``VIRTUALFISH_COMPAT_ALIASES``
-   is set, ``workon`` is aliased to this command.
+   switches to the respective project directory. If the ``compat_aliases``
+   plugin is enabled, ``workon`` is aliased to this command.
 
 -  ``vf lsprojects`` - List projects available in ``$PROJECT_HOME`` (see below)
 
 -  ``vf cdproject`` - Search for a project matching the name of the currently
    activated virtualenv. If found, this switches to the respective project
-   directory. If ``VIRTUALFISH_COMPAT_ALIASES`` is set, ``cdproject`` is aliased
-   to this command.
+   directory. If the ``compat_aliases`` plugin is enabled, ``cdproject`` is
+   aliased to this command.
 
 Configuration Variables
 .......................

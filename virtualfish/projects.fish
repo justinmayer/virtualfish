@@ -87,13 +87,14 @@ function __vf_cdproject --description "Change working directory to project direc
     end
 end
 
-if set -q VIRTUALFISH_COMPAT_ALIASES
+if type -q workon
     function mkproject
         vf project $argv
     end
     function cdproject
         vf cdproject
     end
+    functions -e workon
     function workon
         if not set -q argv[1]
             set_color blue; echo "Projects:"; set_color normal
