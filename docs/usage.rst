@@ -4,8 +4,7 @@ Usage
 Commands
 --------
 
--  ``vf new [<options>] <envname>`` - Create a virtual environment. Note that
-   ``<envname>`` should be specified **last**.
+-  ``vf new [<options>] <envname>`` - Create a virtual environment.
 -  ``vf ls`` - List the available virtual environments.
 -  ``vf activate <envname>`` - Activate a virtual environment. (Note: Doesn’t
    use the ``activate.fish`` script provided by Virtualenv_.)

@@ -162,6 +162,8 @@ function __vfsupport_find_python --description "Search for and return Python pat
 end
 
 function __vf_new --description "Create a new virtualenv"
+    set -l virtualenv_args
+    set -l envname
 
     # Deactivate the current virtualenv, if one is active
     if set -q VIRTUAL_ENV
@@ -170,8 +172,6 @@ function __vf_new --description "Create a new virtualenv"
 
     emit virtualenv_will_create
     argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" -- $argv
-    set envname $argv[-1]
-    set -e argv[-1]
 
     if set -q _flag_help
         set -l normal (set_color normal)
@@ -188,6 +188,40 @@ function __vf_new --description "Create a new virtualenv"
         return 0
     end
 
+    # Unpack Virtualenv args: first flags that need values, then Boolean flags
+    set -l flags_with_args --app-data --discovery --creator --seeder --activators --extra-search-dir --pip --setuptools --wheel --prompt
+    while set -q argv[1]
+        # If arg starts with a hyphen…
+        if string match -q -- "-*" $argv[1]
+            # If this option requires a value that we expect to come after it…
+            if contains -- $argv[1] $flags_with_args
+                # Move both the option flag and its value to a separate list
+                set virtualenv_args $virtualenv_args $argv[1] $argv[2]
+                set -e argv[2]
+            else
+                # This option is a Boolean w/o a value. Move to separate list.
+                set virtualenv_args $virtualenv_args $argv[1]
+            end
+        else
+            # No hyphen, so this is (hopefully) the new environment's name
+            set envname $argv[1]
+        end
+        set -e argv[1]
+    end
+
+    # Ensure a single non-option-flag argument (environment name) was provided
+    if test (count $envname) -lt 1
+        echo "No virtual environment name was provided."
+        return 1
+    else if test (count $envname) -gt 1
+        echo (set_color red)"Too many arguments. Except for option flags, only virtual environment name is expected:"(set_color normal)
+        echo "Virtualenv args: $virtualenv_args"
+        echo "Other args: $envname"
+        echo
+        vf new --help
+        return 1
+    end
+
     # Use Python interpreter if provided; otherwise fall back to sane default
     if set -q _flag_python
         set python (__vfsupport_find_python $_flag_python)
@@ -200,11 +234,12 @@ function __vf_new --description "Create a new virtualenv"
     end
 
     if set -q python
-        set argv "--python" $python $argv
+        set virtualenv_args "--python" $python $virtualenv_args
     end
 
+    # Use Virtualenv to create the new environment
     set -lx PIP_USER 0
-    eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $argv $VIRTUALFISH_HOME/$envname
+    eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $VIRTUALFISH_HOME/$envname $virtualenv_args
     set vestatus $status
     if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
         vf activate $envname
@@ -213,11 +248,6 @@ function __vf_new --description "Create a new virtualenv"
     else
         echo "Error: The virtual environment was not created properly."
         echo "Virtualenv returned status $vestatus."
-        if test (count $argv) -ge 1
-            echo "Make sure you put any option flags before the virtualenv name."
-            echo "Good example: "(set_color green)"vf new -p python3.8 myproject" (set_color normal)
-            echo "Bad example:  "(set_color red)"vf new myproject -p python3.8" (set_color normal)
-        end
         return 1
     end
 end
