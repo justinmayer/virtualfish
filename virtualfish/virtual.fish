@@ -171,13 +171,13 @@ function __vf_new --description "Create a new virtualenv"
     end
 
     emit virtualenv_will_create
-    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" "V-version" -- $argv
+    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" "c/connect" "V-version" -- $argv
 
     if set -q _flag_help
         set -l normal (set_color normal)
         set -l green (set_color green)
         echo "Purpose: Creates a new virtual environment"
-        echo "Usage: "$green"vf new "(set_color -di)"[-p <python-version>] [-q | -v | -d] [-h] [<virtualenv-flags>]"$normal$green" <virtualenv-name>"$normal
+        echo "Usage: "$green"vf new "(set_color -di)"[-p <python-version>] [--connect] [-q | -v | -d] [-h] [<virtualenv-flags>]"$normal$green" <virtualenv-name>"$normal
         echo
         echo "Examples:"
         echo
@@ -266,6 +266,9 @@ function __vf_new --description "Create a new virtualenv"
         vf activate $envname
         emit virtualenv_did_create
         emit virtualenv_did_create:(basename $VIRTUAL_ENV)
+        if set -q _flag_connect
+            vf connect
+        end
     else
         echo "Error: The virtual environment was not created properly."
         echo "Virtualenv returned status $vestatus."
