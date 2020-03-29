@@ -171,7 +171,7 @@ function __vf_new --description "Create a new virtualenv"
     end
 
     emit virtualenv_will_create
-    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" -- $argv
+    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" "V-version" -- $argv
 
     if set -q _flag_help
         set -l normal (set_color normal)
@@ -185,6 +185,11 @@ function __vf_new --description "Create a new virtualenv"
         echo $green"vf new -p python3.8 --system-site-packages yourproject"$normal
         echo
         echo "To see available "(set_color blue)"Virtualenv"$normal" option flags, run: "$green"virtualenv --help"$normal
+        return 0
+    end
+
+    if set -q _flag_version
+        eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv --version
         return 0
     end
 
