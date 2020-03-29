@@ -237,6 +237,22 @@ function __vf_new --description "Create a new virtualenv"
         set virtualenv_args "--python" $python $virtualenv_args
     end
 
+    # Virtualenv outputs too much, so we use its quiet mode by default.
+    # "--verbose" yields its normal output; "--debug" yields its verbose output
+    if not set -q _flag_quiet
+        echo "Creating "(set_color blue)"$envname"(set_color normal)" via "(set_color green)"$python"(set_color normal)" …"
+    end
+    if set -q _flag_debug
+        echo "Virtualenv args: $virtualenv_args"
+        echo "Other args: $envname"
+        echo "Invoking: $VIRTUALFISH_PYTHON_EXEC -m virtualenv $VIRTUALFISH_HOME/$envname $virtualenv_args"
+        set virtualenv_args "--verbose" $virtualenv_args
+    else if set -q _flag_verbose
+        set virtualenv_args $virtualenv_args
+    else
+        set virtualenv_args "--quiet" $virtualenv_args
+    end
+
     # Use Virtualenv to create the new environment
     set -lx PIP_USER 0
     eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $VIRTUALFISH_HOME/$envname $virtualenv_args
