@@ -45,6 +45,21 @@ the most reliable option, but if the target Python executable is on your
 
     vf new -p pypy my_pypy_env
 
+Sometimes there may be Python interpreters on your system that are not on your
+``PATH``, with full filesystem paths that are long and thus hard to remember and
+type. VirtualFish makes dealing with these easier by automatically detecting and
+using Python interpreters in a few known situations, in the following order:
+
+1. Homebrew_ keg-only versioned Python executable (e.g., 3.8) found at:
+   ``/usr/local/opt/python@3.8/bin/python3.8``
+2. asdf_ Python plugin is installed and has built the specified Python version.
+3. Pyenv_ is installed and has built the specified Python version.
+4. Pythonz_ is installed and has built the specified Python version.
+
+In these latter cases, in addition to passing flags such as ``-p python3.8`` or
+``-p python3.9.0a4``, you can even get away with specifying just the version
+numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
+
 Configuration Variables
 -----------------------
 
@@ -68,3 +83,7 @@ you want those changes to take effect for the current shell session.
 
 .. _virtualenvwrapper: https://bitbucket.org/dhellmann/virtualenvwrapper
 .. _Virtualenv: https://virtualenv.pypa.io/en/latest/
+.. _Homebrew: https://docs.brew.sh/Homebrew-and-Python
+.. _asdf: https://asdf-vm.com/
+.. _Pyenv: https://github.com/pyenv/pyenv
+.. _Pythonz: https://github.com/saghul/pythonz
