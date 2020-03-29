@@ -129,10 +129,26 @@ function __vf_new --description "Create a new virtualenv"
     end
 
     emit virtualenv_will_create
+    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" -- $argv
     set envname $argv[-1]
     set -e argv[-1]
     if set -q VIRTUALFISH_DEFAULT_PYTHON
         set argv "--python" $VIRTUALFISH_DEFAULT_PYTHON $argv
+    end
+
+    if set -q _flag_help
+        set -l normal (set_color normal)
+        set -l green (set_color green)
+        echo "Purpose: Creates a new virtual environment"
+        echo "Usage: "$green"vf new "(set_color -di)"[-p <python-version>] [-q | -v | -d] [-h] [<virtualenv-flags>]"$normal$green" <virtualenv-name>"$normal
+        echo
+        echo "Examples:"
+        echo
+        echo $green"vf new -p /usr/local/bin/python3 yourproject"$normal
+        echo $green"vf new -p python3.8 --system-site-packages yourproject"$normal
+        echo
+        echo "To see available "(set_color blue)"Virtualenv"$normal" option flags, run: "$green"virtualenv --help"$normal
+        return 0
     end
     set -lx PIP_USER 0
     eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $argv $VIRTUALFISH_HOME/$envname
