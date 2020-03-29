@@ -4,8 +4,8 @@ Installation and Setup
 Installing
 ----------
 
-1. Make sure you are running Fish 3.x. If you are running an Ubuntu LTS
-   release that has an older Fish version, install Fish 3.x via the
+1. Make sure you are running Fish 3.1+. If you are running an Ubuntu LTS
+   release that has an older Fish version, install Fish via the
    `Fish 3.x release series PPA`_.
 2. Install VirtualFish by running: ``pip install virtualfish``
 3. Install the VirtualFish loader by running:

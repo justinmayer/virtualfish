@@ -121,7 +121,49 @@ function __vf_deactivate --description "Deactivate this virtualenv"
     set -e VIRTUAL_ENV
 end
 
+function __vfsupport_find_python --description "Search for and return Python path"
+    set -l python
+    set -l python_arg $argv[1]
+    set -l py_version (string replace "python" "" $python_arg)
+    set -l brew_path "/usr/local/opt/python@$py_version/bin/python$py_version"
+    # Executable on PATH (python3/python3.8) or full interpreter path
+    if set -l py_path (command -s $python_arg)
+        set python "$py_path"
+    # Version number in Homebrew keg-only versioned Python formula
+    else if test -x "$brew_path"
+        set python "$brew_path"
+    # Use `asdf` Python plugin, if found and provided version is available
+    else if type -q "asdf"
+        set -l asdf_plugins (asdf plugin list)
+        if contains python $asdf_plugins
+            set -l asdf_path (asdf where python $py_version)/bin/python
+            if test -x "$asdf_path"
+                set python "$asdf_path"
+            end
+        end
+    # Use Pyenv, if found and provided version is available
+    else if type -q "pyenv"
+        set -l pyenv_path (pyenv which python$py_version)
+        if test -x "$pyenv_path"
+            set python "$pyenv_path"
+        end
+    # Use Pythonz, if found and provided version is available
+    else if type -q "pythonz"
+        set -l pythonz_path (pythonz locate $py_version)
+        if test -x "$pythonz_path"
+            set python "$pythonz_path"
+        end
+    end
+    # If no interpreter was found, pass to Virtualenv as-is
+    if not test -x "$python"
+        set python $python_arg
+    end
+    echo $python
+end
+
 function __vf_new --description "Create a new virtualenv"
+    set -l virtualenv_args
+    set -l envname
 
     # Deactivate the current virtualenv, if one is active
     if set -q VIRTUAL_ENV
@@ -129,13 +171,91 @@ function __vf_new --description "Create a new virtualenv"
     end
 
     emit virtualenv_will_create
-    set envname $argv[-1]
-    set -e argv[-1]
-    if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set argv "--python" $VIRTUALFISH_DEFAULT_PYTHON $argv
+    argparse -n "vf new" -x q,v,d --ignore-unknown "h/help" "q/quiet" "v/verbose" "d/debug" "p/python=" -- $argv
+
+    if set -q _flag_help
+        set -l normal (set_color normal)
+        set -l green (set_color green)
+        echo "Purpose: Creates a new virtual environment"
+        echo "Usage: "$green"vf new "(set_color -di)"[-p <python-version>] [-q | -v | -d] [-h] [<virtualenv-flags>]"$normal$green" <virtualenv-name>"$normal
+        echo
+        echo "Examples:"
+        echo
+        echo $green"vf new -p /usr/local/bin/python3 yourproject"$normal
+        echo $green"vf new -p python3.8 --system-site-packages yourproject"$normal
+        echo
+        echo "To see available "(set_color blue)"Virtualenv"$normal" option flags, run: "$green"virtualenv --help"$normal
+        return 0
     end
+
+    # Unpack Virtualenv args: first flags that need values, then Boolean flags
+    set -l flags_with_args --app-data --discovery --creator --seeder --activators --extra-search-dir --pip --setuptools --wheel --prompt
+    while set -q argv[1]
+        # If arg starts with a hyphen…
+        if string match -q -- "-*" $argv[1]
+            # If this option requires a value that we expect to come after it…
+            if contains -- $argv[1] $flags_with_args
+                # Move both the option flag and its value to a separate list
+                set virtualenv_args $virtualenv_args $argv[1] $argv[2]
+                set -e argv[2]
+            else
+                # This option is a Boolean w/o a value. Move to separate list.
+                set virtualenv_args $virtualenv_args $argv[1]
+            end
+        else
+            # No hyphen, so this is (hopefully) the new environment's name
+            set envname $argv[1]
+        end
+        set -e argv[1]
+    end
+
+    # Ensure a single non-option-flag argument (environment name) was provided
+    if test (count $envname) -lt 1
+        echo "No virtual environment name was provided."
+        return 1
+    else if test (count $envname) -gt 1
+        echo (set_color red)"Too many arguments. Except for option flags, only virtual environment name is expected:"(set_color normal)
+        echo "Virtualenv args: $virtualenv_args"
+        echo "Other args: $envname"
+        echo
+        vf new --help
+        return 1
+    end
+
+    # Use Python interpreter if provided; otherwise fall back to sane default
+    if set -q _flag_python
+        set python (__vfsupport_find_python $_flag_python)
+    else if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set python $VIRTUALFISH_DEFAULT_PYTHON
+    else if set -q VIRTUALFISH_PYTHON_EXEC
+        set python $VIRTUALFISH_PYTHON_EXEC
+    else
+        set python python
+    end
+
+    if set -q python
+        set virtualenv_args "--python" $python $virtualenv_args
+    end
+
+    # Virtualenv outputs too much, so we use its quiet mode by default.
+    # "--verbose" yields its normal output; "--debug" yields its verbose output
+    if not set -q _flag_quiet
+        echo "Creating "(set_color blue)"$envname"(set_color normal)" via "(set_color green)"$python"(set_color normal)" …"
+    end
+    if set -q _flag_debug
+        echo "Virtualenv args: $virtualenv_args"
+        echo "Other args: $envname"
+        echo "Invoking: $VIRTUALFISH_PYTHON_EXEC -m virtualenv $VIRTUALFISH_HOME/$envname $virtualenv_args"
+        set virtualenv_args "--verbose" $virtualenv_args
+    else if set -q _flag_verbose
+        set virtualenv_args $virtualenv_args
+    else
+        set virtualenv_args "--quiet" $virtualenv_args
+    end
+
+    # Use Virtualenv to create the new environment
     set -lx PIP_USER 0
-    eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $argv $VIRTUALFISH_HOME/$envname
+    eval $VIRTUALFISH_PYTHON_EXEC -m virtualenv $VIRTUALFISH_HOME/$envname $virtualenv_args
     set vestatus $status
     if begin; [ $vestatus -eq 0 ]; and [ -d $VIRTUALFISH_HOME/$envname ]; end
         vf activate $envname
@@ -144,11 +264,6 @@ function __vf_new --description "Create a new virtualenv"
     else
         echo "Error: The virtual environment was not created properly."
         echo "Virtualenv returned status $vestatus."
-        if test (count $argv) -ge 1
-            echo "Make sure you put any option flags before the virtualenv name."
-            echo "Good example: "(set_color green)"vf new -p python3.8 myproject" (set_color normal)
-            echo "Bad example:  "(set_color red)"vf new myproject -p python3.8" (set_color normal)
-        end
         return 1
     end
 end
