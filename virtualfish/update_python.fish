@@ -16,18 +16,18 @@ function __vf_update_python --description "Change the Python interpreter for the
         return 1
     end
     if not set -q VIRTUAL_ENV
-        echo "You must run this command with a virtual environment activated"
+        echo "You must run this command with a virtual environment activated."
         return 1
     end
 
-    set name (basename $VIRTUAL_ENV)
-    set packages (pip freeze)
+    set -l envname (basename $VIRTUAL_ENV)
+    set -l packages (pip freeze)
 
-    echo "Changing the interpreter of the virtualenv $name to $python"
+    echo "Changing the interpreter of the '$envname' environment to $python"
 
     vf deactivate
-    and vf rm $name
-    and vf new -p $python $name
+    and vf rm $envname
+    and vf new -p $python $envname
     and pip install -U $packages
 end
 
