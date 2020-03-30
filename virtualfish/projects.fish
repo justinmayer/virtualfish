@@ -43,6 +43,21 @@ end
 
 function __vf_project --description "Create a new project and virtualenv with the name provided"
     set -l project_name $argv[-1]
+    argparse --ignore-unknown "h/help" "p/python=" -- $argv
+    if set -q _flag_help
+        set -l normal (set_color normal)
+        set -l green (set_color green)
+        echo "Purpose: Creates a new project and virtualenv with the name provided"
+        echo "Usage: "$green"vf project "(set_color -di)"[-p <python-version>] [<virtualenv-options>]"$normal$green" <project/virtualenv-name>"$normal
+        echo
+        echo "Examples:"
+        echo
+        echo $green"vf project -p /usr/local/bin/python3 yourproject"$normal
+        echo $green"vf project -p python3.8 --system-site-packages yourproject"$normal
+        echo
+        echo "To see available "(set_color blue)"Virtualenv"$normal" option flags, run: "$green"virtualenv --help"$normal
+        return 0
+    end
     set -l project_path "$PROJECT_HOME/$project_name"
     if [ -d $project_path ]
         echo "A project with that name already exists at: $project_path"
