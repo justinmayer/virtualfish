@@ -3,6 +3,7 @@ from .repl import Fish
 from ..loader import load
 from os import mkdir, path
 
+
 @pytest.fixture
 def f():
     return Fish()
@@ -10,8 +11,8 @@ def f():
 
 @pytest.fixture
 def vf(f):
-    mkdir(path.join(f.homedir, '.virtualenvs'))
-    f.run('\n'.join(load()))
+    mkdir(path.join(f.homedir, ".virtualenvs"))
+    f.run("\n".join(load()))
     return f
 
 

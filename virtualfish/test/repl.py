@@ -8,10 +8,12 @@ from subprocess import PIPE
 import time
 from threading import Thread
 import tempfile
+
 try:
     from queue import Queue
 except ImportError:
     from Queue import Queue
+
 
 def write_thread(q, f):
     while True:
@@ -19,10 +21,12 @@ def write_thread(q, f):
         f.write(data)
         f.flush()
 
+
 def read_thread(f, q):
     while True:
         data = f.read(1)
         q.put(data)
+
 
 def write(f):
     q = Queue()
@@ -31,6 +35,7 @@ def write(f):
     t.start()
     return q
 
+
 def read(f):
     q = Queue()
     t = Thread(target=read_thread, args=(f, q))
@@ -38,11 +43,12 @@ def read(f):
     t.start()
     return q
 
+
 def q_until_null(q):
     ba = bytearray()
     while True:
         c = q.get()
-        if c == b'\0':
+        if c == b"\0":
             return bytes(ba)
         ba.append(c[0])
 
@@ -53,6 +59,7 @@ class Fish:
     Each instance of this class has its own subprocess, with its own
     state (variables, loaded functions, etc).
     """
+
     def __init__(self):
         homedir = tempfile.mkdtemp(prefix="vf-fish-home")
         self.homedir = homedir
@@ -65,11 +72,13 @@ class Fish:
         # it), and so on.
         self.subp = subprocess.Popen(
             (
-                subprocess.check_output(('which', 'fish')).strip(), 
-                os.path.join(os.path.dirname(__file__), 'repl.fish'),
+                subprocess.check_output(("which", "fish")).strip(),
+                os.path.join(os.path.dirname(__file__), "repl.fish"),
             ),
-            stdin=PIPE, stdout=PIPE, stderr=PIPE,
-            env={'HOME': homedir},
+            stdin=PIPE,
+            stdout=PIPE,
+            stderr=PIPE,
+            env={"HOME": homedir},
         )
         # We read and write to/from stdin/out/err in threads, to prevent
         # deadlocks (see the warning in the subprocess docs).
@@ -94,27 +103,29 @@ class Fish:
         :rtype: Tuple[bytes, bytes]
         """
         if isinstance(cmd, str):
-            cmd = cmd.encode('utf8')
+            cmd = cmd.encode("utf8")
 
         self.stdin_q.put(cmd)
-        self.stdin_q.put(b'\0')
+        self.stdin_q.put(b"\0")
         output = q_until_null(self.stdout_q)
         error = q_until_null(self.stderr_q)
-        status = int(q_until_null(self.stdout_q).decode('utf8'))
+        status = int(q_until_null(self.stdout_q).decode("utf8"))
 
         if status not in expected_exit_codes:
             sys.stdout.write(str(output))
             sys.stderr.write(str(error))
-            raise ValueError("Expected command to exit with {}, got {}".format(
-                expected_exit_codes, status
-            ))
-    
+            raise ValueError(
+                "Expected command to exit with {}, got {}".format(
+                    expected_exit_codes, status
+                )
+            )
+
         return output, error
 
 
 if __name__ == "__main__":
     # If invoked directly, executes a bunch of simple test commands.
-    # This is to make 
+    # This is to make
     f = Fish()
     print(f.run("echo 1"))
     print(f.run("echo 1 >&2"))

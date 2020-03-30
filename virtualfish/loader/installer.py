@@ -1,11 +1,12 @@
-import os, sys
+import os
+import sys
 
 from xdg import XDG_CONFIG_HOME
 
 from virtualfish.loader import load
 
-INSTALL_DIR = os.path.join(XDG_CONFIG_HOME, 'fish', 'conf.d')
-INSTALL_FILE = os.path.join(INSTALL_DIR, 'virtualfish-loader.fish')
+INSTALL_DIR = os.path.join(XDG_CONFIG_HOME, "fish", "conf.d")
+INSTALL_FILE = os.path.join(INSTALL_DIR, "virtualfish-loader.fish")
 
 
 def install(plugins):
@@ -14,8 +15,8 @@ def install(plugins):
 
     # Write the script.
     os.makedirs(INSTALL_DIR, exist_ok=True)
-    with open(INSTALL_FILE, 'w') as f:
-        f.write('\n'.join(lines))
+    with open(INSTALL_FILE, "w") as f:
+        f.write("\n".join(lines))
 
 
 def uninstall():
