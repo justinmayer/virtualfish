@@ -42,7 +42,8 @@ function __vf_workon --description "Work on a project"
 end
 
 function __vf_project --description "Create a new project and virtualenv with the name provided"
-    set -l project_name $argv[-1]
+    set -l project_name
+    set -l virtualenv_args
     argparse --ignore-unknown "h/help" "p/python=" -- $argv
     if set -q _flag_help
         set -l normal (set_color normal)
@@ -58,12 +59,28 @@ function __vf_project --description "Create a new project and virtualenv with th
         echo "To see available "(set_color blue)"Virtualenv"$normal" option flags, run: "$green"virtualenv --help"$normal
         return 0
     end
+    if set -q _flag_python
+        set virtualenv_args "--python" $_flag_python
+    end
+    # Unpack remaining args: Virtualenv flags and the project/environment name
+    for arg in $argv
+        switch $arg
+            case "-*"
+                set virtualenv_args $virtualenv_args $arg
+            case "*"
+                set project_name $arg
+        end
+    end
+    if [ (count $project_name) -lt 1 ]
+        echo "You must specify a name for the new project & virtual environment."
+        return 1
+    end
     set -l project_path "$PROJECT_HOME/$project_name"
     if [ -d $project_path ]
         echo "A project with that name already exists at: $project_path"
         return 2
     else
-        vf new $argv
+        vf new $project_name $virtualenv_args
         mkdir -p $project_path
         cd $project_path
     end

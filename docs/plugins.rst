@@ -144,11 +144,11 @@ directory.
 Commands
 ........
 
--  ``vf project <name>`` - Create a new project and matching virtual environment
-   with the specified name. This name should be the **last** parameter (e.g.,
-   after ``-p python3`` or any other arguments destined for the ``virtualenv``
-   command). If the ``compat_aliases`` plugin is enabled, ``mkproject`` is
-   aliased to this command.
+-  ``vf project <virtualenv-options> <name>`` - Create a new project and
+   matching virtual environment with the specified name and Virtualenv options,
+   including the ability to specify a Python interpreter via ``--python``.
+   If the ``compat_aliases`` plugin is enabled, ``mkproject`` is aliased to
+   this command.
 
 -  ``vf workon <name>`` - Search for a project and/or virtualenv matching the
    specified name. If found, this activates the appropriate virtualenv and
