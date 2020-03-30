@@ -1,15 +1,18 @@
 function __vf_update_python --description "Change the Python interpreter for the current environment"
+    set -l python
     if [ (count $argv) -lt 1 ]
         if set -q VIRTUALFISH_DEFAULT_PYTHON
             set python $VIRTUALFISH_DEFAULT_PYTHON
+        else if set -q VIRTUALFISH_PYTHON_EXEC
+            set python $VIRTUALFISH_PYTHON_EXEC
         else
-            set python python
+            set python (command -s python)
         end
     else
-        set python $argv[1]
+        set python (__vfsupport_find_python $argv[1])
     end
-    if not which $python ^ /dev/null
-        echo "You must set a valid Python interpreter"
+    if not test -x "$python"
+        echo "You must specify a valid Python interpreter."
         return 1
     end
     if not set -q VIRTUAL_ENV
