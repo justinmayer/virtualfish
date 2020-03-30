@@ -286,7 +286,11 @@ function __vf_rm --description "Delete a virtualenv"
         return 1
     end
     echo "Removing $VIRTUALFISH_HOME/$argv[1]"
-    command rm -rf $VIRTUALFISH_HOME/$argv[1]
+    if command -q trash
+        command trash $VIRTUALFISH_HOME/$argv[1]
+    else
+        command rm -rf $VIRTUALFISH_HOME/$argv[1]
+    end
 end
 
 function __vf_ls --description "List all of the available virtualenvs"
