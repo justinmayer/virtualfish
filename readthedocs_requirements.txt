@@ -1,5 +1,0 @@
-# This file is to give ReadTheDocs a bit of a helping hand building docs.
-# Don't use it to install virtualfish!
-
--e .
-setuptools_scm
