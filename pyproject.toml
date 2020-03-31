@@ -44,6 +44,12 @@ sphinx_rtd_theme = "^0.4"
 [tool.poetry.scripts]
 vf = "virtualfish.loader.cli:main"
 
+[tool.autopub]
+project-name = "VirtualFish"
+git-username = "botpub"
+git-email = "botpub@autopub.rocks"
+version-strings = ["docs/conf.py"]
+
 [build-system]
 requires = ["poetry>=1.0"]
 build-backend = "poetry.masonry.api"

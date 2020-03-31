@@ -32,3 +32,23 @@ jobs:
         run: poetry install
       - name: Run tests
         run: poetry run pytest
+      - name: Check for release
+        if: github.ref == 'refs/heads/master'
+        run: |
+          python -m pip install githubrelease
+          python -m pip install autopub
+          echo "##[set-output name=release;]$(autopub check)"
+        id: check_release
+      - name: Deploy
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request' && steps.check_release.outputs.release == ''
+        run: |
+          git checkout ${GITHUB_REF##*/}
+          git remote set-url origin https://$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}
+          autopub prepare
+          poetry build
+          autopub commit
+          autopub githubrelease
+          poetry publish -u __token__ -p $PYPI_PASSWORD
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
