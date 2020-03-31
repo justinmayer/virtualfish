@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "virtualfish"
+version = "1.0.6"
+description = "Fish shell tool for managing Python virtual environments"
+authors = ["Justin Mayer <entroP@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+keywords = ["fish", "shell", "python", "virtual", "environments", "virtualenv"]
+repository = "https://github.com/justinmayer/virtualfish"
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: System :: Shells",
+]
+
+[tool.poetry.urls]
+"Documentation" = "https://virtualfish.readthedocs.org/"
+"Tracker" = "https://github.com/justinmayer/virtualfish/issues"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+pkgconfig = "^1.5"
+psutil = "^5.7"
+virtualenv = "^20"
+xdg = "^4.0"
+
+[tool.poetry.dev-dependencies]
+black = "^19.10b0"
+flake8 = "^3.7"
+pytest = "^5.4"
+pytest-xdist = "^1.31"
+sphinx = "^2.4"
+sphinx_rtd_theme = "^0.4"
+
+[tool.poetry.scripts]
+vf = "virtualfish.loader.cli:main"
+
+[build-system]
+requires = ["poetry>=1.0"]
+build-backend = "poetry.masonry.api"

@@ -24,12 +24,11 @@ jobs:
           sudo apt-add-repository ppa:fish-shell/release-3
           sudo apt-get update
           sudo apt-get install fish
+      - name: Upgrade Pip
+        run: python -m pip install -U pip
+      - name: Install Poetry
+        run: python -m pip install poetry
       - name: Install dependencies
-        run: |
-          python -m venv venv
-          . venv/bin/activate
-          pip install -e .[dev]
+        run: poetry install
       - name: Run tests
-        run: |
-          . venv/bin/activate
-          pytest
+        run: poetry run pytest
