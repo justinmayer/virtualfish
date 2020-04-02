@@ -95,7 +95,7 @@ function __vf_deactivate --description "Deactivate this virtualenv"
     # find elements to remove from PATH
     set to_remove
     for i in (seq (count $PATH))
-        if contains $PATH[$i] $_VF_EXTRA_PATH
+        if contains -- $PATH[$i] $_VF_EXTRA_PATH
             set to_remove $to_remove $i
         end
     end
