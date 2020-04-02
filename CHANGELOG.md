@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.0.1 - 2020-04-02
+------------------
+
+* Ensure `vf addpath <path>` is compatible with Python 3
+* Improve `vf activate` $PATH handling durability
+
 2.0.0 - 2020-04-01
 ------------------
 
