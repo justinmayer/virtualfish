@@ -333,7 +333,7 @@ end
 
 function __vf_addpath --description "Adds a path to sys.path in this virtualenv"
     if set -q VIRTUAL_ENV
-        set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils; print(distutils.sysconfig.get_python_lib())'")
+        set -l site_packages (eval "$VIRTUAL_ENV/bin/python -c 'import distutils.sysconfig; print(distutils.sysconfig.get_python_lib())'")
         set -l path_file $site_packages/_virtualenv_path_extensions.pth
 
         set -l remove 0
