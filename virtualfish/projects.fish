@@ -119,26 +119,28 @@ function __vf_cdproject --description "Change working directory to project direc
     end
 end
 
-if type -q workon
-    function mkproject
-        vf project $argv
-    end
-    function cdproject
-        vf cdproject
-    end
-    functions -e workon
-    function workon
-        if not set -q argv[1]
-            set_color blue; echo "Projects:"; set_color normal
-            vf lsprojects
-            set_color blue; echo -e "\nVirtual environments:"; set_color normal
-            vf ls
-        else
-            vf workon $argv[1]
+function __vfsupport_enable_workon_project --on-event virtualfish_did_setup_plugins
+    if type -q workon
+        function mkproject
+            vf project $argv
         end
-    end
+        function cdproject
+            vf cdproject
+        end
+        functions -e workon
+        function workon
+            if not set -q argv[1]
+                set_color blue; echo "Projects:"; set_color normal
+                vf lsprojects
+                set_color blue; echo -e "\nVirtual environments:"; set_color normal
+                vf ls
+            else
+                vf workon $argv[1]
+            end
+        end
 
-    complete -x -c workon -a "(vf lsprojects)"
+        complete -x -c workon -a "(vf lsprojects)"
+    end
 end
 
 complete -x -c vf -n '__vfcompletion_using_command workon' -a "(vf lsprojects)"

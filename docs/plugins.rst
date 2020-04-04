@@ -134,15 +134,8 @@ directory.
 .. note::
 
 
-    If you are using both the Compatibility Aliases and Projects plugins,
-    install them such that the ``compat_aliases`` plug-in is loaded before
-    ``projects``:
-
-    ::
-
-        vf install compat_aliases projects
-
-    ``workon`` will then alias ``vf workon`` instead of ``vf activate``.
+    If you are using both the *Compatibility Aliases* and *Projects* plugins,
+    ``workon`` will alias ``vf workon`` instead of ``vf activate``.
 
 
 Commands
