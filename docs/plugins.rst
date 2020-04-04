@@ -78,7 +78,11 @@ Global Requirements (``global_requirements``)
 ---------------------------------------------
 
 Keeps a global ``requirements.txt`` file that is applied to every existing and
-new virtualenv.
+new virtual environment. This behavior can be disabled for a given session by
+setting the ``VIRTUALFISH_GLOBAL_REQUIREMENTS`` environment variable to "0".
+To disable on a per-invocation basis, prefix commands with the same variable::
+
+    VIRTUALFISH_GLOBAL_REQUIREMENTS="0" vf tmp
 
 Commands
 ........

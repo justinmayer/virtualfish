@@ -1,5 +1,5 @@
 function __vfext_global_requirements --on-event virtualenv_did_create
-    if test -f $VIRTUALFISH_HOME/global_requirements.txt
+    if begin; test -f $VIRTUALFISH_HOME/global_requirements.txt; and test "$VIRTUALFISH_GLOBAL_REQUIREMENTS" != "0"; end
         pip install -U -r $VIRTUALFISH_HOME/global_requirements.txt
     end
 end
