@@ -31,7 +31,9 @@ jobs:
       - name: Install dependencies
         run: poetry install
       - name: Run tests
-        run: poetry run pytest
+        run: |
+          fish -n virtualfish/*.fish
+          poetry run pytest
       - name: Check for release
         if: github.ref == 'refs/heads/master'
         run: |
