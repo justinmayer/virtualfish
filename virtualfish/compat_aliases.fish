@@ -5,8 +5,13 @@ function workon
         vf activate $argv[1]
     end
 end
-function deactivate
-    vf deactivate
+function __vfsupport_define_deactivate_alias_upon_activation --on-event virtualenv_did_activate
+    function deactivate
+        vf deactivate
+    end
+end
+function __vfsupport_undefine_deactivate_alias_upon_deactivation --on-event virtualenv_did_deactivate
+    functions -e deactivate
 end
 function mktmpenv
     vf tmp $argv
