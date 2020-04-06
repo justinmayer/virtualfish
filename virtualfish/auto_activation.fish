@@ -41,5 +41,10 @@ function __vfsupport_deactivate_remove_flag --on-event virtualenv_did_deactivate
     end
 end
 
+# if `vf connect` is run, de-activate when leaving $PWD
+function __vfsupport_auto_deactivate_after_connect --on-event virtualenv_did_connect
+    set -q VF_AUTO_ACTIVATED; or set -g VF_AUTO_ACTIVATED $PWD
+end
+
 #automatically activate if started in a directory with a virtualenv in it
 __vfsupport_auto_activate
