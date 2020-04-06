@@ -1,10 +1,11 @@
 import os
 import sys
 
-from xdg import XDG_CONFIG_HOME
+import xdg.BaseDirectory
 
 from virtualfish.loader import load
 
+XDG_CONFIG_HOME = xdg.BaseDirectory.xdg_config_home
 INSTALL_DIR = os.path.join(XDG_CONFIG_HOME, "fish", "conf.d")
 INSTALL_FILE = os.path.join(INSTALL_DIR, "virtualfish-loader.fish")
 
