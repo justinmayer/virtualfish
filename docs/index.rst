@@ -32,6 +32,7 @@ Sorted by date of first commit:
 -  Casey Chance
 -  fenekku
 -  Trung Ly
+-  George Christou
 
 .. _virtual environment: https://virtualenv.pypa.io/en/latest/
 .. _Fish shell: https://fishshell.com/

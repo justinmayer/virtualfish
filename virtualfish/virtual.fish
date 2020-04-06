@@ -282,20 +282,22 @@ function __vf_new --description "Create a new virtualenv"
     end
 end
 
-function __vf_rm --description "Delete a virtualenv"
-    if not [ (count $argv) -eq 1 ]
-        echo "You need to specify exactly one virtualenv."
+function __vf_rm --description "Delete one or more virtual environments"
+    if [ (count $argv) -lt 1 ]
+        echo "You need to specify at least one virtual environment."
         return 1
     end
-    if begin; set -q VIRTUAL_ENV; and [ $argv[1] = (basename $VIRTUAL_ENV) ]; end
-        echo "You can't delete a virtualenv you're currently using."
-        return 1
-    end
-    echo "Removing $VIRTUALFISH_HOME/$argv[1]"
-    if command -q trash
-        command trash $VIRTUALFISH_HOME/$argv[1]
-    else
-        command rm -rf $VIRTUALFISH_HOME/$argv[1]
+    for venv in $argv
+        if begin; set -q VIRTUAL_ENV; and [ $venv = (basename $VIRTUAL_ENV) ]; end
+            echo "The environment \"$venv\" is active and thus cannot be deleted."
+            return 1
+        end
+        echo "Removing $VIRTUALFISH_HOME/$venv"
+        if command -q trash
+            command trash $VIRTUALFISH_HOME/$venv
+        else
+            command rm -rf $VIRTUALFISH_HOME/$venv
+        end
     end
 end
 
