@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.2.0 - 2020-04-08
+------------------
+
+* `rm`: Allow multiple virtual environment deletion with single invocation
+* `auto_activation`: After `vf connect`, de-activate when leaving project directory
+* Remove unnecessary `xdg` Python dependency
+
 2.1.0 - 2020-04-04
 ------------------
 
