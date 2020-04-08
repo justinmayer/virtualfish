@@ -31,7 +31,6 @@ python = "^3.6"
 pkgconfig = "^1.5"
 psutil = "^5.7"
 virtualenv = "^20"
-xdg = "^4.0"
 
 [tool.poetry.dev-dependencies]
 black = "^19.10b0"
