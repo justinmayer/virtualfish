@@ -301,12 +301,12 @@ function __vf_rm --description "Delete one or more virtual environments"
     end
 end
 
-function __vf_ls --description "List all of the available virtualenvs"
-    pushd $VIRTUALFISH_HOME
+function __vf_ls --description "List all available virtual environments"
+    pushd $VIRTUALFISH_HOME && set -e dirprev[-1]
     for i in */bin/python
         echo $i
     end | sed "s|/bin/python||"
-    popd
+    popd && set -e dirprev[-1]
 end
 
 function __vf_cd --description "Change directory to this virtualenv"
