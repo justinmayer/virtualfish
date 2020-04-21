@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.2.1 - 2020-04-21
+------------------
+
+Running `vf ls` no longer modifies directory history
+
 2.2.0 - 2020-04-08
 ------------------
 
