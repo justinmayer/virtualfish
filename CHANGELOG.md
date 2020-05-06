@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.2.2 - 2020-05-06
+------------------
+
+When uninstalling, use same Python interpreter used to install VirtualFish
+
 2.2.1 - 2020-04-21
 ------------------
 
