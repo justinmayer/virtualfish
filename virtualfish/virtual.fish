@@ -495,7 +495,15 @@ function __vf_install --description "Install VirtualFish"
 end
 
 function __vf_uninstall --description "Uninstall VirtualFish"
-    python -m virtualfish.loader.installer uninstall
+    set -l python
+    if set -q VIRTUALFISH_PYTHON_EXEC
+        set python $VIRTUALFISH_PYTHON_EXEC
+    else if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set python $VIRTUALFISH_DEFAULT_PYTHON
+    else
+        set python python
+    end
+    $python -m virtualfish.loader.installer uninstall
     echo "VirtualFish has been uninstalled from this shell."
     echo "Run 'exec fish' to reload Fish."
     echo "Note that the Python package will still be installed and needs to be removed separately (e.g. using 'pip uninstall virtualfish')."
