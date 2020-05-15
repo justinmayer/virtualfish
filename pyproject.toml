@@ -28,6 +28,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.6"
+packaging = "^20.3"
 pkgconfig = "^1.5"
 psutil = "^5.7"
 virtualenv = "^20"
