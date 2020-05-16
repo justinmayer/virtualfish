@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.2.3 - 2020-05-16
+------------------
+
+* Ensure minimum required Fish shell version is present when installing
+* Prevent error on older Fish shell versions
+
 2.2.2 - 2020-05-06
 ------------------
 

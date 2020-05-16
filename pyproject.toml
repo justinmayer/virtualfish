@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "virtualfish"
-version = "2.2.2"
+version = "2.2.3"
 description = "Fish shell tool for managing Python virtual environments"
 authors = ["Justin Mayer <entroP@gmail.com>"]
 license = "MIT"
