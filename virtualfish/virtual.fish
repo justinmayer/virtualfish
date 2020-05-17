@@ -409,6 +409,9 @@ if not set -q VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
     set -g VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE "no-global-site-packages.txt"
 end
 
+if not set -q VIRTUALFISH_VENV_CONFIG_FILE
+    set -g VIRTUALFISH_VENV_CONFIG_FILE "pyvenv.cfg"
+end
 
 function __vf_connect --description "Connect this virtualenv to the current directory"
     if set -q VIRTUAL_ENV
@@ -442,19 +445,44 @@ function __vf_help --description "Print VirtualFish usage information"
 end
 
 function __vf_globalpackages --description "Toggle global site packages"
-  if set -q VIRTUAL_ENV
-      # use site-packages/.. to avoid ending up in python-wheels
-      pushd $VIRTUAL_ENV/lib/python*/site-packages/..
-      if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
-        echo "Enabling global site packages"
-        command rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
-      else
-        echo "Disabling global site packages"
-        touch $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
-      end
-      popd
-    else
-        echo "No virtualenv is active."
+    if set -q VIRTUAL_ENV
+	pushd $VIRTUAL_ENV
+
+	# if pyvenv.cfg is present, toggle configuration value therein
+	# (https://www.python.org/dev/peps/pep-0405/#isolation-from-system-site-packages)
+	#
+	# otherwise use legacy no-global-site-package.txt file in lib/python*
+
+	if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
+	    # toggle
+	    sed -i '/include-system-site-packages/ {s/true/false/;t;s/false/true/}' $VIRTUALFISH_VENV_CONFIG_FILE
+
+	    # read new state
+	    if [ "true" = (sed -n 's/include-system-site-packages\s=\s\(true\|false\)/\1/p' $VIRTUALFISH_VENV_CONFIG_FILE) ]
+		set enabled 0
+	    else
+		set enabled 1
+	    end
+	else  # legacy
+	    # use site-packages/.. to avoid ending up in python-wheels
+	    pushd $VIRTUAL_ENV/lib/python*/site-packages/..
+	    if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+		command rm $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+		set enabled 0
+	    else
+		touch $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
+		set enabled 1
+	    end
+	    popd
+	end
+
+	if [ $enabled -eq 0 ]
+	    echo "Enabling global site packages"
+	else
+	    echo "Disabling global site packages"
+	end
+
+	popd
     end
 end
 
