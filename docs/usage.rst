@@ -15,6 +15,7 @@ Commands
 -  ``vf cd`` - Change directory to currently-activated virtual environment.
 -  ``vf cdpackages`` - Change directory to currently-active virtual
    environment’s site-packages.
+-  ``vf globalpackages`` - Toggle system site packages.
 -  ``vf addpath`` - Add a directory to this virtual environment’s ``sys.path``.
 -  ``vf all <command>`` - Run a command in all virtual environments sequentially.
 -  ``vf connect`` - Connect the current working directory with the currently
