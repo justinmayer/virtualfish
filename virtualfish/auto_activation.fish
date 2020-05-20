@@ -6,13 +6,25 @@ function __vfsupport_auto_activate --on-variable PWD
         return
     end
 
-    # find an auto-activation file
+    # find an auto-activation file or determine whether inside a project directory
     set -l activation_root $PWD
     set -l new_virtualenv_name ""
     while test $activation_root != ""
         if test -f "$activation_root/$VIRTUALFISH_ACTIVATION_FILE"
             set new_virtualenv_name (command cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
             break
+        # If the projects plugin is used alongside auto activation, switching into project directories
+        # using `vf workon` causes auto activation even if no activation file is present. In this case,
+        # we make sure the virtualenv is not deactivated when changing into project subdirectories by
+        # setting new_virtualenv_name to the basename of activation_root if project_path = activation_root
+        else if type -q __vf_workon
+            if test -e "$VIRTUAL_ENV/.project"
+                set -l project_path (command cat "$VIRTUAL_ENV/.project")
+                if test $project_path = $activation_root
+                    set new_virtualenv_name (command basename $activation_root)
+                    break
+                end
+            end
         end
         # this strips the last path component from the path.
         set activation_root (echo $activation_root | sed 's|/[^/]*$||')
