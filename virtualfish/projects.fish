@@ -11,11 +11,6 @@ function __vf_workon --description "Work on a project"
         echo "You must specify a project or virtual environment."
         return 1
     end
-    # Check if auto activation plugin is used alongside projects plugin.
-    # If it is, set VF_AUTO_ACTIVATED flag when switching into project directory
-    if type -q __vfsupport_auto_activate
-        set -l sourced_auto_activation
-    end
     # Matches a virtualenv name and possibly a project name
     if [ -d $VIRTUALFISH_HOME/$argv[1] ]
         vf activate $argv[1]
@@ -23,18 +18,12 @@ function __vf_workon --description "Work on a project"
             set -l project_file_path (command cat $VIRTUAL_ENV/.project)
             if [ -d $project_file_path ]
                 cd $project_file_path
-                if test -z "$sourced_auto_activation"
-                    set -g VF_AUTO_ACTIVATED
-                end
             else
                 echo ".project file path does not exist: $project_file_path"
                 return 2
             end
         else if [ -d $PROJECT_HOME/$argv[1] ]
             cd $PROJECT_HOME/$argv[1]
-            if test -z "$sourced_auto_activation"
-                set -g VF_AUTO_ACTIVATED
-            end
         end
     # Matches a project name but not a virtualenv name
     else if [ -d $PROJECT_HOME/$argv[1] ]
@@ -42,9 +31,6 @@ function __vf_workon --description "Work on a project"
         set -l venv_file "$PROJECT_HOME/$project_name/$VIRTUALFISH_ACTIVATION_FILE"
         if [ -f $venv_file ]
             vf activate (command cat $venv_file)
-            if test -z "$sourced_auto_activation"
-                set -g VF_AUTO_ACTIVATED
-            end
         else
             echo "No virtual environment found."
         end
