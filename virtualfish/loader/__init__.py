@@ -4,18 +4,21 @@ import sys
 import pkg_resources
 
 
-def load(plugins=()):
+def load(plugins=(), full_install=True):
     try:
         version = pkg_resources.get_distribution("virtualfish").version
         commands = ["set -g VIRTUALFISH_VERSION {}".format(version)]
     except pkg_resources.DistributionNotFound:
         commands = []
-
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    commands += [
-        "set -g VIRTUALFISH_PYTHON_EXEC {}".format(sys.executable),
-        "source {}".format(os.path.join(base_path, "virtual.fish")),
-    ]
+
+    if full_install:
+        commands += [
+            "set -g VIRTUALFISH_PYTHON_EXEC {}".format(sys.executable),
+            "source {}".format(os.path.join(base_path, "virtual.fish")),
+        ]
+    else:
+        commands = []
 
     for plugin in plugins:
         path = os.path.join(base_path, plugin + ".fish")
@@ -24,5 +27,7 @@ def load(plugins=()):
         else:
             raise ValueError("Plugin does not exist: " + plugin)
 
-    commands.append("emit virtualfish_did_setup_plugins")
+    if full_install:
+        commands.append("emit virtualfish_did_setup_plugins")
+
     return commands
