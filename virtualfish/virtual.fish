@@ -520,11 +520,7 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
 end
 
-function __vf_install --description "Install VirtualFish"
-    echo "VirtualFish is already installed! Hooray!"
-end
-
-function __vf_uninstall --description "Uninstall VirtualFish"
+function __vfsupport_get_default_python --description "Return Python interpreter defined in variables, if any"
     set -l python
     if set -q VIRTUALFISH_PYTHON_EXEC
         set python $VIRTUALFISH_PYTHON_EXEC
@@ -533,8 +529,36 @@ function __vf_uninstall --description "Uninstall VirtualFish"
     else
         set python python
     end
+    echo $python
+end
+
+function __vf_install --description "Install VirtualFish"
+    echo "VirtualFish is already installed! Hooray! To install extra plugins, use the addplugins command."
+    return 0
+end
+
+function __vf_uninstall --description "Uninstall VirtualFish"
+    set -l python (__vfsupport_get_default_python)
     $python -m virtualfish.loader.installer uninstall
     echo "VirtualFish has been uninstalled from this shell."
     echo "Run 'exec fish' to reload Fish."
     echo "Note that the Python package will still be installed and needs to be removed separately (e.g. using 'pip uninstall virtualfish')."
+end
+
+function __vf_addplugins --description "Install one or more plugins"
+    if test (count $argv) -lt 1
+        echo "Provide a plugin to add"
+        return -1
+    end
+    set -l python (__vfsupport_get_default_python)
+    $python -m virtualfish.loader.installer addplugins $argv
+end
+
+function __vf_rmplugins --description "Remove one or more plugins"
+    if test (count $argv) -lt 1
+        echo "Provide a plugin to remove"
+        return -1
+    end
+    set -l python (__vfsupport_get_default_python)
+    $python -m virtualfish.loader.installer rmplugins $argv
 end
