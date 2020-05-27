@@ -33,7 +33,6 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     if test (count $argv) -gt 1
         set scargs $argv[2..-1]
     end
-
     if functions -q $funcname
         eval $funcname $scargs
     else
@@ -491,7 +490,8 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
 end
 
 function __vf_install --description "Install VirtualFish"
-    echo "VirtualFish is already installed! Hooray!"
+    echo "VirtualFish is already installed! Hooray! For trying to install extra plugins use the addplugins command"
+    return 0
 end
 
 function __vf_uninstall --description "Uninstall VirtualFish"
@@ -508,3 +508,37 @@ function __vf_uninstall --description "Uninstall VirtualFish"
     echo "Run 'exec fish' to reload Fish."
     echo "Note that the Python package will still be installed and needs to be removed separately (e.g. using 'pip uninstall virtualfish')."
 end
+
+function __vf_addplugins --description "Install one or more plugins"
+    if test (count $argv) -lt 1
+        echo "Provide a plugin to add"
+        return -1
+    end
+    set -l python
+    if set -q VIRTUALFISH_PYTHON_EXEC
+        set python $VIRTUALFISH_PYTHON_EXEC
+    else if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set python $VIRTUALFISH_DEFAULT_PYTHON
+    else
+        set python python
+    end
+    $python -m virtualfish.loader.installer addplugins $argv
+end
+
+function __vf_rmplugins --description "Remove one or more plugins"
+    if test (count $argv) -lt 1
+        echo "Provide a plugin to remove"
+        return -1
+    end
+    set -l python
+    if set -q VIRTUALFISH_PYTHON_EXEC
+        set python $VIRTUALFISH_PYTHON_EXEC
+    else if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set python $VIRTUALFISH_DEFAULT_PYTHON
+    else
+        set python python
+    end
+    $python -m virtualfish.loader.installer rmplugins $argv
+end
+
+
