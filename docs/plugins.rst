@@ -4,10 +4,18 @@ Plugins
 VirtualFish comes with a number of built-in plugins.
 
 You can use them by passing their names as arguments to the ``vf install``
-command. For example, the following will activate the ``compat_aliases``,
+command at first installation. For example, the following will activate the ``compat_aliases``,
 ``projects``, and ``environment`` plugins::
 
     vf install compat_aliases projects environment
+
+To add or remove plugins after installation use the ``vf addplugins`` and
+``vf rmplugins`` commands. For example, the following will activate the
+``auto_activation`` and ``projects`` plugins, and the next commands will remove
+the ``projects`` plugin::
+
+    vf addplugins auto_activation projects
+    vf rmplugins projects
 
 .. _compat_aliases:
 
