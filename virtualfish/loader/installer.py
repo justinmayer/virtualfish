@@ -22,5 +22,37 @@ def uninstall():
     os.unlink(INSTALL_FILE)
 
 
-if __name__ == "__main__" and sys.argv[1] == "uninstall":
-    uninstall()
+def addplugins(plugins=()):
+    with open(INSTALL_FILE, 'r') as fp:
+        conf = fp.readlines()
+        position = -1
+        for i, line in enumerate(conf):
+            if "virtual.fish" in line:
+                position = i
+                continue
+            for j, plugin in enumerate(plugins):
+                if plugin+".fish" in line:
+                    plugins.pop(j)
+        for i, p in enumerate(load(plugins, full_install=False)):
+            conf.insert(position+1+i, p+'\n')
+    with open(INSTALL_FILE, 'w') as fp:
+        fp.writelines(conf)
+
+def rmplugins(plugins=()):
+    with open(INSTALL_FILE, 'r') as fp:
+        conf = fp.readlines()
+        position = -1
+        for i, line in enumerate(conf):
+            for j, plugin in enumerate(plugins):
+                if plugin+".fish" in line:
+                    conf.pop(i)
+    with open(INSTALL_FILE, 'w') as fp:
+        fp.writelines(conf)
+
+if __name__ == "__main__":
+    if sys.argv[1] == "uninstall":
+        uninstall()
+    elif sys.argv[1] == "addplugins":
+        addplugins(sys.argv[2:])
+    elif sys.argv[1] == "rmplugins":
+        rmplugins(sys.argv[2:])
