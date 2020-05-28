@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.2.4 - 2020-05-28
+------------------
+
+Improve Fish version check reliability. Upon failure, warn instead of exiting.
+
 2.2.3 - 2020-05-16
 ------------------
 
