@@ -136,6 +136,9 @@ directory.
 
     If you are using both the *Compatibility Aliases* and *Projects* plugins,
     ``workon`` will alias ``vf workon`` instead of ``vf activate``.
+    If you are using both the *Auto-activation* and *Projects* plugins, the
+    project's virtual environment will be deactivated automatically when you
+    leave the project's directory.
 
 
 Commands
