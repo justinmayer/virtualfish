@@ -6,7 +6,7 @@ from virtualfish.loader import installer
 
 
 logger = logging.getLogger(__name__)
-minimum_fish_version = "3.3.0"
+minimum_fish_version = "3.1.0"
 
 
 class vcolors:
