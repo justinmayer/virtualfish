@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.2.5 - 2020-05-29
+------------------
+
+* Projects + Auto-Activation: Auto-deactivate when leaving project directory
+* global_requirements: Don't manually build wheels
+* Fix erroneous minimum Fish version
+
 2.2.4 - 2020-05-28
 ------------------
 
