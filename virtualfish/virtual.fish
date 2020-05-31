@@ -456,10 +456,12 @@ function __vf_globalpackages --description "Toggle global site packages"
 
 	if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
 	    # toggle
-	    sed -i '/include-system-site-packages/ {s/true/false/;t;s/false/true/}' $VIRTUALFISH_VENV_CONFIG_FILE
+	    command sed -i '/include-system-site-packages/ {s/true/false/;t;s/false/true/}' \
+		$VIRTUALFISH_VENV_CONFIG_FILE
 
 	    # read new state
-	    if [ "true" = (sed -n 's/include-system-site-packages\s=\s\(true\|false\)/\1/p' $VIRTUALFISH_VENV_CONFIG_FILE) ]
+	    if [ "true" = (command sed -n 's/include-system-site-packages\s=\s\(true\|false\)/\1/p' \
+		$VIRTUALFISH_VENV_CONFIG_FILE) ]
 		set enabled 0
 	    else
 		set enabled 1
