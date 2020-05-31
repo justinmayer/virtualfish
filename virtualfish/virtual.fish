@@ -445,6 +445,8 @@ function __vf_help --description "Print VirtualFish usage information"
 end
 
 function __vf_globalpackages --description "Toggle global site packages"
+    set -l enabled
+
     if set -q VIRTUAL_ENV
 	pushd $VIRTUAL_ENV
 
