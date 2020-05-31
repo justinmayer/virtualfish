@@ -480,9 +480,9 @@ function __vf_globalpackages --description "Toggle global site packages"
 	end
 
 	if [ $enabled -eq 0 ]
-	    echo "Enabling global site packages"
+	    echo "Global site packages enabled"
 	else
-	    echo "Disabling global site packages"
+	    echo "Global site packages disabled"
 	end
 
 	popd
