@@ -450,10 +450,9 @@ function __vf_globalpackages --description "Toggle global site packages"
     if set -q VIRTUAL_ENV
 	pushd $VIRTUAL_ENV
 
-	# if pyvenv.cfg is present, toggle configuration value therein
-	# (https://www.python.org/dev/peps/pep-0405/#isolation-from-system-site-packages)
-	#
-	# otherwise use legacy no-global-site-package.txt file in lib/python*
+	# If pyvenv.cfg is present, toggle configuration value therein.
+	# <https://www.python.org/dev/peps/pep-0405/#isolation-from-system-site-packages>
+	# Otherwise use legacy no-global-site-package.txt file in lib/python*/
 
 	if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
 	    # toggle
