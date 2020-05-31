@@ -50,8 +50,11 @@ directory (or ``pushd``, or anything else that modifies ``$PWD``).
 
 .. note::
 
-    When this plugin is enabled, ensure any modifications to your ``$PATH`` in
-    your ``config.fish`` happen before VirtualFish is loaded.
+    When this plugin is enabled, ensure any environment variables that affect
+    VirtualFish are set as noted in :ref:`configuration_variables` and not in
+    ``config.fish``. Files in ``~/.config/fish/conf.d/`` (including VirtualFish)
+    are sourced *before* ``config.fish``, and thus variables set in
+    ``config.fish`` may not be available to VirtualFish.
 
 Commands
 ........

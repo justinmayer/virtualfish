@@ -59,6 +59,8 @@ In these latter cases, in addition to passing flags such as ``-p python3.8`` or
 ``-p python3.9.0a4``, you can even get away with specifying just the version
 numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
 
+.. _configuration_variables:
+
 Configuration Variables
 -----------------------
 
