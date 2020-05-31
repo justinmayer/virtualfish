@@ -485,6 +485,8 @@ function __vf_globalpackages --description "Toggle global site packages"
 	end
 
 	popd
+    else
+	echo "No virtualenv is active."
     end
 end
 
