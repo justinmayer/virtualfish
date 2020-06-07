@@ -5,6 +5,18 @@ if not set -q VIRTUALFISH_HOME
     set -g VIRTUALFISH_HOME $HOME/.virtualenvs
 end
 
+function __vfsupport_get_default_python --description "Return Python interpreter defined in variables, if any"
+    set -l python
+    if set -q VIRTUALFISH_PYTHON_EXEC
+        set python $VIRTUALFISH_PYTHON_EXEC
+    else if set -q VIRTUALFISH_DEFAULT_PYTHON
+        set python $VIRTUALFISH_DEFAULT_PYTHON
+    else
+        set python python
+    end
+    echo $python
+end
+
 function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     # Check for existence of $VIRTUALFISH_HOME
     if not test -d $VIRTUALFISH_HOME
@@ -496,14 +508,7 @@ function __vf_install --description "Install VirtualFish"
 end
 
 function __vf_uninstall --description "Uninstall VirtualFish"
-    set -l python
-    if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
-    else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
-    else
-        set python python
-    end
+    set -l python (__vfsupport_get_default_python)
     $python -m virtualfish.loader.installer uninstall
     echo "VirtualFish has been uninstalled from this shell."
     echo "Run 'exec fish' to reload Fish."
@@ -515,14 +520,7 @@ function __vf_addplugins --description "Install one or more plugins"
         echo "Provide a plugin to add"
         return -1
     end
-    set -l python
-    if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
-    else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
-    else
-        set python python
-    end
+    set -l python (__vfsupport_get_default_python)
     $python -m virtualfish.loader.installer addplugins $argv
 end
 
@@ -531,15 +529,7 @@ function __vf_rmplugins --description "Remove one or more plugins"
         echo "Provide a plugin to remove"
         return -1
     end
-    set -l python
-    if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
-    else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
-    else
-        set python python
-    end
+    set -l python (__vfsupport_get_default_python)
+    echo $python
     $python -m virtualfish.loader.installer rmplugins $argv
 end
-
-
