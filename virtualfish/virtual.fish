@@ -79,9 +79,12 @@ function __vf_activate --description "Activate a virtualenv"
     end
 
     # Warn if virtual environment name does not appear in prompt
-    if not string match -q -- "*$argv[1]*" (eval fish_prompt)
-        echo "Virtual environment activated but not shown in shell prompt. To fix, see:"
-        echo "<https://virtualfish.readthedocs.io/en/latest/install.html#customizing-your-fish-prompt>"
+    if begin; not set -q VIRTUAL_ENV_DISABLE_PROMPT; or test -z "$VIRTUAL_ENV_DISABLE_PROMPT"; end
+        if begin; not set -q fish_right_prompt; or not string match -q -- "*$argv[1]*" (eval fish_right_prompt); end
+            and not string match -q -- "*$argv[1]*" (eval fish_prompt)
+            echo "Virtual environment activated but not shown in shell prompt. To fix, see:"
+            echo "<https://virtualfish.readthedocs.io/en/latest/install.html#customizing-your-fish-prompt>"
+        end
     end
 
     emit virtualenv_did_activate
