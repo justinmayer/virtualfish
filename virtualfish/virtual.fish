@@ -449,19 +449,15 @@ end
 
 function __vf_globalpackages --description "Toggle global site packages"
     set -l enabled
-
     if set -q VIRTUAL_ENV
         pushd $VIRTUAL_ENV
-
         # If pyvenv.cfg is present, toggle configuration value therein.
         # <https://www.python.org/dev/peps/pep-0405/#isolation-from-system-site-packages>
         # Otherwise use legacy no-global-site-package.txt file in lib/python*/
-
         if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
             # toggle
             command sed -i '/include-system-site-packages/ {s/true/false/;t;s/false/true/}' \
                 $VIRTUALFISH_VENV_CONFIG_FILE
-
             # read new state
             if [ "true" = (command sed -n 's/include-system-site-packages\s=\s\(true\|false\)/\1/p' \
                 $VIRTUALFISH_VENV_CONFIG_FILE) ]
@@ -481,16 +477,14 @@ function __vf_globalpackages --description "Toggle global site packages"
             end
             popd
         end
-
         if [ $enabled -eq 0 ]
             echo "Global site packages enabled"
         else
             echo "Global site packages disabled"
         end
-
         popd
     else
-        echo "No virtualenv is active."
+        echo "Cannot toggle global site packages without an active virtual environment."
     end
 end
 
