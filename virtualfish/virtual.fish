@@ -530,6 +530,5 @@ function __vf_rmplugins --description "Remove one or more plugins"
         return -1
     end
     set -l python (__vfsupport_get_default_python)
-    echo $python
     $python -m virtualfish.loader.installer rmplugins $argv
 end
