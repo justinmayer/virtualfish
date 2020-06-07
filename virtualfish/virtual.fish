@@ -491,7 +491,7 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
 end
 
 function __vf_install --description "Install VirtualFish"
-    echo "VirtualFish is already installed! Hooray! For trying to install extra plugins use the addplugins command"
+    echo "VirtualFish is already installed! Hooray! To install extra plugins, use the addplugins command."
     return 0
 end
 
