@@ -33,6 +33,7 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     if test (count $argv) -gt 1
         set scargs $argv[2..-1]
     end
+
     if functions -q $funcname
         eval $funcname $scargs
     else
