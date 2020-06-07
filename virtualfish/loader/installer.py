@@ -38,6 +38,7 @@ def addplugins(plugins=()):
     with open(INSTALL_FILE, 'w') as fp:
         fp.writelines(conf)
 
+
 def rmplugins(plugins=()):
     with open(INSTALL_FILE, 'r') as fp:
         conf = fp.readlines()
