@@ -37,6 +37,7 @@ def addplugins(plugins=()):
             conf.insert(position+1+i, p+'\n')
     with open(INSTALL_FILE, 'w') as fp:
         fp.writelines(conf)
+    print("Plugin(s) enabled. Run 'exec fish' to load for this session.")
 
 
 def rmplugins(plugins=()):
