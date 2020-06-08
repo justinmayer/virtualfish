@@ -1,7 +1,10 @@
-from __future__ import print_function
+import logging
 import os
 import sys
 import pkg_resources
+
+
+log = logging.getLogger(__name__)
 
 
 def load(plugins=(), full_install=True):
@@ -25,7 +28,8 @@ def load(plugins=(), full_install=True):
         if os.path.exists(path):
             commands.append("source {}".format(path))
         else:
-            raise ValueError("Plugin does not exist: " + plugin)
+            log.error("Plugin does not exist: {}".format(plugin))
+            sys.exit(1)
 
     if full_install:
         commands.append("emit virtualfish_did_setup_plugins")

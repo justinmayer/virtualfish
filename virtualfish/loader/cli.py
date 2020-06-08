@@ -5,7 +5,7 @@ import psutil
 from virtualfish.loader import installer
 
 
-logger = logging.getLogger(__name__)
+log = logging.getLogger(__name__)
 minimum_fish_version = "3.1.0"
 
 
@@ -33,7 +33,7 @@ def check_fish_version():
         # Remove any extraneous hyphen-suffixed bits
         fish_version = fish_version.partition("-")[0]
         if version.parse(fish_version) < version.parse(minimum_fish_version):
-            logger.warning(
+            log.warning(
                 "{}WARNING: VirtualFish requires Fish {} or higher. Current version: {}{}".format(
                 vcolors.RED, minimum_fish_version, fish_version, vcolors.NORMAL))
     except (ModuleNotFoundError, FileNotFoundError):
