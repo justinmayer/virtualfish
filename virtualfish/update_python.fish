@@ -28,6 +28,7 @@ function __vf_update_python --description "Change the Python interpreter for the
     vf deactivate
     and vf rm $envname
     and vf new -p $python $envname
+    and test -n "$packages"
     and pip install -U $packages
 end
 
