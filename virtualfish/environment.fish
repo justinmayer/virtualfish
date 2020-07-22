@@ -4,20 +4,26 @@ if not set -q VIRTUALFISH_ENVIRONMENT_FILE
 end
 
 function __vfsupport_set_env_file_path --description "Set VIRTUALFISH_ENVIRONMENT_FILE_PATH to appropriate value"
-    set -l vf_path $VIRTUAL_ENV/$VIRTUALFISH_ENVIRONMENT_FILE
+    set -l project_env_path
+    set -l venv_env_path $VIRTUAL_ENV/$VIRTUALFISH_ENVIRONMENT_FILE
     # Check if Projects plugin is used
     if not set -q PROJECT_HOME
         # Always look in the virtualenv dir when not using Projects plugin
-        echo $vf_path
+        echo $venv_env_path
     else
-        set -l project_path $PROJECT_HOME/(basename $VIRTUAL_ENV)/$VIRTUALFISH_ENVIRONMENT_FILE
-        if not test -r $project_path
-            and test -r $vf_path
-            # Only use virtualenv dir when there is already a file there
-            echo $vf_path
+        # If a .project file exists in virtualenv, look for .env in that project.
+        if test -r $VIRTUAL_ENV/.project
+            set project_env_path (command cat $VIRTUAL_ENV/.project)/$VIRTUALFISH_ENVIRONMENT_FILE
+        # Otherwise assume the project has the same name as current virtualenv
         else
-            # Prefer to use the project dir
-            echo $project_path
+            set project_env_path $PROJECT_HOME/(basename $VIRTUAL_ENV)/$VIRTUALFISH_ENVIRONMENT_FILE
+        end
+        # If .env is not found in project, fall back to $VIRTUAL_ENV/.env
+        if not test -r $project_env_path
+            and test -r $venv_env_path
+            echo $venv_env_path
+        else
+            echo $project_env_path
         end
     end
 end
