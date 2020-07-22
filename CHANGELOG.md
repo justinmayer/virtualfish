@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+2.4.0 - 2020-07-22
+------------------
+
+* Remove temporary environments *safely* upon de-activation
+* Replace $HOME with ~ when displaying new virtual environment path
+* Environment: support .project files, loading .env from corresponding project
+
 2.3.0 - 2020-06-08
 ------------------
 
