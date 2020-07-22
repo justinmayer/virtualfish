@@ -331,14 +331,18 @@ end
 function __vf_tmp --description "Create a virtualenv that will be removed when deactivated"
     set -l env_name (printf "%s%.4x" "tempenv-" (random) (random) (random))
     vf new $argv $env_name
-    set -g VF_TEMPORARY_ENV
+    and set -g _VF_TEMPORARY_ENV $env_name
 end
 
 function __vfsupport_remove_env_on_deactivate_or_exit --on-event virtualenv_did_deactivate --on-process %self
-    if set -q VF_TEMPORARY_ENV
-        echo "Removing temporary virtualenv" (basename $VIRTUAL_ENV)
-        command rm -rf $VIRTUAL_ENV
-        set -e VF_TEMPORARY_ENV
+    if begin; set -q _VF_TEMPORARY_ENV; and [ $_VF_TEMPORARY_ENV = (basename $VIRTUAL_ENV) ]; end
+        echo "Removing temporary virtualenv" $_VF_TEMPORARY_ENV
+        if command -q trash
+            command trash $VIRTUAL_ENV
+        else
+            command rm -rf $VIRTUAL_ENV
+        end
+        set -e _VF_TEMPORARY_ENV
     end
 end
 
