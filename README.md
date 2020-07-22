@@ -19,7 +19,8 @@ VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/),
 3. [Add VirtualFish to your prompt](https://virtualfish.readthedocs.org/en/latest/install.html#customizing-your-fish-prompt)
 4. `vf new myvirtualenv; which python`
 
-See the docs to find out more about project management, environment variable automation, auto-activation, and other plugins, as well as extending VirtualFish with events, [virtualenvwrapper][] emulation, and more.
+[Read the documentation][Read The Docs] to find out more about project management, environment variable automation, auto-activation, and other plugins, as well as extending VirtualFish with events, [virtualenvwrapper][] emulation, and more.
+
 
 [Virtualenv]: https://virtualenv.pypa.io/en/latest/
 [Fish shell]: https://fishshell.com/
