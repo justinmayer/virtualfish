@@ -254,7 +254,10 @@ function __vf_new --description "Create a new virtualenv"
     # Virtualenv outputs too much, so we use its quiet mode by default.
     # "--verbose" yields its normal output; "--debug" yields its verbose output
     if not set -q _flag_quiet
-        echo "Creating "(set_color blue)"$envname"(set_color normal)" via "(set_color green)"$python"(set_color normal)" …"
+        # Replace $HOME, if present in Python path, with "~"
+        set -l realhome ~
+        set -l python_path (string replace -r '^'"$realhome"'($|/)' '~$1' $python)
+        echo "Creating "(set_color blue)"$envname"(set_color normal)" via "(set_color green)"$python_path"(set_color normal)" …"
     end
     if set -q _flag_debug
         echo "Virtualenv args: $virtualenv_args"
