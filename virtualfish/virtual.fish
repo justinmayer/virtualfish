@@ -299,11 +299,13 @@ function __vf_rm --description "Delete one or more virtual environments"
             return 1
         end
         echo "Removing $VIRTUALFISH_HOME/$venv"
+        emit virtualenv_will_remove $venv
         if command -q trash
             command trash $VIRTUALFISH_HOME/$venv
         else
             command rm -rf $VIRTUALFISH_HOME/$venv
         end
+        emit virtualenv_did_remove $venv
     end
 end
 
@@ -440,9 +442,21 @@ function __vf_help --description "Print VirtualFish usage information"
     echo
     echo "Available commands:"
     echo
-    for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
+
+    # Dynamically calculate column spacing, based on longest subcommand
+    set -l subcommands (functions -a | sed -n '/__vf_/{s///g;p;}')
+    set -l max_subcommand_length 0
+    for sc in $subcommands
+        set -l cur (string length $sc)
+        if test $cur -ge $max_subcommand_length
+            set max_subcommand_length $cur
+        end
+    end
+    set -l spacing (math $max_subcommand_length + 1)
+
+    for sc in $subcommands
         set -l helptext (functions "__vf_$sc" | grep '^function ' | head -n 1 | sed -E "s|.*'(.*)'.*|\1|")
-        printf "    %-15s %s\n" $sc (set_color 555)$helptext(set_color normal)
+        printf "    %-$spacing""s %s\n" $sc (set_color 555)$helptext(set_color normal)
     end
     echo
 
