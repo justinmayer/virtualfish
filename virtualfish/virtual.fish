@@ -299,11 +299,13 @@ function __vf_rm --description "Delete one or more virtual environments"
             return 1
         end
         echo "Removing $VIRTUALFISH_HOME/$venv"
+        emit virtualenv_will_remove $venv
         if command -q trash
             command trash $VIRTUALFISH_HOME/$venv
         else
             command rm -rf $VIRTUALFISH_HOME/$venv
         end
+        emit virtualenv_did_remove $venv
     end
 end
 
