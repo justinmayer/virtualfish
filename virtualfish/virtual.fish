@@ -138,9 +138,6 @@ function __vfsupport_find_python --description "Search for and return Python pat
     # Executable on PATH (python3/python3.8) or full interpreter path
     if set -l py_path (command -s $python_arg)
         set python "$py_path"
-    # Version number in Homebrew keg-only versioned Python formula
-    else if test -x "$brew_path"
-        set python "$brew_path"
     # Use `asdf` Python plugin, if found and provided version is available
     else if type -q "asdf"
         set -l asdf_plugins (asdf plugin list)
@@ -162,6 +159,9 @@ function __vfsupport_find_python --description "Search for and return Python pat
         if test -x "$pythonz_path"
             set python "$pythonz_path"
         end
+    # Version number in Homebrew keg-only versioned Python formula
+    else if test -x "$brew_path"
+        set python "$brew_path"
     end
     # If no interpreter was found, pass to Virtualenv as-is
     if not test -x "$python"
