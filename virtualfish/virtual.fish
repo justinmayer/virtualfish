@@ -399,6 +399,7 @@ function __vf_all --description "Run a command in all virtualenvs sequentially"
     end
 
     for env in (vf ls)
+        echo (set_color blue)$env(set_color normal) ➤ Running: (set_color green)$argv(set_color normal) …
         vf activate $env
         eval $argv
     end
