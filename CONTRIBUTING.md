@@ -10,7 +10,7 @@ The [Contributor Covenant 1.2](https://www.contributor-covenant.org/version/1/2/
 
 Here are a few tips on how to submit a useful issue.
 
-- **Try installing the VirtualFish development version**, by running `pip install git+https://github.com/justinmayer/virtualfish`, to see if your issue has already been fixed.
+- **Try installing the VirtualFish development version**, by running `python -m pip install git+https://github.com/justinmayer/virtualfish`, to see if your issue has already been fixed.
 - **Check the documentation** and **search past issues** before you file your issue.
     - That said, if something is hard to find or understand, you can still submit an issue suggesting an improvement to the docs or to VirtualFish's usability.
 - **Be polite**, and remember that the people that work on VirtualFish do so in our spare time for free.

@@ -14,7 +14,7 @@ VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/),
 
 👉 **Fish version 3.1 or higher is required.** 👈
 
-1. `pip install virtualfish`
+1. `python -m pip install virtualfish`
 2. `vf install`
 3. [Add VirtualFish to your prompt](https://virtualfish.readthedocs.org/en/latest/install.html#customizing-your-fish-prompt)
 4. `vf new myvirtualenv; which python`
