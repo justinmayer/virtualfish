@@ -50,15 +50,15 @@ Sometimes there may be Python interpreters on your system that are not on your
 type. VirtualFish makes dealing with these easier by automatically detecting and
 using Python interpreters in a few known situations, in the following order:
 
-1. Homebrew_ keg-only versioned Python executable (e.g., 3.8) found at:
+1. asdf_ Python plugin is installed and has built the specified Python version.
+2. Pyenv_ is installed and has built the specified Python version.
+3. Pythonz_ is installed and has built the specified Python version.
+4. Homebrew_ keg-only versioned Python executable (e.g., 3.8) found at:
    ``/usr/local/opt/python@3.8/bin/python3.8``
-2. asdf_ Python plugin is installed and has built the specified Python version.
-3. Pyenv_ is installed and has built the specified Python version.
-4. Pythonz_ is installed and has built the specified Python version.
 
-In these latter cases, in addition to passing flags such as ``-p python3.8`` or
-``-p python3.9.0a4``, you can even get away with specifying just the version
-numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
+For asdf_, Pyenv_, and Pythonz_ , in addition to passing option flags such as
+``-p python3.8`` or ``-p python3.9.0a4``, you can even get away with specifying
+just the version numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
 
 .. _configuration_variables:
 
