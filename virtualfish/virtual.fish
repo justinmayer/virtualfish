@@ -143,28 +143,28 @@ function __vfsupport_find_python --description "Search for and return Python pat
         set -l asdf_plugins (asdf plugin list)
         if contains python $asdf_plugins
             set -l asdf_path (asdf where python $py_version)/bin/python
-            if test -x "$asdf_path"
+            if command -q "$asdf_path"
                 set python "$asdf_path"
             end
         end
     # Use Pyenv, if found and provided version is available
     else if type -q "pyenv"
         set -l pyenv_path (pyenv which python$py_version)
-        if test -x "$pyenv_path"
+        if command -q "$pyenv_path"
             set python "$pyenv_path"
         end
     # Use Pythonz, if found and provided version is available
     else if type -q "pythonz"
         set -l pythonz_path (pythonz locate $py_version)
-        if test -x "$pythonz_path"
+        if command -q "$pythonz_path"
             set python "$pythonz_path"
         end
     # Version number in Homebrew keg-only versioned Python formula
-    else if test -x "$brew_path"
+    else if command -q "$brew_path"
         set python "$brew_path"
     end
     # If no interpreter was found, pass to Virtualenv as-is
-    if not test -x "$python"
+    if begin; not command -q "$python"; or not __vfsupport_check_python "$python"; end
         set python $python_arg
     end
     echo $python
