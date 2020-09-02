@@ -239,12 +239,8 @@ function __vf_new --description "Create a new virtualenv"
     # Use Python interpreter if provided; otherwise fall back to sane default
     if set -q _flag_python
         set python (__vfsupport_find_python $_flag_python)
-    else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
-    else if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
     else
-        set python python
+        set python (__vfsupport_get_default_python)
     end
 
     if set -q python
