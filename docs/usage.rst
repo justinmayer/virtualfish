@@ -5,7 +5,7 @@ Commands
 --------
 
 -  ``vf new [<options>] <envname>`` - Create a virtual environment.
--  ``vf ls`` - List the available virtual environments.
+-  ``vf ls [--details]`` - List the available virtual environments.
 -  ``vf activate <envname>`` - Activate a virtual environment. (Note: Doesn’t
    use the ``activate.fish`` script provided by Virtualenv_.)
 -  ``vf deactivate`` - Deactivate the current virtual environment.
