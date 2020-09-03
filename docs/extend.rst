@@ -53,5 +53,9 @@ The full list of events is:
 -  ``virtualenv_will_create``
 -  ``virtualenv_did_create``
 -  ``virtualenv_did_create:<env name>``
+-  ``virtualenv_will_upgrade``
+-  ``virtualenv_will_upgrade:<env name>``
+-  ``virtualenv_did_upgrade``
+-  ``virtualenv_did_upgrade:<env name>``
 -  ``virtualenv_did_connect``
 -  ``virtualenv_did_connect:<env name>``

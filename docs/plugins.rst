@@ -218,6 +218,12 @@ Commands
 Update Python (``update_python``)
 ---------------------------------
 
+.. note::
+
+    The functionality provided by this plugin has been superseded by the
+    ``vf upgrade`` command. This plugin has therefore been deprecated and will
+    likely be removed in the future.
+
 This plugin adds commands to change the Python interpreter of the current
 virtual environment.
 
