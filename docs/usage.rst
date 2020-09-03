@@ -9,6 +9,7 @@ Commands
 -  ``vf activate <envname>`` - Activate a virtual environment. (Note: Doesn’t
    use the ``activate.fish`` script provided by Virtualenv_.)
 -  ``vf deactivate`` - Deactivate the current virtual environment.
+-  ``vf upgrade [<options>] [<envname(s)>]`` - Upgrade virtual environment(s).
 -  ``vf rm <envname>`` - Delete a virtual environment.
 -  ``vf tmp [<options>]`` - Create a temporary virtual environment with a
    randomly generated name that will be removed when it is deactivated.
@@ -61,6 +62,58 @@ For asdf_, Pyenv_, and Pythonz_ , in addition to passing option flags such as
 just the version numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
 
 .. _configuration_variables:
+
+Upgrading Virtual Environments
+------------------------------
+
+Virtual environments contain links to Python interpreters that can become
+outdated over time. In addition, sometimes the underlying Python interpreter
+can be removed by Python upgrades, putting the virtual environment into an
+unusable state. Thankfully, VirtualFish includes a mechanism for upgrading
+outdated/broken environments.
+
+To understand which environments might be outdated/broken, run::
+
+    vf ls --details
+
+VirtualFish compares environment Python versions to the current default Python
+version, as specified by the ``VIRTUALFISH_DEFAULT_PYTHON`` variable (see
+below), if defined. To perform a minor (point-release) upgrade to the
+currently-active virtual environment, run::
+
+    vf upgrade
+
+Minor point-release upgrades will modify in-place the virtual environment’s
+Python version number and symlinks. (While this should work correctly in the
+majority of cases, there is the possibility that future changes to virtual
+environment structure will interfere with this in-place upgrade.)
+
+For major version upgrades, say from Python 3.8.x to 3.9.x, you must instead
+re-build the environment via::
+
+    vf upgrade --rebuild
+
+Re-building an environment will record its current package versions, remove the
+old environment, create a new environment with the same name, and re-install the
+list of recorded package versions.
+
+If VirtualFish determines that a virtual environment is in a broken state, it
+will re-build that environment, even if ``--rebuild`` is omitted.
+
+To upgrade to a specific Python interpreter or version, use the ``--python``
+option::
+
+    vf upgrade --rebuild --python /usr/local/bin/python3.8
+
+Virtual environments need not be active in order to upgrade them. To upgrade
+one or more virtual environments, specify their names::
+
+    vf upgrade project1 project2
+
+Upgrades can also be applied to all environments. To re-build all existing
+environments::
+
+    vf upgrade --rebuild --all
 
 Configuration Variables
 -----------------------
