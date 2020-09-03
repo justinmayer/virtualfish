@@ -143,28 +143,28 @@ function __vfsupport_find_python --description "Search for and return Python pat
         set -l asdf_plugins (asdf plugin list)
         if contains python $asdf_plugins
             set -l asdf_path (asdf where python $py_version)/bin/python
-            if test -x "$asdf_path"
+            if command -q "$asdf_path"
                 set python "$asdf_path"
             end
         end
     # Use Pyenv, if found and provided version is available
     else if type -q "pyenv"
         set -l pyenv_path (pyenv which python$py_version)
-        if test -x "$pyenv_path"
+        if command -q "$pyenv_path"
             set python "$pyenv_path"
         end
     # Use Pythonz, if found and provided version is available
     else if type -q "pythonz"
         set -l pythonz_path (pythonz locate $py_version)
-        if test -x "$pythonz_path"
+        if command -q "$pythonz_path"
             set python "$pythonz_path"
         end
     # Version number in Homebrew keg-only versioned Python formula
-    else if test -x "$brew_path"
+    else if command -q "$brew_path"
         set python "$brew_path"
     end
     # If no interpreter was found, pass to Virtualenv as-is
-    if not test -x "$python"
+    if begin; not command -q "$python"; or not __vfsupport_check_python "$python"; end
         set python $python_arg
     end
     echo $python
@@ -239,12 +239,8 @@ function __vf_new --description "Create a new virtualenv"
     # Use Python interpreter if provided; otherwise fall back to sane default
     if set -q _flag_python
         set python (__vfsupport_find_python $_flag_python)
-    else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
-    else if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
     else
-        set python python
+        set python (__vfsupport_get_default_python)
     end
 
     if set -q python
@@ -310,9 +306,53 @@ function __vf_rm --description "Delete one or more virtual environments"
 end
 
 function __vf_ls --description "List all available virtual environments"
+    argparse -n "vf ls" "h/help" "d/details" -- $argv
+    set -l normal (set_color normal)
+    set -l green (set_color green)
+    set -l red (set_color red)
+    if set -q _flag_help
+        echo
+        echo "Purpose: List existing virtual environments"
+        echo "Usage: "$green"vf ls "(set_color -di)"[--details]"$normal
+        echo
+        echo "Add "$green"--details"$normal" to see per-environment Python version numbers"\n
+        return 0
+    end
     begin; pushd $VIRTUALFISH_HOME; and set -e dirprev[-1]; end
-    for i in */bin/python
-        echo $i
+    # If passed --details, determine default Python version number
+    set -l default_python_version
+    if set -q _flag_details
+        set -l default_python (__vfsupport_get_default_python)
+        __vfsupport_check_python $default_python
+        if test $status -eq 0
+            set default_python_version ($default_python -V | string split " ")[2]
+        else
+            echo "Could not determine default Python. Add interpreter to Fish config via something like:"
+            echo $green\n"set -g VIRTUALFISH_DEFAULT_PYTHON /path/to/valid/bin/python"$normal\n
+            return -1
+        end
+    end
+    # Iterate over environments, showing colored version numbers if passed --details
+    for p in */bin/python
+        if set -q _flag_details
+            set -l env_python_version
+            __vfsupport_check_python --pip "$VIRTUALFISH_HOME/$p"
+            if test $status -eq 0
+                set env_python_version ("$VIRTUALFISH_HOME/$p" -V | string split " ")[2]
+                __vfsupport_compare_py_versions $env_python_version $default_python_version
+                if test $status -eq 1
+                    set env_python_version (set_color yellow)$env_python_version$normal
+                else
+                    set env_python_version $green$env_python_version$normal
+                end
+            else
+                set env_python_version $red"broken"$normal
+            end
+            printf "%-33s (%s)\n" $p $env_python_version
+        else
+            # No --details flag, so just print the virtual environment names
+            echo $p
+        end
     end | sed "s|/bin/python||"
     begin; popd; and set -e dirprev[-1]; end
 end
@@ -543,15 +583,32 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
 end
 
 function __vfsupport_get_default_python --description "Return Python interpreter defined in variables, if any"
-    set -l python
-    if set -q VIRTUALFISH_PYTHON_EXEC
-        set python $VIRTUALFISH_PYTHON_EXEC
+    argparse "e/exec" -- $argv
+    # Prefer VIRTUALFISH_DEFAULT_PYTHON unless --exec is passed
+    if begin; not set -q _flag_exec; and set -q VIRTUALFISH_DEFAULT_PYTHON; end
+        echo $VIRTUALFISH_DEFAULT_PYTHON
+    else if set -q VIRTUALFISH_PYTHON_EXEC
+        echo $VIRTUALFISH_PYTHON_EXEC
     else if set -q VIRTUALFISH_DEFAULT_PYTHON
-        set python $VIRTUALFISH_DEFAULT_PYTHON
+        echo $VIRTUALFISH_DEFAULT_PYTHON
     else
-        set python python
+        echo python
     end
-    echo $python
+end
+
+function __vfsupport_compare_py_versions --description "Return status code 1 if specified Python version is less than another"
+    set -l version_to_compare (string split . $argv[1])
+    set -l reference_version (string split . $argv[2])
+    if test $version_to_compare[1] -lt $reference_version[1]
+        return 1
+    else if test $version_to_compare[2] -lt $reference_version[2]
+        return 1
+    else if test $version_to_compare[2] -gt $reference_version[2]
+        return 0
+    else if test $version_to_compare[3] -lt $reference_version[3]
+        return 1
+    end
+    return 0
 end
 
 function __vf_install --description "Install VirtualFish"
@@ -560,7 +617,7 @@ function __vf_install --description "Install VirtualFish"
 end
 
 function __vf_uninstall --description "Uninstall VirtualFish"
-    set -l python (__vfsupport_get_default_python)
+    set -l python (__vfsupport_get_default_python --exec)
     $python -m virtualfish.loader.installer uninstall
     echo "VirtualFish has been uninstalled from this shell."
     echo "Run 'exec fish' to reload Fish."
@@ -572,7 +629,7 @@ function __vf_addplugins --description "Install one or more plugins"
         echo "Provide a plugin to add"
         return -1
     end
-    set -l python (__vfsupport_get_default_python)
+    set -l python (__vfsupport_get_default_python --exec)
     $python -m virtualfish.loader.installer addplugins $argv
 end
 
@@ -581,6 +638,21 @@ function __vf_rmplugins --description "Remove one or more plugins"
         echo "Provide a plugin to remove"
         return -1
     end
-    set -l python (__vfsupport_get_default_python)
+    set -l python (__vfsupport_get_default_python --exec)
     $python -m virtualfish.loader.installer rmplugins $argv
+end
+
+function __vfsupport_check_python --description "Ensure Python/Pip are in a working state"
+    argparse "p/pip" -- $argv
+    set -l python_path $argv[1]
+    set -l pipflag ""
+    if set -q _flag_pip
+        set pipflag "-m pip"
+    end
+    set -l test_py (fish -c "'$python_path' $pipflag -V" 2>/dev/null)
+    if test $status -ne 0
+        return 1
+    else
+        return 0
+    end
 end
