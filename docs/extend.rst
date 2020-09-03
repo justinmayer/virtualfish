@@ -57,5 +57,9 @@ The full list of events is:
 -  ``virtualenv_will_upgrade:<env name>``
 -  ``virtualenv_did_upgrade``
 -  ``virtualenv_did_upgrade:<env name>``
+-  ``virtualenv_will_remove``
+-  ``virtualenv_will_remove:<env name>``
+-  ``virtualenv_did_remove``
+-  ``virtualenv_did_remove:<env name>``
 -  ``virtualenv_did_connect``
 -  ``virtualenv_did_connect:<env name>``
