@@ -1,6 +1,6 @@
 # VirtualFish
 
-[![Build Status](https://img.shields.io/github/workflow/status/justinmayer/virtualfish/build)](https://github.com/justinmayer/virtualfish/actions)
+[![Build Status](https://img.shields.io/github/workflow/status/justinmayer/virtualfish/build)](https://github.com/justinmayer/virtualfish/actions) [![PyPI Version](https://img.shields.io/pypi/v/virtualfish)](https://pypi.org/project/virtualfish/)
 
 VirtualFish is a Python [virtual environment][Virtualenv] manager for the [Fish shell][].
 
