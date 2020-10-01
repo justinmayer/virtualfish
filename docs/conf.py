@@ -58,6 +58,11 @@ release = version
 # for a list of supported languages.
 # language = None
 
+# The default language to use when highlighting source code. The value should be a valid
+# Pygments lexer name. Defaults to Python if not specified. See "Showing Code Examples":
+# https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html#code-examples
+highlight_language = "fish"
+
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
 # today = ''
