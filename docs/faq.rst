@@ -1,6 +1,16 @@
 Frequently Asked Questions
 ==========================
 
+How do I ensure new environments always have the latest version of Pip?
+-----------------------------------------------------------------------
+
+You may see warnings from Pip about a newer available version, even on fresh
+environments you have just created. To ensure Pip is automatically updated upon
+environment creation, enable the *Global Requirements* plugin and add Pip via::
+
+    vf addplugins global_requirements
+    echo "pip" >> $VIRTUALFISH_HOME/global_requirements.txt
+
 Why isn’t VirtualFish written in Python?
 ----------------------------------------
 
