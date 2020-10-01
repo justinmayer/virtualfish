@@ -4,7 +4,7 @@ Frequently Asked Questions
 Why isn’t VirtualFish written in Python?
 ----------------------------------------
 
-Mostly, for `the same reasons virtualenvwrapper is`_.
+Mostly, for `the same reasons Virtualenvwrapper isn’t`_.
 
 Does VirtualFish work with Python 3? What about PyPy?
 -----------------------------------------------------
@@ -28,8 +28,8 @@ same task.
 Why doesn’t VirtualFish use activate.fish?
 ------------------------------------------
 
-VirtualFish uses its own internal virtualenv activation code instead of the
-``activate.fish`` file that comes with every virtualenv for two main reasons.
+VirtualFish uses its own internal virtual environment activation code instead
+of the ``activate.fish`` file that Virtualenv_ generates for two main reasons.
 One is that when VirtualFish was originally written, ``activate.fish`` didn't
 actually work. The second reason, which is still valid today, is that
 ``activate.fish`` tries to modify your ``fish_prompt`` function.
@@ -42,4 +42,4 @@ than, say, ``PS1`` on Bash. This is why VirtualFish doesn’t attempt to modify
 your prompt, and instead tells you how to do it yourself.
 
 .. _Virtualenv: https://virtualenv.pypa.io/
-.. _the same reasons virtualenvwrapper is: https://virtualenvwrapper.readthedocs.io/en/latest/design.html
+.. _the same reasons Virtualenvwrapper isn’t: https://virtualenvwrapper.readthedocs.io/en/latest/design.html
