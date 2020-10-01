@@ -25,4 +25,4 @@ VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/),
 [Virtualenv]: https://virtualenv.pypa.io/en/latest/
 [Fish shell]: https://fishshell.com/
 [Read The Docs]: https://virtualfish.readthedocs.org/en/latest/
-[virtualenvwrapper]: https://bitbucket.org/dhellmann/virtualenvwrapper
+[virtualenvwrapper]: https://bitbucket.org/virtualenvwrapper/virtualenvwrapper
