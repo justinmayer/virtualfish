@@ -570,12 +570,12 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
             else
                 # Update symlinks & version numbers
                 echo "Upgrading $venv from $old_py_fv to $new_py_fv"
-                command rm "$venv_path/bin/python"
-                    and command ln -s "$python$new_py_mv" "$venv_path/bin/python"
-                command rm "$venv_path/bin/python3"
-                    and command ln -s "$python$new_py_mv" "$venv_path/bin/python3"
-                command rm "$venv_path/bin/python$old_py_mv"
-                    and command ln -s "$python$new_py_mv" "$venv_path/bin/python$new_py_mv"
+                if [ -L "$venv_path/bin/python" ]; command rm "$venv_path/bin/python"; end
+                command ln -s "$python$new_py_mv" "$venv_path/bin/python"
+                if [ -L "$venv_path/bin/python3" ]; command rm "$venv_path/bin/python3"; end
+                command ln -s "$python$new_py_mv" "$venv_path/bin/python3"
+                if [ -L "$venv_path/bin/python$old_py_mv" ]; command rm "$venv_path/bin/python$old_py_mv"; end
+                command ln -s "$python$new_py_mv" "$venv_path/bin/python$new_py_mv"
                 if test -f "$venv_path/pyvenv.cfg"
                     command sed -i '' -e "s/$old_py_fv/$new_py_fv/g" "$venv_path/pyvenv.cfg"
                 end
