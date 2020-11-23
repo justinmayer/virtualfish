@@ -136,7 +136,7 @@ virtual environment via the following example steps::
 
    vf activate YourVirtualenv
    cd /path/to/your/project
-   echo $PWD > $VIRTUALENV/.project
+   echo $PWD > $VIRTUAL_ENV/.project
 
 In the future, you may then run ``vf workon YourVirtualenv`` to simultaneously
 activate ``YourVirtualenv`` and switch to the ``/path/to/your/project``
