@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.5.1 - 2020-12-01
+------------------
+
+* globalpackages: Can now explicitly enable, disable, or toggle global packages
+* auto_activation: Auto-activate only for interactive sessions
+
 2.5.0 - 2020-09-03
 ------------------
 
