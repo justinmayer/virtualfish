@@ -5,7 +5,6 @@ import os
 import sys
 import subprocess
 from subprocess import PIPE
-import time
 from threading import Thread
 import tempfile
 

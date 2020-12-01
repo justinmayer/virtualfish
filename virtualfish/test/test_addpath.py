@@ -1,6 +1,3 @@
-import sys
-
-
 def test_addpath(vf):
     venv = f"{vf.homedir}/.virtualenvs/test"
     vf.run("vf new test")

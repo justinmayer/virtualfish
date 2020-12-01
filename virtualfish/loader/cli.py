@@ -34,7 +34,8 @@ def check_fish_version():
         fish_version = fish_version.partition("-")[0]
         if version.parse(fish_version) < version.parse(minimum_fish_version):
             log.warning(
-                "{}WARNING: VirtualFish requires Fish {} or higher. Current version: {}{}".format(
+                """{}WARNING: VirtualFish requires Fish {} or higher.
+                   Current version: {}{}""".format(
                     vcolors.RED, minimum_fish_version, fish_version, vcolors.NORMAL
                 )
             )

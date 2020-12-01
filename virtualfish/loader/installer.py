@@ -43,7 +43,6 @@ def addplugins(plugins=()):
 def rmplugins(plugins=()):
     with open(INSTALL_FILE, "r") as fp:
         conf = fp.readlines()
-        position = -1
         for i, line in enumerate(conf):
             for j, plugin in enumerate(plugins):
                 if plugin + ".fish" in line:

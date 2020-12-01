@@ -1,5 +1,6 @@
-from .repl import Fish
 import pytest
+
+from .repl import Fish
 
 
 @pytest.fixture
