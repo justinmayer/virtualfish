@@ -14,4 +14,3 @@ function __vf_requirements --description "Edit the global requirements file and 
     end
     popd
 end
-

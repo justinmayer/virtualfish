@@ -23,7 +23,7 @@ def install():
 
 def check_fish_version():
     """Display a warning if the minimum Fish version is not installed. Bail silently if
-       the 'packaging' module is missing or if Fish is not installed."""
+    the 'packaging' module is missing or if Fish is not installed."""
     try:
         import subprocess
         from packaging import version
