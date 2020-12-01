@@ -35,7 +35,9 @@ def check_fish_version():
         if version.parse(fish_version) < version.parse(minimum_fish_version):
             log.warning(
                 "{}WARNING: VirtualFish requires Fish {} or higher. Current version: {}{}".format(
-                vcolors.RED, minimum_fish_version, fish_version, vcolors.NORMAL))
+                    vcolors.RED, minimum_fish_version, fish_version, vcolors.NORMAL
+                )
+            )
     except (ModuleNotFoundError, FileNotFoundError):
         pass
 
@@ -61,8 +63,11 @@ def main():
                 "load it."
             )
         else:
-            print("VirtualFish isn't compatible with {}, only Fish {}+.".format(
-                the_shell, minimum_fish_version))
+            print(
+                "VirtualFish isn't compatible with {}, only Fish {}+.".format(
+                    the_shell, minimum_fish_version
+                )
+            )
 
 
 if __name__ == "__main__":

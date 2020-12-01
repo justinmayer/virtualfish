@@ -23,7 +23,7 @@ def uninstall():
 
 
 def addplugins(plugins=()):
-    with open(INSTALL_FILE, 'r') as fp:
+    with open(INSTALL_FILE, "r") as fp:
         conf = fp.readlines()
         position = -1
         for i, line in enumerate(conf):
@@ -31,24 +31,24 @@ def addplugins(plugins=()):
                 position = i
                 continue
             for j, plugin in enumerate(plugins):
-                if plugin+".fish" in line:
+                if plugin + ".fish" in line:
                     plugins.pop(j)
         for i, p in enumerate(load(plugins, full_install=False)):
-            conf.insert(position+1+i, p+'\n')
-    with open(INSTALL_FILE, 'w') as fp:
+            conf.insert(position + 1 + i, p + "\n")
+    with open(INSTALL_FILE, "w") as fp:
         fp.writelines(conf)
     print("Plugin(s) enabled. Run 'exec fish' to load for this session.")
 
 
 def rmplugins(plugins=()):
-    with open(INSTALL_FILE, 'r') as fp:
+    with open(INSTALL_FILE, "r") as fp:
         conf = fp.readlines()
         position = -1
         for i, line in enumerate(conf):
             for j, plugin in enumerate(plugins):
-                if plugin+".fish" in line:
+                if plugin + ".fish" in line:
                     conf.pop(i)
-    with open(INSTALL_FILE, 'w') as fp:
+    with open(INSTALL_FILE, "w") as fp:
         fp.writelines(conf)
 
 
