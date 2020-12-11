@@ -19,10 +19,10 @@ Commands
 -  ``vf globalpackages`` - Toggle system site packages.
 -  ``vf addpath`` - Add a directory to this virtual environment’s ``sys.path``.
 -  ``vf all <command>`` - Run a command in all virtual environments sequentially.
--  ``vf connect`` - Connect the current working directory with the currently
-   active virtual environment. This requires the :ref:`auto-activation plugin
-   <auto_activation>` to be enabled in order to have any effect besides creating
-   a :file:`.venv` file in the current directory.
+-  ``vf connect [<envname>]`` - Connect the current working directory with the
+   currently active (or specified) virtual environment. This requires the
+   :ref:`auto-activation plugin <auto_activation>` to be enabled in order to
+   have any effect besides creating a :file:`.venv` file in the current directory.
 
 If you are accustomed to virtualenvwrapper_ commands (``workon``, etc.), you may
 wish to enable the :ref:`compat_aliases` plugin.
