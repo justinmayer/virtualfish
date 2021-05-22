@@ -149,7 +149,12 @@ function __vfsupport_find_python --description "Search for and return Python pat
         end
     # Use Pyenv, if found and provided version is available
     else if type -q "pyenv"
-        set -l pyenv_path (pyenv which python$py_version)
+        if test -n "$PYENV_ROOT"
+            set pyenv_path "$PYENV_ROOT"/versions/"$py_version"/bin/python
+        else
+            # If $PYENV_ROOT hasn't been set, assume versions are stored in ~/.pyenv
+            set pyenv_path "$HOME"/.pyenv/versions/"$py_version"/bin/python
+        end
         if command -q "$pyenv_path"
             set python "$pyenv_path"
         end
