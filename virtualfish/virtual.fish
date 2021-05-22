@@ -551,9 +551,16 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
             if set -q VIRTUAL_ENV
                 vf deactivate
             end
+            # Check if venv contains .project file and save its contents before removing
+            if test -e $venv_path/.project
+                set project_file_path (cat $venv_path/.project)
+            end
             vf rm $venv
             and vf new -p $python $venv
             and eval $install_cmd
+            if set -q project_file_path
+                echo $project_file_path > $venv_path/.project
+            end
         else
             # Minor upgrade, so modify existing env's symlinks & version numbers
             # Get full version numbers for both old and new Python interpreters
