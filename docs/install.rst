@@ -7,7 +7,8 @@ Installing
 1. Make sure you are running Fish 3.1+. If you are running an Ubuntu LTS
    release that has an older Fish version, install Fish via the
    `Fish 3.x release series PPA`_.
-2. Install VirtualFish by running: ``python -m pip install virtualfish``
+2. The easiest way to install VirtualFish is by running: ``python -m pip install --user virtualfish``.
+   If you're using `Pipx`_, it is better to use: ``pipx install virtualfish``.
 3. Install the VirtualFish loader by running:
 
    ::
@@ -58,3 +59,4 @@ To un-install VirtualFish, run:
 
 
 .. _Fish 3.x release series PPA: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
+.. _Pipx: https://pipxproject.github.io/pipx/
