@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+2.5.2 - 2021-06-07
+------------------
+
+* `vf connect`: Accept an (optional) virtualenv name argument to connect (and activate)
+
 2.5.1 - 2020-12-01
 ------------------
 
