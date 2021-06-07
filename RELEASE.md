@@ -1,3 +1,3 @@
 Release type: patch
 
-* `vf connect`: Now accepts an (optional) virtualenv argument to connect (and activate)
+* `vf connect`: Accept an (optional) virtualenv name argument to connect (and activate)
