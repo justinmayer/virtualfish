@@ -474,7 +474,7 @@ function __vf_connect --description "Connect this virtualenv to the current dire
     set -l red (set_color red)
 
     if test (count $argv) -gt 1
-        echo "Usage: "$green"vf connect [<env name>]"$normal
+        echo "Usage: "$green"vf connect [<envname>]"$normal
         return 1
     end
 
