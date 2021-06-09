@@ -538,6 +538,7 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
         # Re-build if (1) --rebuild passed or (2) above check yields broken env
         if begin; set -q _flag_rebuild; or test -n "$packages"; end
             set -l install_cmd
+            set -l project_file_path
             # Install via poetry.lock if found; otherwise Pip-install packages
             if begin; set -q PROJECT_HOME; and test -f "$PROJECT_HOME/$venv/poetry.lock"; end
                 set install_cmd "poetry install"
@@ -558,7 +559,7 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
             vf rm $venv
             and vf new -p $python $venv
             and eval $install_cmd
-            if set -q project_file_path
+            if set -q project_file_path[1]
                 echo $project_file_path > $venv_path/.project
             end
         else
