@@ -14,8 +14,10 @@ function __vfsupport_auto_activate --on-variable PWD
     set -l activation_root $PWD
     set -l new_virtualenv_name ""
 
-    # Projects plugin compatibility: Enable auto-deactivation (1/3)
-    # Check if active virtualenv (if any) is connected to a project
+    # Projects plugin compatibility: Enable auto-deactivation (1/4)
+    # Activating projects that don't contain activation files doesn't trigger VF_AUTO_ACTIVATED.
+    # To detect projects and determine when to auto-deactivate their virtualenv in those cases,
+    # check for .project files (and $PROJECT_HOME below).
     if test -e "$VIRTUAL_ENV/.project"
         set project_path (command cat "$VIRTUAL_ENV/.project")
     end
@@ -25,10 +27,9 @@ function __vfsupport_auto_activate --on-variable PWD
             set new_virtualenv_name (command cat "$activation_root/$VIRTUALFISH_ACTIVATION_FILE")
             break
 
-        # Projects plugin compatibility: Enable auto-deactivation (2/3)
-        # vf workon might activate virtualenvs without activation files. To detect those instances
-        # here in the Auto-activation plugin, check if activation root is a project path. If so,
-        # set new_virtualenv_name to the basename of the project path
+        # Projects plugin compatibility: Enable auto-deactivation (2/4)
+        # Check if activation root is a project path defined by a .project file. If so, set
+        # new_virtualenv_name to the basename of the project path
         else if test "$project_path" = "$activation_root"
             set new_virtualenv_name (command basename $project_path)
             break
@@ -45,14 +46,21 @@ function __vfsupport_auto_activate --on-variable PWD
             vf activate $new_virtualenv_name
             set -g VF_AUTO_ACTIVATED $activation_root
         end
+    # Projects plugin compatibility: Enable auto-deactivation (3/4)
+    # Projects stored in $PROJECT_HOME typically don't have .project files. To accommodate users
+    # that keep all their projects in $PROJECT_HOME, deactivate virtualenv if it wasn't
+    # auto-activated, doesn't contain .project file and $PWD is not a sudirectory of $PROJECT_HOME
+    else if begin set -q VIRTUAL_ENV; and not set -q VF_AUTO_ACTIVATED project_path; end
+        if begin not string match -qr -- "$PROJECT_HOME" "$PWD"; or test "$PROJECT_HOME" = "$PWD"; end
+            vf deactivate
+        end
     else
         # if there's an auto-activated virtualenv, deactivate it
         if set -q VIRTUAL_ENV VF_AUTO_ACTIVATED
             vf deactivate
 
-        # Projects plugin compatibility: Enable auto-deactivation (3/3)
-        # vf workon doesn't set VF_AUTO_ACTIVATED. To deactivate virtualenv automatically when
-        # leaving project directory, we check if any virtualenv is active while not in project path
+        # Projects plugin compatibility: Enable auto-deactivation (4/4)
+        # Deactivate project virtualenv when not in path specified in .project
         else if begin set -q VIRTUAL_ENV; and test "$project_path" != "$activation_root"; end
             vf deactivate
         end
