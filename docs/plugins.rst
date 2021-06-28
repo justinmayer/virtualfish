@@ -145,6 +145,7 @@ directory.
 .. note::
 
 
+    ``.project`` files are restored when calling ``vf upgrade --rebuild``.
     If you are using both the *Compatibility Aliases* and *Projects* plugins,
     ``workon`` will alias ``vf workon`` instead of ``vf activate``.
     If you are using both the *Auto-activation* and *Projects* plugins, the
