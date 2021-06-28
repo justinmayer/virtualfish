@@ -552,13 +552,14 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
             if set -q VIRTUAL_ENV
                 vf deactivate
             end
-            # Check if venv contains .project file and save its contents before removing
+            # If environment contains a .project file, save its contents before removing
             if test -e $venv_path/.project
                 set project_file_path (cat $venv_path/.project)
             end
             vf rm $venv
             and vf new -p $python $venv
             and eval $install_cmd
+            # If environment contained a .project file, restore its contents
             if set -q project_file_path[1]
                 echo $project_file_path > $venv_path/.project
             end
