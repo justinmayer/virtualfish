@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # virtualfish documentation build configuration file, created by
 # sphinx-quickstart on Thu Jan  2 18:48:49 2014.
@@ -43,8 +42,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"virtualfish"
-copyright = u"2014-present, Leigh Brenecki, Justin Mayer, and contributors"
+project = "virtualfish"
+copyright = "2014-present, Leigh Brenecki, Justin Mayer, and contributors"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -201,8 +200,8 @@ latex_documents = [
     (
         "index",
         "virtualfish.tex",
-        u"VirtualFish Documentation",
-        u"Leigh Brenecki, Justin Mayer, and contributors",
+        "VirtualFish Documentation",
+        "Leigh Brenecki, Justin Mayer, and contributors",
         "manual",
     ),
 ]
@@ -236,8 +235,8 @@ man_pages = [
     (
         "index",
         "virtualfish",
-        u"VirtualFish Documentation",
-        [u"Leigh Brenecki, Justin Mayer, and contributors"],
+        "VirtualFish Documentation",
+        ["Leigh Brenecki, Justin Mayer, and contributors"],
         1,
     )
 ]
@@ -255,8 +254,8 @@ texinfo_documents = [
     (
         "index",
         "virtualfish",
-        u"VirtualFish Documentation",
-        u"Leigh Brenecki, Justin Mayer, and contributors",
+        "VirtualFish Documentation",
+        "Leigh Brenecki, Justin Mayer, and contributors",
         "virtualfish",
         "One line description of project.",
         "Miscellaneous",

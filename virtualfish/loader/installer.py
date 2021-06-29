@@ -23,7 +23,7 @@ def uninstall():
 
 
 def addplugins(plugins=()):
-    with open(INSTALL_FILE, "r") as fp:
+    with open(INSTALL_FILE) as fp:
         conf = fp.readlines()
         position = -1
         for i, line in enumerate(conf):
@@ -41,7 +41,7 @@ def addplugins(plugins=()):
 
 
 def rmplugins(plugins=()):
-    with open(INSTALL_FILE, "r") as fp:
+    with open(INSTALL_FILE) as fp:
         conf = fp.readlines()
         for i, line in enumerate(conf):
             for j, plugin in enumerate(plugins):
