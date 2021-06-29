@@ -6,8 +6,13 @@ on:
   pull_request:
     branches:
 
+env:
+  PYTEST_ADDOPTS: "--color=yes"
+
 jobs:
+
   test:
+    name: Test - ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,7 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install Fish
@@ -25,7 +30,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install fish
       - name: Upgrade Pip
-        run: python -m pip install -U pip
+        run: python -m pip install --upgrade pip
       - name: Install Poetry
         run: python -m pip install poetry
       - name: Install dependencies
@@ -35,14 +40,13 @@ jobs:
           fish -n virtualfish/*.fish
           poetry run pytest
       - name: Check for release
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: |
-          python -m pip install githubrelease
-          python -m pip install autopub
+          python -m pip install githubrelease httpx==0.16.1 autopub
           echo "##[set-output name=release;]$(autopub check)"
         id: check_release
       - name: Deploy
-        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request' && steps.check_release.outputs.release == ''
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && steps.check_release.outputs.release == ''
         run: |
           git checkout ${GITHUB_REF##*/}
           git remote set-url origin https://$GITHUB_TOKEN@github.com/${GITHUB_REPOSITORY}
