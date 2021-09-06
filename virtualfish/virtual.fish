@@ -343,19 +343,35 @@ function __vf_ls --description "List all available virtual environments"
     for p in */bin/python
         if set -q _flag_details
             set -l env_python_version
+            # Check whether environment's Python is busted
             __vfsupport_check_python --pip "$VIRTUALFISH_HOME/$p"
             if test $status -eq 0
                 set env_python_version ("$VIRTUALFISH_HOME/$p" -V | string split " ")[2]
-                __vfsupport_compare_py_versions $env_python_version $default_python_version
-                if test $status -eq 1
-                    set env_python_version (set_color yellow)$env_python_version$normal
+                # If ASDF tool version list is available, retrieve specified Python versions
+                if test -e ~/.tool-versions
+                    set python_versions (cat ~/.tool-versions | grep python | sed "s|python ||")
+                end
+                # If preferred Python versions are specified in ASDF tool version list,
+                # display in green if current env's Python matches one of those versions (else yellow).
+                if test -n "$python_versions"
+                    if string match --entire --quiet "$env_python_version" "$python_versions"
+                        set env_python_version $green$env_python_version$normal
+                    else
+                        set env_python_version (set_color yellow)$env_python_version$normal
+                    end
+                # Otherwise, infer default Python version and compare to that
                 else
-                    set env_python_version $green$env_python_version$normal
+                    __vfsupport_compare_py_versions $env_python_version $default_python_version
+                    if test $status -eq 1
+                        set env_python_version (set_color yellow)$env_python_version$normal
+                    else
+                        set env_python_version $green$env_python_version$normal
+                    end
                 end
             else
                 set env_python_version $red"broken"$normal
             end
-            printf "%-33s (%s)\n" $p $env_python_version
+            printf "%-33s %s\n" $p $env_python_version
         else
             # No --details flag, so just print the virtual environment names
             echo $p
