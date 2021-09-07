@@ -76,6 +76,13 @@ To understand which environments might be outdated/broken, run::
 
     vf ls --details
 
+You can maintain a list of target Python versions via a line such as the
+following in a ``~/.tool-versions`` file::
+
+    python 3.9.7 3.8.12 3.7.11 3.6.14
+
+Environment Python versions that match one of those versions will be shown as
+up-to-date (green). If target Python versions are not specified in that file,
 VirtualFish compares environment Python versions to the current default Python
 version, as specified by the ``VIRTUALFISH_DEFAULT_PYTHON`` variable (see
 below), if defined. To perform a minor (point-release) upgrade to the
