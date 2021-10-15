@@ -49,7 +49,7 @@ function __vf_activate --description "Activate a virtualenv"
     end
     if not [ -d $VIRTUALFISH_HOME/$argv[1] ]
         echo "The virtualenv $argv[1] does not exist."
-        echo "You can create it with mkvirtualenv."
+        echo "You can create it with `vf new $argv[1]`."
         return 2
     end
 
