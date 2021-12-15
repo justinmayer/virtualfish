@@ -578,7 +578,9 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
             else
                 # If broken env, use above package list. Otherwise use `pip freeze`.
                 if test -z "$packages"
-                    set packages ($venv_path/bin/pip freeze)
+                    if command --query "$venv_path/bin/pip"
+                        set packages ($venv_path/bin/pip freeze)
+                    end
                 end
                 set install_cmd "if test -n '$packages'; pip install -U $packages; end"
             end
