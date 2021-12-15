@@ -802,6 +802,7 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command activate' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command connect' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
+    complete -x -c vf -n '__vfcompletion_using_command upgrade' -a "(vf ls)"
 end
 
 function __vfsupport_get_default_python --description "Return Python interpreter defined in variables, if any"
