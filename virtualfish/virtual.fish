@@ -803,6 +803,19 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command connect' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command upgrade' -a "(vf ls)"
+    # Optional: Autocomplete `vf new -p` and `vf upgrade -p` with Python versions installed via
+    # asdf or pyenv. To use, interactively execute `set -Ux VIRTUALFISH_PYVERSION_COMPLETION <"asdf"/"pyenv">`
+    # and reload your shell
+    if set -q VIRTUALFISH_PYVERSION_COMPLETION
+        if test $VIRTUALFISH_PYVERSION_COMPLETION = "asdf"
+            complete -x -c vf -n '__vfcompletion_using_command new' -s p -l python -a "(asdf list python 2> /dev/null | sed -e 's/^[[:space:]]*//')"
+            complete -x -c vf -n '__vfcompletion_using_command upgrade' -s p -l python -a "(asdf list python 2> /dev/null | sed -e 's/^[[:space:]]*//')"
+        else if test $VIRTUALFISH_PYVERSION_COMPLETION = "pyenv"
+            complete -x -c vf -n '__vfcompletion_using_command new' -s p -l python -a "(pyenv versions --bare)"
+            complete -x -c vf -n '__vfcompletion_using_command upgrade' -s p -l python -a "(pyenv versions --bare)"
+        end
+    end
+
 end
 
 function __vfsupport_get_default_python --description "Return Python interpreter defined in variables, if any"

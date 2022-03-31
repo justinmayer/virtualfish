@@ -61,6 +61,28 @@ For asdf_, Pyenv_, and Pythonz_ , in addition to passing option flags such as
 ``-p python3.8`` or ``-p python3.9.0a4``, you can even get away with specifying
 just the version numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
 
+If you would like to get autocompletions for ``vf new -p`` and ``vf upgrade -p``
+with Python versions installed via asdf_ or pyenv_, execute the following
+interactively. For asdf_::
+
+    set -Ux VIRTUALFISH_PYVERSION_COMPLETION "asdf"
+
+For pyenv_::
+
+    set -Ux VIRTUALFISH_PYVERSION_COMPLETION "pyenv"
+
+After reloading your shell (e.g. via ``exec fish``) numbers of Python versions
+installed via asdf_ or pyenv_ will be autocompleted. Because this is using fish's
+`universal variables`_, you only need to execute this once and there is no need
+to add this line to your ``config.fish`` file. However, if you would like these
+autocompletions set up automatically on a new machine, you could add the
+following to your config (adjust by picking either asdf_ or pyenv_)::
+
+    if test -z "$VIRTUALFISH_PYVERSION_COMPLETION"
+        set -Ux VIRTUALFISH_PYVERSION_COMPLETION "asdf"/"pyenv"/"pyorg"
+        exec fish
+    end
+
 .. _configuration_variables:
 
 Upgrading Virtual Environments
@@ -149,3 +171,4 @@ you want those changes to take effect for the current shell session.
 .. _asdf: https://asdf-vm.com/
 .. _Pyenv: https://github.com/pyenv/pyenv
 .. _Pythonz: https://github.com/saghul/pythonz
+.. _universal variables: https://fishshell.com/docs/current/tutorial.html#universal-variables
