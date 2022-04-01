@@ -66,8 +66,8 @@ versions should be specified with Major.Minor version numbers, such as
 ``-p 3.10``.
 
 If you would like to get autocompletions for ``vf new -p`` and ``vf upgrade -p``
-with Python versions installed via asdf_ or pyenv_, execute the following
-interactively. For asdf_::
+with Python versions installed via asdf_, pyenv_, or Python.org_'s Mac installer,
+execute the following interactively. For asdf_::
 
     set -Ux VIRTUALFISH_PYVERSION_COMPLETION "asdf"
 
@@ -75,12 +75,17 @@ For pyenv_::
 
     set -Ux VIRTUALFISH_PYVERSION_COMPLETION "pyenv"
 
+For Python.org_ installations::
+
+    set -Ux VIRTUALFISH_PYVERSION_COMPLETION "pyorg"
+
 After reloading your shell (e.g. via ``exec fish``) numbers of Python versions
-installed via asdf_ or pyenv_ will be autocompleted. Because this is using fish's
-`universal variables`_, you only need to execute this once and there is no need
-to add this line to your ``config.fish`` file. However, if you would like these
-autocompletions set up automatically on a new machine, you could add the
-following to your config (adjust by picking either asdf_ or pyenv_)::
+installed via asdf_, pyenv_, or Python.org_ will be autocompleted. Because this
+is using fish's `universal variables`_, you only need to execute this once and
+there is no need to add this line to your ``config.fish`` file. However, if you
+would like these autocompletions set up automatically on a new machine, you
+could add the following to your config (adjust by picking either asdf_, pyenv_
+or pyorg)::
 
     if test -z "$VIRTUALFISH_PYVERSION_COMPLETION"
         set -Ux VIRTUALFISH_PYVERSION_COMPLETION "asdf"/"pyenv"/"pyorg"

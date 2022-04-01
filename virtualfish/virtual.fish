@@ -795,6 +795,20 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
         return 1
     end
 
+    function __vfcompletion_pyorg_versions
+        # Optional autocompletions for versions installed with Python.org
+        # Mac installer. Used for `vf new -p` and `vf upgrade -p` if
+        # VIRTUALFISH_PYVERSION_COMPLETION set to 'pyorg'
+        set -l pyorg_dir /Library/Frameworks/Python.framework/Versions
+        for path in $pyorg_dir/*
+            set py_version (basename $path)
+            # Using regex to filter out directories named as Major.Minor Python versions (e.g. 3.10)
+            if string match -q -r '^[0-9][.][0-9]{1,2}$' $py_version
+                echo $py_version
+            end
+        end
+    end
+
     # add completion for subcommands
     for sc in (functions -a | sed -n '/__vf_/{s///g;p;}')
         set -l helptext (functions "__vf_$sc" | grep -m1 "^function" | sed -E "s|.*'(.*)'.*|\1|")
@@ -806,8 +820,8 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
     complete -x -c vf -n '__vfcompletion_using_command rm' -a "(vf ls)"
     complete -x -c vf -n '__vfcompletion_using_command upgrade' -a "(vf ls)"
     # Optional: Autocomplete `vf new -p` and `vf upgrade -p` with Python versions installed via
-    # asdf or pyenv. To use, interactively execute `set -Ux VIRTUALFISH_PYVERSION_COMPLETION <"asdf"/"pyenv">`
-    # and reload your shell
+    # asdf, pyenv, or Python.org's Mac installer. To use, interactively execute
+    # `set -Ux VIRTUALFISH_PYVERSION_COMPLETION <"asdf"/"pyenv"/"pyorg">` and reload your shell
     if set -q VIRTUALFISH_PYVERSION_COMPLETION
         if test $VIRTUALFISH_PYVERSION_COMPLETION = "asdf"
             complete -x -c vf -n '__vfcompletion_using_command new' -s p -l python -a "(asdf list python 2> /dev/null | sed -e 's/^[[:space:]]*//')"
@@ -815,6 +829,9 @@ function __vfsupport_setup_autocomplete --on-event virtualfish_did_setup_plugins
         else if test $VIRTUALFISH_PYVERSION_COMPLETION = "pyenv"
             complete -x -c vf -n '__vfcompletion_using_command new' -s p -l python -a "(pyenv versions --bare)"
             complete -x -c vf -n '__vfcompletion_using_command upgrade' -s p -l python -a "(pyenv versions --bare)"
+        else if test $VIRTUALFISH_PYVERSION_COMPLETION = "pyorg"
+            complete -x -c vf -n '__vfcompletion_using_command new' -s p -l python -a "(__vfcompletion_pyorg_versions)"
+            complete -x -c vf -n '__vfcompletion_using_command upgrade' -s p -l python -a "(__vfcompletion_pyorg_versions)"
         end
     end
 
