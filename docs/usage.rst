@@ -54,12 +54,16 @@ using Python interpreters in a few known situations, in the following order:
 1. asdf_ Python plugin is installed and has built the specified Python version.
 2. Pyenv_ is installed and has built the specified Python version.
 3. Pythonz_ is installed and has built the specified Python version.
-4. Homebrew_ keg-only versioned Python executable (e.g., 3.8) found at:
-   ``/usr/local/opt/python@3.8/bin/python3.8``
+4. Python.org_ Mac installation of specified Python version (e.g., 3.10) found
+   at: ``/Library/Frameworks/Python.framework/Versions``.
+5. Homebrew_ keg-only versioned Python executable (e.g., 3.8) found at:
+   ``/usr/local/opt/python@3.8/bin/python3.8``.
 
 For asdf_, Pyenv_, and Pythonz_ , in addition to passing option flags such as
 ``-p python3.8`` or ``-p python3.9.0a4``, you can even get away with specifying
-just the version numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``.
+just the version numbers, such as ``-p 3.8`` or ``-p 3.9.0a4``. Python.org_
+versions should be specified with Major.Minor version numbers, such as
+``-p 3.10``.
 
 If you would like to get autocompletions for ``vf new -p`` and ``vf upgrade -p``
 with Python versions installed via asdf_ or pyenv_, execute the following
@@ -171,4 +175,5 @@ you want those changes to take effect for the current shell session.
 .. _asdf: https://asdf-vm.com/
 .. _Pyenv: https://github.com/pyenv/pyenv
 .. _Pythonz: https://github.com/saghul/pythonz
+.. _Python.org: https://www.python.org/downloads/macos/
 .. _universal variables: https://fishshell.com/docs/current/tutorial.html#universal-variables
