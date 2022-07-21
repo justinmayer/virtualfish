@@ -22,7 +22,7 @@ classifiers = [
 "Tracker" = "https://github.com/justinmayer/virtualfish/issues"
 
 [tool.poetry.dependencies]
-python = ">=3.6.2,<4.0"
+python = ">=3.7,<4.0"
 packaging = ">=21.3"
 pkgconfig = ">=1.5"
 psutil = ">=5.7"
