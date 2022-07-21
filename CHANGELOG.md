@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2.5.5 - 2022-07-21
+------------------
+
+* Raise minimum Python version to 3.7
+* Remove upper bounds on dependency versions
+
 2.5.4 - 2021-09-07
 ------------------
 
