@@ -24,9 +24,9 @@ classifiers = [
 [tool.poetry.dependencies]
 python = ">=3.6.2,<4.0"
 packaging = ">=21.3"
-pkgconfig = "^1.5"
-psutil = "^5.7"
-virtualenv = "^20"
+pkgconfig = ">=1.5"
+psutil = ">=5.7"
+virtualenv = ">=20"
 
 [tool.poetry.dev-dependencies]
 black = "^21.6b0"
