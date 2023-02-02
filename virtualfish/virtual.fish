@@ -41,15 +41,36 @@ function vf --description "VirtualFish: fish plugin to manage virtualenvs"
     end
 end
 
+function __vfsupport_check_venv --description "Check if given argument resolves to a virtualenv"
+    # First, check in $VIRTUALFISH_HOME, but reject edge-cases like `$VIRTUALFISH_HOME/.`
+    # Otherwise we treat the argument as a path to directory containing a virtualenv.
+
+    if [ -d $VIRTUALFISH_HOME/$argv[1] ]; and not [ $VIRTUALFISH_HOME -ef $VIRTUALFISH_HOME/$argv[1] ]
+        echo $VIRTUALFISH_HOME/$argv[1]
+    else if not [ -d $argv[1] ]
+        # directory does not exist
+        return 1
+    else if not [ -e $argv[1]/bin/activate ]
+        # directory doesn't contain a virtualenv
+        return 1
+    else if string match --quiet "/*" $argv[1]
+        # the path is absolute
+        echo $argv[1]
+    else
+        # the path is relative
+        echo $PWD/$argv[1]
+    end
+end
+
 function __vf_activate --description "Activate a virtualenv"
     # check arguments
     if [ (count $argv) -lt 1 ]
         echo "You need to specify a virtualenv."
         return 1
     end
-    if not [ -d $VIRTUALFISH_HOME/$argv[1] ]
-        echo "The virtualenv $argv[1] does not exist."
-        echo "You can create it with `vf new $argv[1]`."
+
+    if ! set -f venv_path (__vfsupport_check_venv $argv[1])
+        echo "$argv[1] is not a virtualenv inside VIRTUALFISH_HOME, or a path to a directory containing a virtualenv."
         return 2
     end
 
@@ -60,7 +81,7 @@ function __vf_activate --description "Activate a virtualenv"
 
     # Set VIRTUAL_ENV before the others so that the will_activate event knows
     # which virtualenv is about to be activated
-    set -gx VIRTUAL_ENV $VIRTUALFISH_HOME/$argv[1]
+    set -gx VIRTUAL_ENV $venv_path
 
     emit virtualenv_will_activate
     emit virtualenv_will_activate:$argv[1]
