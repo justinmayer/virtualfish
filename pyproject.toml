@@ -43,7 +43,7 @@ vf = "virtualfish.loader.cli:main"
 [tool.autopub]
 project-name = "VirtualFish"
 git-username = "botpub"
-git-email = "botpub@autopub.rocks"
+git-email = "52496925+botpub@users.noreply.github.com"
 append-github-contributor = true
 version-strings = ["docs/conf.py"]
 
