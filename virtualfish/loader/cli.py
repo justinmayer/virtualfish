@@ -28,7 +28,7 @@ def check_fish_version():
         import subprocess
         from packaging import version
 
-        cmd = ["fish", "-c", "echo $version"]
+        cmd = ["fish", "-N", "-c", "echo $version"]
         fish_version = subprocess.check_output(cmd).decode("utf-8").strip()
         # Remove any extraneous hyphen-suffixed bits
         fish_version = fish_version.partition("-")[0]
