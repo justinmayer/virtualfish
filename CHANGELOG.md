@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.5.6 - 2024-03-07
+------------------
+
+Improve resiliency of `check_fish_version()` function to invisible characters such as tabs.
+
+Contributed by [Justin Mayer](https://github.com/justinmayer) via [PR #241](https://github.com/justinmayer/virtualfish/pull/241/)
+
+
 2.5.5 - 2022-07-21
 ------------------
 
