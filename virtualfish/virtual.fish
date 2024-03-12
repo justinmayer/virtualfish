@@ -620,7 +620,7 @@ function __vf_upgrade --description "Upgrade virtualenv(s) to newer Python versi
                 if [ -L "$venv_path/bin/python$old_py_mv" ]; command rm "$venv_path/bin/python$old_py_mv"; end
                 command ln -s "$python$new_py_mv" "$venv_path/bin/python$new_py_mv"
                 if test -f "$venv_path/pyvenv.cfg"
-                    command sed -i '' -e "s/$old_py_fv/$new_py_fv/g" "$venv_path/pyvenv.cfg"
+                    command sed -i -e "s/$old_py_fv/$new_py_fv/g" "$venv_path/pyvenv.cfg"
                 end
                 # Clear caches
                 command find "$venv_path" -name "__pycache__" -type d -print0|xargs -0 rm -r --
