@@ -1,6 +1,8 @@
 # VirtualFish
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/justinmayer/virtualfish/main.yml?branch=main)](https://github.com/justinmayer/virtualfish/actions) [![PyPI Version](https://img.shields.io/pypi/v/virtualfish)](https://pypi.org/project/virtualfish/)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/justinmayer/virtualfish/main.yml?branch=main)](https://github.com/justinmayer/virtualfish/actions)
+[![PyPI Version](https://img.shields.io/pypi/v/virtualfish)](https://pypi.org/project/virtualfish/)
+[![Downloads](https://img.shields.io/pypi/dm/virtualfish)](https://pypi.org/project/virtualfish/)
 
 VirtualFish is a Python [virtual environment][Virtualenv] manager for the [Fish shell][].
 
@@ -8,7 +10,7 @@ You can get started by [reading the documentation][Read The Docs]. (It’s quite
 
 You can also get help on [#virtualfish on OFTC](https://webchat.oftc.net/?randomnick=1&channels=virtualfish) (`ircs://irc.oftc.net:6697/#virtualfish`), the same network as the [Fish IRC channel](https://webchat.oftc.net/?randomnick=1&channels=fish).
 
-VirtualFish is currently maintained by [Justin Mayer](https://justinmayer.com/), and was originally created by [Leigh Brenecki](https://leigh.net.au/).
+VirtualFish is maintained by [Justin Mayer](https://justinmayer.com/), and was originally created by [Daisy Leigh Brenecki](https://daisy.wtf).
 
 ## A quickstart, for the impatient
 
