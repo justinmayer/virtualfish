@@ -32,7 +32,7 @@ repos:
     rev: v2.37.2
     hooks:
       - id: pyupgrade
-        args: [--py36-plus]
+        args: [--py38-plus]
 
   - repo: https://github.com/hakancelikdev/unimport
     rev: 0.9.6
