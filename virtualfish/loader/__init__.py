@@ -1,17 +1,16 @@
 import logging
 import os
 import sys
-import pkg_resources
-
+from importlib import metadata
 
 log = logging.getLogger(__name__)
 
 
 def load(plugins=(), full_install=True):
     try:
-        version = pkg_resources.get_distribution("virtualfish").version
+        version = metadata.version("virtualfish")
         commands = [f"set -g VIRTUALFISH_VERSION {version}"]
-    except pkg_resources.DistributionNotFound:
+    except metadata.PackageNotFoundError:
         commands = []
     base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
