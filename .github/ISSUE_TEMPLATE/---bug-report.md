@@ -17,7 +17,7 @@ assignees: ''
 
 <!-- Checked checkbox should look like this: [x] -->
 - [ ] I am using Fish shell version 3.1 or higher.
-- [ ] I am using Python version 3.6 or higher.
+- [ ] I am using Python version 3.8 or higher.
 - [ ] I have searched the [issues](https://github.com/justinmayer/virtualfish/issues?q=is%3Aissue) (including closed ones) and believe that this is not a duplicate.
 - [ ] If related to a plugin, I prefixed the issue title with the name of the plugin.
 
