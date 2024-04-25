@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.5.8 - 2024-04-25
+------------------
+
+Resolve compatibility issue with Python 3.12
+
+Contributed by [Branch Vincent](https://github.com/branchvincent) via [PR #244](https://github.com/justinmayer/virtualfish/pull/244/)
+
+
 2.5.7 - 2024-03-12
 ------------------
 
