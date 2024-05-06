@@ -25,13 +25,15 @@ def check_fish_version():
     """Display a warning if the minimum Fish version is not installed. Bail silently if
     the 'packaging' module is missing or if Fish is not installed."""
     try:
+        import re
         import subprocess
         from packaging import version
 
-        cmd = ["fish", "-N", "-c", "echo $version"]
-        fish_version = subprocess.check_output(cmd).decode("utf-8").strip()
-        # Remove any extraneous hyphen-suffixed bits
-        fish_version = fish_version.partition("-")[0]
+        cmd = ["fish", "--version"]
+        fish_output = subprocess.check_output(cmd).decode("utf-8")
+        # Remove any extraneous prefix and hyphen-suffixed bits
+        fish_matches = re.match(r".*version ([\d\.]+)", fish_output)
+        fish_version = fish_matches.group(1)
         if version.parse(fish_version) < version.parse(minimum_fish_version):
             log.warning(
                 """{}WARNING: VirtualFish requires Fish {} or higher.
