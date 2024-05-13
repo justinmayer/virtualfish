@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+2.5.9 - 2024-05-13
+------------------
+
+Restore support for older versions of Fish.
+
+Contributed by [Ninja Inc](https://github.com/melomac) via [PR #247](https://github.com/justinmayer/virtualfish/pull/247/)
+
+
 2.5.8 - 2024-04-25
 ------------------
 
