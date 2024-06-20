@@ -135,36 +135,38 @@ function __vfsupport_find_python --description "Search for and return Python pat
     set -l python
     set -l python_arg $argv[1]
     set -l py_version (string replace "python" "" $python_arg)
+    set -l pyorg_path "/Library/Frameworks/Python.framework/Versions/$py_version/bin/python$py_version"
     set -l brew_path "/usr/local/opt/python@$py_version/bin/python$py_version"
+    set -l asdf_path
+    if begin; type -q "asdf"; and contains "python" (asdf plugin list); end
+        set asdf_path (asdf where python $py_version)/bin/python
+    end
+    set -l pyenv_path
+    if type -q "pyenv"
+        set pyenv_path (pyenv root)/versions/"$py_version"/bin/python
+    end
+    set -l pythonz_path
+    if type -q "pythonz"
+        set pythonz_path (pythonz locate $py_version)
+    end
+
     # Executable on PATH (python3/python3.8) or full interpreter path
     if set -l py_path (command -s $python_arg)
         set python "$py_path"
     # Use `asdf` Python plugin, if found and provided version is available
-    else if type -q "asdf"
-        set -l asdf_plugins (asdf plugin list)
-        if contains python $asdf_plugins
-            set -l asdf_path (asdf where python $py_version)/bin/python
-            if command -q "$asdf_path"
-                set python "$asdf_path"
-            end
-        end
-    # Use Pyenv, if found and provided version is available
-    else if type -q "pyenv"
-        if test -n "$PYENV_ROOT"
-            set pyenv_path "$PYENV_ROOT"/versions/"$py_version"/bin/python
-        else
-            # If $PYENV_ROOT hasn't been set, assume versions are stored in ~/.pyenv
-            set pyenv_path "$HOME"/.pyenv/versions/"$py_version"/bin/python
-        end
-        if command -q "$pyenv_path"
-            set python "$pyenv_path"
-        end
+    else if command -q "$asdf_path"
+        set python "$asdf_path"
+    # Use pyenv, if found and provided version is available
+    else if command -q "$pyenv_path"
+        set python "$pyenv_path"
     # Use Pythonz, if found and provided version is available
-    else if type -q "pythonz"
-        set -l pythonz_path (pythonz locate $py_version)
-        if command -q "$pythonz_path"
-            set python "$pythonz_path"
-        end
+    else if command -q "$pythonz_path"
+        set python "$pythonz_path"
+    # Use Python versions from the Python.org installer. Note: This only
+    # works when Major.Minor version numbers were provided (e.g. 3.10),
+    # Major.Minor.Micro will fail (e.g. 3.10.3)
+    else if command -q "$pyorg_path"
+        set python "$pyorg_path"
     # Version number in Homebrew keg-only versioned Python formula
     else if command -q "$brew_path"
         set python "$brew_path"
