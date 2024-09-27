@@ -7,8 +7,23 @@ Installing
 1. Make sure you are running Fish 3.1+. If you are running an Ubuntu LTS
    release that has an older Fish version, install Fish via the
    `Fish 3.x release series PPA`_.
-2. The easiest way to install VirtualFish is by running: ``python -m pip install --user virtualfish``.
-   If you're using `Pipx`_, it is better to use: ``pipx install virtualfish``.
+
+2. The recommended way to install VirtualFish is to first install `Pipx`_ and
+   then run::
+
+       pipx install virtualfish
+       pipx ensurepath
+
+   Alternatively, you can first install `uv`_ and then run::
+
+       uv tool install virtualfish
+       uv tool update-shell
+
+   Yet another option is to use Pip::
+
+       python -m pip install --user virtualfish
+       fish_add_path (python3 -c "import site; print(site.USER_BASE)")/bin
+
 3. Install the VirtualFish loader by running:
 
    ::
@@ -26,7 +41,7 @@ Installing
    ``exec fish`` in order to make these changes active in your current
    shell session.
 
-4. Customize your ``fish_prompt``
+4. Customize your ``fish_prompt`` as described below.
 
 Customizing Your ``fish_prompt``
 --------------------------------
@@ -59,4 +74,5 @@ To un-install VirtualFish, run:
 
 
 .. _Fish 3.x release series PPA: https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
-.. _Pipx: https://pipxproject.github.io/pipx/
+.. _Pipx: https://pipx.pypa.io/
+.. _uv: https://docs.astral.sh/uv/
