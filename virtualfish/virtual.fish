@@ -712,7 +712,7 @@ function __vfsupport_globalpackages_enable --description "Enable global site pac
     argparse -n "vf globalpackages enable" "q/quiet" -- $argv
     pushd $VIRTUAL_ENV
     if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
-	    command sed -i '/include-system-site-packages/ s/\(true\|false\)/true/' $VIRTUALFISH_VENV_CONFIG_FILE
+	    command sed -i -E 's/include-system-site-packages = false/include-system-site-packages = true/' $VIRTUALFISH_VENV_CONFIG_FILE
     else  # legacy
 	    # use site-packages/.. to avoid ending up in python-wheels
 	    pushd $VIRTUAL_ENV/lib/python*/site-packages/..
@@ -730,7 +730,7 @@ function __vfsupport_globalpackages_disable --description "Disable global site p
     argparse -n "vf globalpackages disable" "q/quiet" -- $argv
     pushd $VIRTUAL_ENV
     if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
-	    command sed -i '/include-system-site-packages/ s/\(true\|false\)/false/' $VIRTUALFISH_VENV_CONFIG_FILE
+	    command sed -i -E 's/include-system-site-packages = true/include-system-site-packages = false/' $VIRTUALFISH_VENV_CONFIG_FILE
     else  # legacy
 	    # use site-packages/.. to avoid ending up in python-wheels
 	    pushd $VIRTUAL_ENV/lib/python*/site-packages/..
@@ -748,24 +748,24 @@ function __vfsupport_globalpackages_toggle --description "Toggle global site pac
     pushd $VIRTUAL_ENV
     set -l globalpkgs_enabled
     if test -e $VIRTUALFISH_VENV_CONFIG_FILE  # PEP 405
-	    if [ "true" = (command sed -n 's/include-system-site-packages\s=\s\(true\|false\)/\1/p' $VIRTUALFISH_VENV_CONFIG_FILE) ]
-	        set globalpkgs_enabled 0
-	    else
+        if string match --quiet '*true*' (command grep "include-system-site-packages =" $VIRTUALFISH_VENV_CONFIG_FILE)
 	        set globalpkgs_enabled 1
+	    else
+	        set globalpkgs_enabled 0
 	    end
     else  # legacy
 	    # use site-packages/.. to avoid ending up in python-wheels
 	    pushd $VIRTUAL_ENV/lib/python*/site-packages/..
 	    if test -e $VIRTUALFISH_GLOBAL_SITE_PACKAGES_FILE
-	        set globalpkgs_enabled 0
-	    else
 	        set globalpkgs_enabled 1
+	    else
+	        set globalpkgs_enabled 0
 	    end
 	    popd
     end
     popd
 
-    if test $globalpkgs_enabled -eq 0
+    if test $globalpkgs_enabled -eq 1
 	    __vfsupport_globalpackages_disable $argv
     else
 	    __vfsupport_globalpackages_enable $argv
