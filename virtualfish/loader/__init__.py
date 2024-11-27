@@ -16,8 +16,8 @@ def load(plugins=(), full_install=True):
 
     if full_install:
         commands += [
-            f"set -g VIRTUALFISH_PYTHON_EXEC {sys.executable}",
-            "source {}".format(os.path.join(base_path, "virtual.fish")),
+            f"set -g VIRTUALFISH_PYTHON_EXEC \"{sys.executable}\"",
+            "source \"{}\"".format(os.path.join(base_path, "virtual.fish")),
         ]
     else:
         commands = []
@@ -25,7 +25,7 @@ def load(plugins=(), full_install=True):
     for plugin in plugins:
         path = os.path.join(base_path, plugin + ".fish")
         if os.path.exists(path):
-            commands.append(f"source {path}")
+            commands.append(f"source \"{path}\"")
         else:
             log.error(f"Plugin does not exist: {plugin}")
             sys.exit(1)
